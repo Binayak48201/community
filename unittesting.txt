@@ -1,0 +1,13 @@
+====Running a test ==
+Single Test => vendor/bin/phpunit --filter <test_name>
+Running all the test => vendor/bin/phpunit
+
+====================================================================
+
+User        Post          Reply
+
+User has Many Post
+Post belongs to a User
+
+Post has Many Replies
+Reply belongs to a Post & User
