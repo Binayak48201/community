@@ -30,6 +30,7 @@ class PostTest extends TestCase
         $response = $this->get('/posts/' . $posts->id);
 
         $response->assertSee($posts->title);
+        $response->assertSee($posts->body);
     }
 
     /** @test */
