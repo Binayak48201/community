@@ -2,6 +2,11 @@
 Single Test => vendor/bin/phpunit --filter <test_name>
 Running all the test => vendor/bin/phpunit
 
+ALTERATIVE
+
+php artisan test --filter <className> || <Method Name>
+php artisan test
+
 ====================================================================
 
 User        Post          Reply
