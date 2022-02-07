@@ -24,11 +24,11 @@ class CreatePostTest extends TestCase
     /** @test */
     public function an_authenticated_use_can_create_a_post()
     {
-        $this->withoutExceptionHandling();
+        // $this->withoutExceptionHandling();
 
         $user = User::factory()->create();
 
-        $this->be($user);
+        $this->actingAs($user);
 
         $attribute = [
             'user_id' => $user->id,
@@ -41,4 +41,16 @@ class CreatePostTest extends TestCase
         $this->assertDatabaseHas('posts', $attribute);
     }
 
+    /** @test */
+    public function user_can_visit_dashboard_when_login()
+    {
+        $user = User::factory()->create();
+        $user->be($user);
+
+        if ($user->actingAs($user)) {
+            $this->get('/admin/dashboard', $user->id);
+        } else {
+            $this->get('/');
+        }
+    }
 }

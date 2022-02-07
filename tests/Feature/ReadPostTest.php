@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Post;
 use App\Models\Reply;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
@@ -44,4 +45,6 @@ class ReadPostTest extends TestCase
 
         $response->assertSee($reply->body);
     }
+
+    
 }
