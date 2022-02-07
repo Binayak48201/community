@@ -2,12 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Forum - Responsive HTML5 Template</title>
-    <meta name="keywords" content="HTML5 Template">
-    <meta name="description" content="Forum - Responsive HTML5 Template">
-    <meta name="author" content="Forum">
+    <title>Community</title>
     <link rel="shortcut icon" href="{{ asset('design/favicon/favicon.ico') }}">
-    <meta name="format-detection" content="telephone=no">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="{{ asset('design/css/style.css') }}">
     <style>
@@ -27,8 +23,13 @@
     </style>
 </head>
 <body>
-@include('layouts.header')
-@yield('content')
+<div id="app">
+{{--    <Home></Home>--}}
+
+    @include('layouts.header')
+    @yield('content')
+</div>
+<script src="{{ asset('custom/app.js') }}"></script>
 </body>
 
 </html>

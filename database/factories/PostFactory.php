@@ -2,8 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class PostFactory extends Factory
 {
@@ -14,12 +16,16 @@ class PostFactory extends Factory
      */
     public function definition()
     {
+        $name = $this->faker->sentence();
         return [
-            'user_id' => function(){
+            'user_id' => function () {
                 return User::factory()->create()->id;
             },
-            'title' => $this->faker->sentence,
-            'body' => $this->faker->paragraph
+            'category_id' => function () {
+                return Category::factory()->create()->id;
+            },
+            'title' => $name,
+            'body' => $this->faker->paragraph()
         ];
     }
 }
