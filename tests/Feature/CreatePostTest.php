@@ -4,8 +4,8 @@
 namespace Tests\Feature;
 
 
-use App\Models\Post;
 use App\Models\User;
+use App\Models\Post;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
@@ -45,12 +45,15 @@ class CreatePostTest extends TestCase
     public function user_can_visit_dashboard_when_login()
     {
         $user = User::factory()->create();
-        $user->be($user);
+        $this->actingAs($user);
 
-        if ($user->actingAs($user)) {
-            $this->get('/admin/dashboard', $user->id);
+        if ($this->actingAs($user)) {
+            $response = $this->get('/admin/dashboard', [$user->id]);
+            $response->assertSee($user->id);
         } else {
-            $this->get('/');
+            return 'Not An Authenticated User';
+            // $response = $this->get('/', [$user->id]);
+            // $response->assertSee($user->id);
         }
     }
 }
