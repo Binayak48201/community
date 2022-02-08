@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -16,7 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::latest()->paginate(10);
+         $posts = Post::latest()->paginate(10);
 
         return view('posts.index', compact('posts'));
     }
@@ -38,11 +39,22 @@ class PostController extends Controller
      */
     public function store()
     {
+        request()->validate([
+            'title' => 'required',
+            'body' => 'required',
+            'category_id' => 'required|exists:categories,id'
+        ]);
+
         Post::create([
             'user_id' => auth()->id(),
+            'category_id' => request('category_id'),
             'title' => request('title'),
             'body' => request('body')
         ]);
+//            auth()->user()->post()->create(request()->validate([
+//            'title' => 'required',
+//            'body' => 'required'
+//        ]));
     }
 
     /**
@@ -74,9 +86,9 @@ class PostController extends Controller
      * @param \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, Category $category)
     {
-        //
+        return $category;
     }
 
     /**

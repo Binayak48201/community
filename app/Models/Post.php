@@ -4,12 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','title','body'];
+    protected $guarded = [];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($post) {
+            $post->update(['slug' => Str::slug($post->title)]);
+        });
+    }
 
     public function user()
     {
@@ -18,6 +28,18 @@ class Post extends Model
 
     public function reply()
     {
-        return $this->hasMany(Reply::class,'post_id');
+        return $this->hasMany(Reply::class, 'post_id');
+    }
+
+    public function setSlugAttribute($value)
+    {
+        if (static::whereSlug($slug = Str::slug($value))->exists()) {
+            $slug = "{$slug}-{$this->id}";
+        }
+
+        $this->attributes['slug'] = $slug;
+
     }
 }
+
+

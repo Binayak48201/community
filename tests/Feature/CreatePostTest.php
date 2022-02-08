@@ -47,6 +47,8 @@ class CreatePostTest extends TestCase
         $user = User::factory()->create();
         $this->actingAs($user);
 
+        
+
         if ($this->actingAs($user)) {
             $response = $this->get('/admin/dashboard', [$user->id]);
             $response->assertSee($user->id);

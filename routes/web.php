@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -15,6 +16,10 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/posts', [PostController::class, 'index']);
+Route::post('/posts', [PostController::class, 'store'])->middleware('auth');
+Route::get('/posts/{post:slug}', [PostController::class, 'show']);
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -29,4 +34,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
 
+<<<<<<< HEAD
 Route::get('/admin/dashboard', [DashboardController::class,'dashboard']);
+=======
+
+>>>>>>> 1d25a05beb15010b9d39f899fa45d46c730cf3cb
