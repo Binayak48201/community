@@ -15,9 +15,15 @@ class PostController extends Controller
      *
      * @return Application|Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function index()
+    public function index(Category $category)
     {
-         $posts = Post::latest()->paginate(10);
+        $post = Post::with('category');
+
+        if ($category->exists) {
+            $post = $category->posts();
+        }
+
+        $posts = $post->latest()->paginate(10);
 
         return view('posts.index', compact('posts'));
     }
@@ -51,19 +57,16 @@ class PostController extends Controller
             'title' => request('title'),
             'body' => request('body')
         ]);
-//            auth()->user()->post()->create(request()->validate([
-//            'title' => 'required',
-//            'body' => 'required'
-//        ]));
     }
 
     /**
      * Display the specified resource.
      *
      * @param \App\Models\Post $post
+     * @param \App\Models\Category $category
      * @return Application|Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Category $category, Post $post)
     {
         return view('posts.show', compact('post'));
     }
@@ -86,9 +89,9 @@ class PostController extends Controller
      * @param \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, Post $post)
     {
-        return $category;
+
     }
 
     /**

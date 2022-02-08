@@ -18,8 +18,8 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 */
 Route::get('/posts', [PostController::class, 'index']);
 Route::post('/posts', [PostController::class, 'store'])->middleware('auth');
-Route::get('/posts/{post:slug}', [PostController::class, 'show']);
-
+Route::get('/posts/{category:slug}/{post:slug}', [PostController::class, 'show']);
+Route::get('/posts/{category:slug}', [PostController::class, 'index']);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
