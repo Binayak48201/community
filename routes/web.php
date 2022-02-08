@@ -34,8 +34,4 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
 
-<<<<<<< HEAD
 Route::get('/admin/dashboard', [DashboardController::class,'dashboard']);
-=======
-
->>>>>>> 1d25a05beb15010b9d39f899fa45d46c730cf3cb
