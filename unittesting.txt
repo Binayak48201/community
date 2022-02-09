@@ -2,12 +2,27 @@
 Single Test => vendor/bin/phpunit --filter <test_name>
 Running all the test => vendor/bin/phpunit
 
+ALTERATIVE
+
+php artisan test --filter <className> || <Method Name>
+php artisan test
+
 ====================================================================
 
-User        Post          Reply
+User   Category     Post        Reply
 
 User has Many Post
 Post belongs to a User
 
 Post has Many Replies
 Reply belongs to a Post & User
+
+Category has Many posts
+Post belongs to a Category
+
+
+        $post = Post::factory(10)->create();
+
+        $posts->each(function ($post) {
+            Reply::factory(10)->create(['post_id' => $post->id]);
+        });

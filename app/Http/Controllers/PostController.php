@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
@@ -14,9 +16,20 @@ class PostController extends Controller
      *
      * @return Application|Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function index()
+    public function index(Category $category)
     {
-        $posts = Post::all();
+        $post = Post::with('category', 'user');
+
+        if ($category->exists) {
+            $post = $category->posts();
+        }
+
+        if ($username = request('by')) {
+            $user = User::where('name', $username)->firstOrFail();
+            $post->where('user_id', $user->id);
+        }
+
+        $posts = $post->latest()->paginate(10);
 
         return view('posts.index', compact('posts'));
     }
@@ -24,31 +37,46 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+
+        return view('posts.create', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        request()->validate([
+            'title' => 'required',
+            'body' => 'required',
+            'category_id' => 'required|exists:categories,id'
+        ]);
+
+        Post::create([
+            'user_id' => auth()->id(),
+            'category_id' => request('category_id'),
+            'title' => request('title'),
+            'body' => request('body')
+        ]);
+
+        return redirect('/posts');
     }
 
     /**
      * Display the specified resource.
      *
      * @param \App\Models\Post $post
+     * @param \App\Models\Category $category
      * @return Application|Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Category $category, Post $post)
     {
         return view('posts.show', compact('post'));
     }
@@ -71,19 +99,21 @@ class PostController extends Controller
      * @param \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Category $category, Post $post)
     {
-        //
+        $post->update([
+            'title' => request('title')
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param \App\Models\Post $post
-     * @return \Illuminate\Http\Response
+     * @return int
      */
-    public function destroy(Post $post)
+    public function destroy(Category $category, Post $post)
     {
-        //
+        $post->delete();
     }
 }
