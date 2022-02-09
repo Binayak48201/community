@@ -12,7 +12,11 @@ class Category extends Model
     /**
      * @var array
      */
-    protected $guarded = [];
+    // protected $guarded = [];
+    protected $fillable = [
+        'title',
+        'slug',
+    ];
 
     public function posts()
     {
@@ -27,5 +31,3 @@ class Category extends Model
         return "slug";
     }
 }
-
-

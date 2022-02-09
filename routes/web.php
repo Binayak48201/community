@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
+use App\Models\Category;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -20,6 +22,10 @@ Route::get('/posts', [PostController::class, 'index']);
 Route::post('/posts', [PostController::class, 'store'])->middleware('auth');
 Route::get('/posts/{category:slug}/{post:slug}', [PostController::class, 'show']);
 Route::get('/posts/{category:slug}', [PostController::class, 'index']);
+
+Route::get('/category', [CategoryController::class, 'index']);
+Route::post('/category', [CategoryController::class, 'store']);
+Route::post('/category/{category:slug}', [CategoryController::class, 'update']);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
