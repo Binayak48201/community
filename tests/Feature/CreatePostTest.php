@@ -18,7 +18,7 @@ class CreatePostTest extends TestCase
     {
         $posts = Post::factory()->make();
 
-        $this->post('/posts', $posts->toArray())->assertRedirect('/login');
+        $this->post('/posts', $posts->toArray())->assertRedirect('login');
     }
 
     /** @test */
@@ -36,7 +36,9 @@ class CreatePostTest extends TestCase
             'body' => 'Some Description'
         ];
 
-        $this->post('/posts', $attribute);
+        $response = $this->post('/posts', $attribute);
+
+        $response->assertRedirect('/posts');
 
         $this->assertDatabaseHas('posts', $attribute);
     }
@@ -45,18 +47,40 @@ class CreatePostTest extends TestCase
     public function user_can_visit_dashboard_when_login()
     {
         $user = User::factory()->create();
-        $this->actingAs($user);
 
-        
+        $this->be($user);
 
-        if ($this->actingAs($user)) {
-            $response = $this->get('/admin/dashboard', [$user->id]);
-            $response->assertSee($user->id);
-        } else {
-            return 'Not An Authenticated User';
-            // $response = $this->get('/', [$user->id]);
-            // $response->assertSee($user->id);
-        }
+        $attributes = Post::factory()->raw(['title' => '']);
+
+        $this->post('/posts', $attributes)->assertSessionHasErrors('title');
+    }
+
+    /** @test */
+    public function a_project_requires_a_body()
+    {
+        $user = User::factory()->create();
+
+        $this->be($user);
+
+        $attributes = Post::factory()->raw(['body' => '']);
+
+        $this->post('/posts', $attributes)->assertSessionHasErrors('body');
+    }
+
+    /** @test */
+    public function a_post_requires_a_valid_category()
+    {
+        $user = User::factory()->create();
+
+        $this->be($user);
+
+        $post1 = Post::factory()->raw(['category_id' => '']);
+
+        $post2 = Post::factory()->raw(['category_id' => 999]);
+
+        $this->post('/posts', $post1)->assertSessionHasErrors('category_id');
+
+        $this->post('/posts', $post2)->assertSessionHasErrors('category_id');
     }
 
     /** @test */
@@ -85,5 +109,42 @@ class CreatePostTest extends TestCase
         $this->post('/posts', $post->toArray());
 
         $this->assertEquals("some-title-29-{$post['id']}", $post['slug']);
+    }
+
+    /** @test */
+    public function a_post_can_be_updated()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = User::factory()->create();
+
+        $this->be($user);
+
+        $post = Post::factory()->create(['title' => 'Some title']);
+
+        $this->patch($post->path(), [
+            'title' => 'Updated Title'
+        ]);
+//        dd($post->fresh());
+        $this->assertEquals("Updated Title", $post->fresh()->title);
+        $this->assertDatabaseHas('posts', [
+            'title' => $post->fresh()->title
+        ]);
+    }
+
+    /** @test */
+    public function a_post_can_be_deleted()
+    {
+        $this->withExceptionHandling();
+
+        $user = User::factory()->create();
+
+        $this->be($user);
+
+        $post = Post::factory()->create();
+
+        $this->delete($post->path());
+
+        $this->assertDatabaseMissing('posts', ['id' => $post->id]);
     }
 }

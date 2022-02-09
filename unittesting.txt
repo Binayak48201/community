@@ -19,3 +19,10 @@ Reply belongs to a Post & User
 
 Category has Many posts
 Post belongs to a Category
+
+
+        $post = Post::factory(10)->create();
+
+        $posts->each(function ($post) {
+            Reply::factory(10)->create(['post_id' => $post->id]);
+        });

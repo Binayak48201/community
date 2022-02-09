@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Reply;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -63,5 +64,18 @@ class ReadPostTest extends TestCase
             ->assertSee($postsInCategory->title)
             ->assertDontSee($postsNotInCategory->title);
 
+    }
+
+    /** @test */
+    public function a_user_filters_posts_by_any_username()
+    {
+        $user = User::factory()->create(['name' => 'RamShrestha']);
+
+        $post1 = Post::factory()->create(['user_id' => $user->id]);
+        $post2 = Post::factory()->create();
+
+        $this->get('/posts?by=RamShrestha')
+            ->assertSee($post1->title)
+            ->assertDontSee($post2->title);
     }
 }

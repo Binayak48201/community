@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
@@ -17,10 +18,15 @@ class PostController extends Controller
      */
     public function index(Category $category)
     {
-        $post = Post::with('category');
+        $post = Post::with('category', 'user');
 
         if ($category->exists) {
             $post = $category->posts();
+        }
+
+        if ($username = request('by')) {
+            $user = User::where('name', $username)->firstOrFail();
+            $post->where('user_id', $user->id);
         }
 
         $posts = $post->latest()->paginate(10);
@@ -31,17 +37,19 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        $categories = Category::all();
+
+        return view('posts.create', compact('categories'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
     public function store()
     {
@@ -57,6 +65,8 @@ class PostController extends Controller
             'title' => request('title'),
             'body' => request('body')
         ]);
+
+        return redirect('/posts');
     }
 
     /**
@@ -89,19 +99,21 @@ class PostController extends Controller
      * @param \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Category $category, Post $post)
     {
-
+        $post->update([
+            'title' => request('title')
+        ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param \App\Models\Post $post
-     * @return \Illuminate\Http\Response
+     * @return int
      */
-    public function destroy(Post $post)
+    public function destroy(Category $category, Post $post)
     {
-        //
+        $post->delete();
     }
 }
