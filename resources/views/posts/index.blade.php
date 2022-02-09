@@ -18,6 +18,9 @@
                                     {{ $post->title }}
                                 </a>
                             </h6>
+                                <a href="{{ $post->path() }}">
+                                    {{ $post->user->name }}
+                                </a>
                             <div class="row align-items-center no-gutters  hide-desktope">
                                 <div class="col-11">
                                     <ul class="tt-list-badge">

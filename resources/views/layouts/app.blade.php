@@ -20,6 +20,9 @@
             display: flex;
             justify-content: end;
         }
+        .custom-red{
+            color: red;
+        }
     </style>
 </head>
 <body>

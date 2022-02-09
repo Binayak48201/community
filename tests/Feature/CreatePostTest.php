@@ -19,9 +19,6 @@ class CreatePostTest extends TestCase
     {
         $project = Post::factory()->create();
 
-//        $this->get('/posts/create')->assertRedirect('login');
-//        $this->get($project->path() . '/edit')->assertRedirect('login');
-//        $this->get($project->path())->assertRedirect('login');
         $this->post('/posts', $project->toArray())->assertRedirect('login');
     }
 
@@ -41,7 +38,9 @@ class CreatePostTest extends TestCase
             'body' => 'Some Description'
         ];
 
-        $this->post('/posts', $attribute);
+        $response = $this->post('/posts', $attribute);
+
+        $response->assertRedirect('/posts');
 
         $this->assertDatabaseHas('posts', $attribute);
     }
@@ -84,7 +83,6 @@ class CreatePostTest extends TestCase
         $this->post('/posts', $post1)->assertSessionHasErrors('category_id');
 
         $this->post('/posts', $post2)->assertSessionHasErrors('category_id');
-
     }
 
     /** @test */
@@ -113,6 +111,43 @@ class CreatePostTest extends TestCase
         $this->post('/posts', $post->toArray());
 
         $this->assertEquals("some-title-29-{$post['id']}", $post['slug']);
+    }
+
+    /** @test */
+    public function a_post_can_be_updated()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = User::factory()->create();
+
+        $this->be($user);
+
+        $post = Post::factory()->create(['title' => 'Some title']);
+
+        $this->patch($post->path(), [
+            'title' => 'Updated Title'
+        ]);
+//        dd($post->fresh());
+        $this->assertEquals("Updated Title", $post->fresh()->title);
+        $this->assertDatabaseHas('posts', [
+            'title' => $post->fresh()->title
+        ]);
+    }
+
+    /** @test */
+    public function a_post_can_be_deleted()
+    {
+        $this->withExceptionHandling();
+
+        $user = User::factory()->create();
+
+        $this->be($user);
+
+        $post = Post::factory()->create();
+
+        $this->delete($post->path());
+
+        $this->assertDatabaseMissing('posts', ['id' => $post->id]);
     }
 }
 
