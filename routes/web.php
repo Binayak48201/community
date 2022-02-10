@@ -23,7 +23,7 @@ Route::get('/posts', [PostController::class, 'index'])->name('posts');
 Route::post('/posts', [PostController::class, 'store'])->middleware('auth');
 Route::get('/posts/{category:slug}/{post:slug}', [PostController::class, 'show']);
 Route::get('/posts/create', [PostController::class, 'create']);
-Route::get('/posts/edit/{category:slug}/{post:slug}', [PostController::class, 'edit']);
+Route::get('/post/edit/{category:slug}/{post:slug}', [PostController::class, 'edit'])->name('post.edit');
 Route::patch('/posts/{category:slug}/{post:slug}', [PostController::class, 'update']);
 Route::delete('/posts/{category:slug}/{post:slug}', [PostController::class, 'destroy']);
 Route::get('/posts/{category:slug}', [PostController::class, 'index']);

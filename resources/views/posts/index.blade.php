@@ -38,6 +38,7 @@
                         <div class="tt-col-value tt-color-s elect hide-mobile">68</div>
                         <div class="tt-col-value hide-mobile">8.3k</div>
                         <div class="tt-col-value hide-mobile">1d</div>
+                        <div class="tt-col-value hide-mobile"><a href="/post/edit/{$category->slug/$posts->slug}" class="btn btn-success" type="submit">Edit</a></div>
                     </div>
                 @endforeach
                 {{ $posts->links() }}

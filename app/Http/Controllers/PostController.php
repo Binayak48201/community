@@ -31,7 +31,7 @@ class PostController extends Controller
 
         $posts = $post->latest()->paginate(10);
 
-        return view('posts.index', compact('posts'));
+        return view('posts.index', compact( 'category', 'posts'));
     }
 
     /**
@@ -87,12 +87,14 @@ class PostController extends Controller
      * @param \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(Category $category, Post $post)
     {
-        $category = Category::all();
-       return view('posts.edit', [
-           'category' => $category,
-       ]);
+        // dd($category);
+        // $category = Category::all();
+        return view('post.edit')->with([
+            'category' => $category,
+            'post' => $post,
+        ]);
     }
 
     /**
