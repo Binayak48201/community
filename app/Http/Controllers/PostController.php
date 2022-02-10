@@ -87,9 +87,12 @@ class PostController extends Controller
      * @param \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit()
     {
-        //
+        $category = Category::all();
+       return view('posts.edit', [
+           'category' => $category,
+       ]);
     }
 
     /**

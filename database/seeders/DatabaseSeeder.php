@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,5 +22,9 @@ class DatabaseSeeder extends Seeder
             'email' => 'john@email.com',
             'password' => bcrypt('password')
         ]);
+
+        Post::factory(10)->create()->each(function($post){
+            Category::factory(5)->create();
+        });
     }
 }
