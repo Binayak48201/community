@@ -18,18 +18,7 @@ class PostController extends Controller
      */
     public function index(Category $category)
     {
-        $post = Post::with('category', 'user');
-
-        if ($category->exists) {
-            $post = $category->posts();
-        }
-
-        if ($username = request('by')) {
-            $user = User::where('name', $username)->firstOrFail();
-            $post->where('user_id', $user->id);
-        }
-
-        $posts = $post->latest()->paginate(10);
+        $posts = $this->getPosts($category);
 
         return view('posts.index', compact( 'category', 'posts'));
     }
@@ -41,9 +30,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-
-        return view('posts.create', compact('categories'));
+        return view('posts.create');
     }
 
     /**
@@ -78,6 +65,8 @@ class PostController extends Controller
      */
     public function show(Category $category, Post $post)
     {
+        $post->increment('visits');
+
         return view('posts.show', compact('post'));
     }
 
@@ -120,5 +109,25 @@ class PostController extends Controller
     public function destroy(Category $category, Post $post)
     {
         $post->delete();
+    }
+
+    /**
+     * @param Category $category
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    private function getPosts(Category $category): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    {
+        $post = Post::with('category', 'user');
+
+        if ($category->exists) {
+            $post = $category->posts();
+        }
+
+        if ($username = request('by')) {
+            $user = User::where('name', $username)->firstOrFail();
+            $post->where('user_id', $user->id);
+        }
+
+        return $post->latest()->paginate(10);
     }
 }

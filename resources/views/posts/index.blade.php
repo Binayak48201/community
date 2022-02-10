@@ -18,14 +18,15 @@
                                     {{ $post->title }}
                                 </a>
                             </h6>
-                                <a href="{{ $post->path() }}">
-                                    {{ $post->user->name }}
-                                </a>
+                            <a href="/posts?by={{ $post->user->name }}">
+                                {{ $post->user->name }}
+                            </a>
                             <div class="row align-items-center no-gutters  hide-desktope">
                                 <div class="col-11">
                                     <ul class="tt-list-badge">
                                         <li class="show-mobile"><a href="#"><span
-                                                    class="tt-color05 tt-badge">{{ $post->category->title }}</span></a></li>
+                                                    class="tt-color05 tt-badge">{{ $post->category->title }}</span></a>
+                                        </li>
                                     </ul>
                                 </div>
                                 <div class="col-1 ml-auto show-mobile">
@@ -33,10 +34,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tt-col-category"><span class="tt-color05 tt-badge">{{ $post->category->title }}</span></div>
+                        <div class="tt-col-category"><span
+                                class="tt-color05 tt-badge">{{ $post->category->title }}</span></div>
                         <div class="tt-col-value hide-mobile">358</div>
                         <div class="tt-col-value tt-color-s elect hide-mobile">68</div>
-                        <div class="tt-col-value hide-mobile">8.3k</div>
+                        <div class="tt-col-value hide-mobile">{{ $post->visits }}</div>
                         <div class="tt-col-value hide-mobile">1d</div>
                         <div class="tt-col-value hide-mobile"><a href="/post/edit/{$category->slug/$posts->slug}" class="btn btn-success" type="submit">Edit</a></div>
                     </div>

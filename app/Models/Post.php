@@ -15,6 +15,9 @@ class Post extends Model
      */
     protected $guarded = [];
 
+
+    protected $appends = ['reply_count'];
+
     /**
      *
      */
@@ -69,6 +72,22 @@ class Post extends Model
         }
 
         $this->attributes['slug'] = $slug;
+    }
+
+    /**
+     * @param $data
+     */
+    public function addReply($data)
+    {
+        $this->reply()->create([
+            'user_id' => 1,
+            'body' => $data
+        ]);
+    }
+
+    public function getReplyCountAttribute()
+    {
+        return $this->reply()->count();
     }
 }
 

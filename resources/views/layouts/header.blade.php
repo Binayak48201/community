@@ -16,7 +16,7 @@
     </div>
 </nav>
 <header id="tt-header">
-    <div class="container">
+    <div class="">
         <div class="row tt-row no-gutters">
             <div class="col-auto">
                 <!-- toggle mobile menu -->
@@ -35,33 +35,24 @@
                 <div class="tt-desktop-menu">
                     <nav>
                         <ul>
-                            <li><a href="page-categories.html"><span>Categories</span></a></li>
-                            <li><a href="page-tabs.html"><span>Trending</span></a></li>
-                            <li><a href="page-create-topic.html"><span>New</span></a></li>
+                            @if(auth()->check())
+                                <li>
+                                    <a href="/posts?by={{ auth()->user()->name }}">
+                                        <span>My Post</span>
+                                    </a>
+                                </li>
+                            @endif
+                            <li><a href="page-create-topic.html"><span>Views</span></a></li>
+                            <li><a href="page-create-topic.html"><span>Popular</span></a></li>
+                            <li><a href="page-create-topic.html"><span>Likes</span></a></li>
                             <li>
-                                <a href="page-single-user.html"><span>Pages</span></a>
+                                <a href="#"><span>Categories</span></a>
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
-                                    <li><a href="page-single-topic.html">Single Topic</a></li>
-                                    <li><a href="page-create-topic.html">Create Topic</a></li>
-                                    <li><a href="page-single-user.html">Single User Activity</a></li>
-                                    <li><a href="page-single_threads.html">Single User Threads</a></li>
-                                    <li><a href="page-single_replies.html">Single User Replies</a></li>
-                                    <li><a href="page-single_followers.html">Single User Followers</a></li>
-                                    <li><a href="page-single_categories.html">Single User Categories</a></li>
-                                    <li><a href="page-single_settings.html">Single User Settings</a></li>
-                                    <li><a href="page-signup.html">Sign up</a></li>
-                                    <li><a href="page-login.html">Log in</a></li>
-                                    <li><a href="page-categories.html">Categories</a></li>
-                                    <li><a href="page-categories-single.html">Single Category</a></li>
-                                    <li><a href="page-tabs.html">About</a></li>
-                                    <li><a href="page-tabs_guidelines.html">Guidelines</a></li>
-                                    <li><a href="_demo_modal-advancedSearch.html">Advanced Search</a></li>
-                                    <li><a href="error404.html">Error 404</a></li>
-                                    <li><a href="_demo_modal-age-confirmation.html">Age Verification</a></li>
-                                    <li><a href="_demo_modal-level-up.html">Level up Notification</a></li>
-                                    <li><a href="messages-page.html">Message</a></li>
-                                    <li><a href="messages-compose.html">Message Compose</a></li>
+                                    @foreach($categories as $category)
+                                        <li>
+                                            <a href="/posts/{{ $category->slug }}">{{ $category->title }}</a>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </li>
                         </ul>
@@ -69,7 +60,7 @@
                 </div>
                 <!-- /desctop menu -->
                 <!-- tt-search -->
-                <div class="tt-search">
+                <div class="tt-search pl-5">
                     <!-- toggle -->
                     <button class="tt-search-toggle" data-toggle="modal" data-target="#modalAdvancedSearch">
                         <svg class="tt-icon">
@@ -152,10 +143,14 @@
                 </div>
                 <!-- /tt-search -->
             </div>
-            <div class="col-auto ml-auto">
+            <div class="col-auto ml-auto mr-5">
                 <div class="tt-account-btn">
-                    <a href="page-login.html" class="btn btn-primary">Log in</a>
-                    <a href="page-signup.html" class="btn btn-secondary">Sign up</a>
+                    @auth
+                        <a href="/posts/create" class="btn btn-color02">Create Posts</a>
+                    @else
+                        <a href="/login" class="btn btn-primary">Log in</a>
+                        <a href="/register" class="btn btn-secondary">Sign up</a>
+                    @endauth
                 </div>
             </div>
         </div>

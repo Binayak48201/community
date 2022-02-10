@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\PostController;
-use App\Models\Category;
+use App\Http\Controllers\{PostController, ReplyController};
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -22,15 +20,17 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
 Route::post('/posts', [PostController::class, 'store'])->middleware('auth');
 Route::get('/posts/{category:slug}/{post:slug}', [PostController::class, 'show']);
-Route::get('/posts/create', [PostController::class, 'create']);
-Route::get('/post/edit/{category:slug}/{post:slug}', [PostController::class, 'edit'])->name('post.edit');
+Route::get('/posts/create', [PostController::class, 'create'])->middleware('auth');
 Route::patch('/posts/{category:slug}/{post:slug}', [PostController::class, 'update']);
 Route::delete('/posts/{category:slug}/{post:slug}', [PostController::class, 'destroy']);
 Route::get('/posts/{category:slug}', [PostController::class, 'index']);
 
 Route::get('/category', [CategoryController::class, 'index']);
-Route::post('/category', [CategoryController::class, 'store']);
+// Route::post('/category', [CategoryController::class, 'store']);
 Route::post('/category/{category:slug}', [CategoryController::class, 'update']);
+
+Route::post('/posts/{category:slug}/{post:slug}/reply', [ReplyController::class, 'store']);
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
