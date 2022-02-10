@@ -23,6 +23,4 @@ Post belongs to a Category
 
         $post = Post::factory(10)->create();
 
-        $posts->each(function ($post) {
-            Reply::factory(10)->create(['post_id' => $post->id]);
-        });
+        $posts->each(function ($post) {Reply::factory(10)->create(['post_id' => $post->id]);});

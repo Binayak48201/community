@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\{PostController, ReplyController};
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -19,10 +19,14 @@ use Inertia\Inertia;
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
 Route::post('/posts', [PostController::class, 'store'])->middleware('auth');
 Route::get('/posts/{category:slug}/{post:slug}', [PostController::class, 'show']);
-Route::get('/posts/create', [PostController::class, 'create']);
+Route::get('/posts/create', [PostController::class, 'create'])->middleware('auth');
 Route::patch('/posts/{category:slug}/{post:slug}', [PostController::class, 'update']);
 Route::delete('/posts/{category:slug}/{post:slug}', [PostController::class, 'destroy']);
 Route::get('/posts/{category:slug}', [PostController::class, 'index']);
+
+
+Route::post('/posts/{category:slug}/{post:slug}/reply', [ReplyController::class, 'store']);
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
