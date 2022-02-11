@@ -68,8 +68,11 @@ class PostController extends Controller
     public function show(Category $category, Post $post)
     {
         $post->increment('visits');
-
-        return view('posts.show', compact('post'));
+//        return $post->toSql();
+        return view('posts.show', [
+            'post' => $post,
+            'replies' => $post->load('reply')
+        ]);
     }
 
     /**
@@ -128,9 +131,13 @@ class PostController extends Controller
         if ($username = request('by')) {
             $user = User::where('name', $username)->firstOrFail();
             $post->where('user_id', $user->id);
+        } elseif (request('popular')) {
+            $post->orderBy('reply_count', 'desc');
+        } else {
+            $post->latest();
         }
 
-        return $post->latest()->paginate(10);
+        return $post->paginate(10);
     }
 
     public function desce()

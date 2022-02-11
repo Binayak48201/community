@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{PostController, ReplyController};
+use App\Http\Controllers\{FavoritesController, PostController, ReplyController};
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,6 +33,9 @@ Route::post('/category/{category:slug}', [CategoryController::class, 'update']);
 Route::post('/posts/{category:slug}/{post:slug}/reply', [ReplyController::class, 'store']);
 
 Route::get('/posts/{category:slug}/{post:slug}/edit', [PostController::class, 'edit']);
+
+Route::post('/replies/{reply}/favorites', [FavoritesController::class, 'store'])->middleware('auth');
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

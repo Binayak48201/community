@@ -34,10 +34,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tt-col-category"><span class="tt-color05 tt-badge">{{ $post->category->title }}</span>
-                        </div>
-                        <div class="tt-col-value hide-mobile">358</div>
-                        <div class="tt-col-value tt-color-s elect hide-mobile">{{ $post->reply->count() }}</div>
+                        <div class="tt-col-category"><span
+                                class="tt-color05 tt-badge">{{ $post->category->title }}</span></div>
+                        <div class="tt-col-value tt-color-s elect hide-mobile">68</div>
+                        <div class="tt-col-value hide-mobile">{{ $post->reply_count }}</div>
                         <div class="tt-col-value hide-mobile">{{ $post->visits }}</div>
                         <div class="tt-col-value hide-mobile">1d</div>
                         <div class="tt-col-value hide-mobile"><a href="{{ $post->path() . '/edit' }}"

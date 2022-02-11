@@ -129,7 +129,7 @@
                         </div>
                     </div>
                 </div>
-                @forelse($post->reply as $reply)
+                @forelse($replies->reply as $reply)
                     <div class="tt-item">
                         <div class="tt-single-topic">
                             <div class="tt-item-header pt-noborder">
@@ -223,21 +223,25 @@
                 <h4 class="tt-title-separator"><span>You’ve reached the end of replies</span></h4>
             </div>
             <div class="tt-wrapper-inner">
-                <div class="pt-editor form-default">
-                    <h6 class="pt-title">Post Your Reply</h6>
-                    <form action="{{ $post->path() . '/reply'}}" method="post">
-                        @csrf
-                        <div class="form-group">
+                @auth
+                    <div class="pt-editor form-default">
+                        <h6 class="pt-title">Post Your Reply</h6>
+                        <form action="{{ $post->path() . '/reply'}}" method="post">
+                            @csrf
+                            <div class="form-group">
                         <textarea name="body" class="form-control" rows="5"
                                   placeholder="Lets get started"></textarea>
-                        </div>
-                        <div class="pt-row">
-                            <div class="col-auto">
-                                <button type="submit" class="btn btn-secondary btn-width-lg">Reply</button>
                             </div>
-                        </div>
-                    </form>
-                </div>
+                            <div class="pt-row">
+                                <div class="col-auto">
+                                    <button type="submit" class="btn btn-secondary btn-width-lg">Reply</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                @else
+                    <h4 class="text-center">Please, <a href="/login">login</a> to participate in the posts.</h4>
+                @endauth
             </div>
             <div class="tt-topic-list tt-ofset-30">
                 <div class="tt-list-search">
