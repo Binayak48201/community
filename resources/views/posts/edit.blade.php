@@ -17,9 +17,9 @@
                                 <select class="form-control" name="category_id">
                                     @foreach ($category as $cat)
                                         <option
-                                            {{ $post->category->id == old('category_id') ? 'selected' : '' }}
-                                            value="{{ $post->category->id }}">
-                                            {{ $post->category->title }}
+                                            {{ $cat->id == old('category_id') ? 'selected' : '' }}
+                                            value="{{ $cat->id }}">
+                                            {{ $cat->title }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -50,7 +50,7 @@
                         </div>
                         <div class="row">
                             <div class="col-auto ml-md-auto">
-                                <button type="submit" class="btn btn-secondary btn-width-lg">Create Post</button>
+                                <button type="submit" class="btn btn-secondary btn-width-lg">Edit Post</button>
                             </div>
                         </div>
                     </div>

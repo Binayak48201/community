@@ -31,6 +31,7 @@ Route::post('/category/{category:slug}', [CategoryController::class, 'update']);
 
 Route::post('/posts/{category:slug}/{post:slug}/reply', [ReplyController::class, 'store']);
 
+Route::get('/posts/{category:slug}/{post:slug}/edit', [PostController::class, 'edit']);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
