@@ -42,7 +42,7 @@
                                     </a>
                                 </li>
                             @endif
-                            <li><a href="page-create-topic.html"><span>Views</span></a></li>
+                            <li><a href="{{url('/posts/sort/views')}}"><span>Views</span></a></li>
                             <li><a href="page-create-topic.html"><span>Popular</span></a></li>
                             <li><a href="page-create-topic.html"><span>Likes</span></a></li>
                             <li>

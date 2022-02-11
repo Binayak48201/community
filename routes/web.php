@@ -17,6 +17,7 @@ use Inertia\Inertia;
 */
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
+Route::get('/posts/sort/{sort}', [PostController::class, 'sort']);
 Route::post('/posts', [PostController::class, 'store'])->middleware('auth');
 Route::get('/posts/{category:slug}/{post:slug}', [PostController::class, 'show']);
 Route::get('/posts/create', [PostController::class, 'create'])->middleware('auth');

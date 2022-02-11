@@ -123,6 +123,28 @@ class PostController extends Controller
             $post->where('user_id', $user->id);
         }
 
+
+
+
+
+
         return $post->latest()->paginate(10);
+    }
+
+
+    public function sort()
+    {
+
+        if (request('sort') == 'replies') {
+
+
+        }
+
+        if(request('sort') == 'views') {
+            $posts= Post::with('category', 'user')->orderBy('visits', 'desc')->paginate(10);
+
+        }
+
+        return view('posts.index', compact('posts'));
     }
 }
