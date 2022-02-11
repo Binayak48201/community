@@ -5,7 +5,7 @@
         <div class="container">
             <div class="tt-topic-list">
                 @include('layouts.subheader')
-                @foreach ($posts as $post)
+                @foreach ($posts as $p)
                     <div class="tt-item">
                         <div class="tt-col-avatar">
                             <svg class="tt-icon">
@@ -14,18 +14,18 @@
                         </div>
                         <div class="tt-col-description">
                             <h6 class="tt-title">
-                                <a href="{{ $post->path() }}">
-                                    {{ $post->title }}
+                                <a href="{{ $p->path() }}">
+                                    {{ $p->title }}
                                 </a>
                             </h6>
-                            <a href="/posts?by={{ $post->user->name }}">
-                                {{ $post->user->name }}
+                            <a href="/posts?by={{ $p->user->name }}">
+                                {{ $p->user->name }}
                             </a>
                             <div class="row align-items-center no-gutters  hide-desktope">
                                 <div class="col-11">
                                     <ul class="tt-list-badge">
                                         <li class="show-mobile"><a href="#"><span
-                                                    class="tt-color05 tt-badge">{{ $post->category->title }}</span></a>
+                                                    class="tt-color05 tt-badge">{{ $p->category->title }}</span></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -34,17 +34,20 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tt-col-category"><span class="tt-color05 tt-badge">{{ $post->category->title }}</span>
+                        <div class="tt-col-category"><span class="tt-color05 tt-badge">{{ $p->category->title }}</span>
                         </div>
                         <div class="tt-col-value hide-mobile">358</div>
-                        <div class="tt-col-value tt-color-s elect hide-mobile">{{ $post->reply->count() }}</div>
-                        <div class="tt-col-value hide-mobile">{{ $post->visits }}</div>
+                        {{-- @dd($p) --}}
+                        <div class="tt-col-value tt-color-s elect hide-mobile">
+                            {{ $p->num_of_replies }}
+                        </div>
+                        <div class="tt-col-value hide-mobile">{{ $p->visits }}</div>
                         <div class="tt-col-value hide-mobile">1d</div>
-                        <div class="tt-col-value hide-mobile"><a href="{{ $post->path() . '/edit' }}"
+                        <div class="tt-col-value hide-mobile"><a href="{{ $p->path() . '/edit' }}"
                                 class="btn btn-color01" type="submit">Edit</a></div>
                     </div>
                 @endforeach
-                {{ $posts->links() }}
+                {{-- {{ $posts->links() }} --}}
             </div>
         </div>
     </main>

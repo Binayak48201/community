@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Reply;
 use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -18,9 +19,10 @@ class PostController extends Controller
      */
     public function index(Category $category)
     {
+
         $posts = $this->getPosts($category);
 
-        return view('posts.index', compact( 'category', 'posts'));
+        return view('posts.index', compact('category', 'posts'));
     }
 
     /**
@@ -50,7 +52,7 @@ class PostController extends Controller
             'user_id' => auth()->id(),
             'category_id' => request('category_id'),
             'title' => request('title'),
-            'body' => request('body')
+            'body' => request('body'),
         ]);
 
         return redirect('/posts');
@@ -129,5 +131,14 @@ class PostController extends Controller
         }
 
         return $post->latest()->paginate(10);
+    }
+
+    public function desce()
+    {
+        $posts = Post::orderBy('num_of_replies', 'desc')->get();
+        // dd($post);       
+        return view('posts.desce')->with([
+            'posts' => $posts,
+        ]);
     }
 }

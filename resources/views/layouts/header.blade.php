@@ -35,6 +35,7 @@
                 <div class="tt-desktop-menu">
                     <nav>
                         <ul>
+                            <li><a href="/posts"><span>All Posts</span></a></li>
                             @if(auth()->check())
                                 <li>
                                     <a href="/posts?by={{ auth()->user()->name }}">
@@ -42,7 +43,7 @@
                                     </a>
                                 </li>
                             @endif
-                            <li><a href="page-create-topic.html"><span>Views</span></a></li>
+                            <li><a href="/posts/desce"><span>Views</span></a></li>
                             <li><a href="page-create-topic.html"><span>Popular</span></a></li>
                             <li><a href="page-create-topic.html"><span>Likes</span></a></li>
                             <li>

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Reply;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,8 +24,12 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password')
         ]);
 
-        Post::factory(10)->create()->each(function($post){
+        Post::factory(10)->create()->each(function ($post) {
             Category::factory(5)->create();
         });
+
+        // Post::factory(10)->create()->each(function ($post) {
+        //     Reply::factory(5)->create();
+        // });
     }
 }
