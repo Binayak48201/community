@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{PostController, ReplyController};
+use App\Http\Controllers\{FavoritesController, PostController, ReplyController};
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,6 +26,8 @@ Route::get('/posts/{category:slug}', [PostController::class, 'index']);
 
 
 Route::post('/posts/{category:slug}/{post:slug}/reply', [ReplyController::class, 'store']);
+
+Route::post('/replies/{reply}/favorites', [FavoritesController::class, 'store'])->middleware('auth');
 
 
 Route::get('/', function () {

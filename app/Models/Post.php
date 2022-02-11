@@ -16,8 +16,6 @@ class Post extends Model
     protected $guarded = [];
 
 
-    protected $appends = ['reply_count'];
-
     /**
      *
      */
@@ -27,6 +25,10 @@ class Post extends Model
 
         static::created(function ($post) {
             $post->update(['slug' => $post->title]);
+        });
+
+        static::addGlobalScope('replyCount', function ($post) {
+            $post->withCount('reply');
         });
     }
 
@@ -83,11 +85,6 @@ class Post extends Model
             'user_id' => 1,
             'body' => $data
         ]);
-    }
-
-    public function getReplyCountAttribute()
-    {
-        return $this->reply()->count();
     }
 }
 

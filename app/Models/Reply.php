@@ -9,6 +9,9 @@ class Reply extends Model
 {
     use HasFactory;
 
+    /**
+     * @var array
+     */
     protected $guarded = [];
 
     /**
@@ -17,5 +20,21 @@ class Reply extends Model
     public function post()
     {
         return $this->belongsTo(Post::class, 'post_id');
+    }
+
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function favorites()
+    {
+        return $this->morphMany(Favourite::class, 'favorited');
+    }
+
+    public function favourite()
+    {
+        return $this->favorites()->create([
+            'user_id' => auth()->id()
+        ]);
     }
 }
