@@ -1,11 +1,17 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>Community</title>
     <link rel="shortcut icon" href="{{ asset('design/favicon/favicon.ico') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="{{ asset('design/css/style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
     <style>
         ul {
             list-style-type: none;
@@ -20,19 +26,34 @@
             display: flex;
             justify-content: end;
         }
-        .custom-red{
+
+        .custom-red {
             color: red;
         }
+
+        .btn.btn-colorred {
+            background-color: #ff000d;
+            color: white;
+        }
+
     </style>
 </head>
-<body>
-<div id="app">
-{{--    <Home></Home>--}}
 
-    @include('layouts.header')
-    @yield('content')
-</div>
-<script src="{{ asset('custom/app.js') }}"></script>
+<body>
+    <div id="app">
+        {{-- <Home></Home> --}}
+        @include('layouts.header') <br>
+
+        @if (session()->has('success'))
+            <div class="alert alert-success alert-dismissible fade show mt-5" role="alert">
+                {{ session()->get('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+        @yield('content')
+
+    </div>
+    <script src="{{ asset('custom/app.js') }}"></script>
 </body>
 
 </html>

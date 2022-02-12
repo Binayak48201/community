@@ -6,4 +6,5 @@
     <div class="tt-col-value hide-mobile">Views</div>
     <div class="tt-col-value">Activity</div>
     <div class="tt-col-value">Action</div>
+    <div class="tt-col-value"></div>
 </div>

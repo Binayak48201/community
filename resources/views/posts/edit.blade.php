@@ -7,9 +7,9 @@
                 <h1 class="tt-title-border">
                     Edit Posts
                 </h1>
-                <form class="form-default form-create-topic" method="POST" action="/posts/{$post->id}">
+                <form class="form-default form-create-topic" method="POST" action="/posts">
                     @csrf
-                    @method('PUT')
+                    {{-- @method('PATCH') --}}
                     <div class="form-group">
                         <div class="col-md-12 pl-0 pr-0">
                             <div class="form-group">

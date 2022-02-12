@@ -68,7 +68,7 @@ class PostController extends Controller
     public function show(Category $category, Post $post)
     {
         $post->increment('visits');
-//        return $post->toSql();
+        //        return $post->toSql();
         return view('posts.show', [
             'post' => $post,
             'replies' => $post->load('reply')
@@ -100,9 +100,19 @@ class PostController extends Controller
      */
     public function update(Category $category, Post $post)
     {
+        // dump($category);
+        // dd($post);
         $post->update([
-            'title' => request('title')
+            'user_id' => request('user_id'),
+            'category_id' => request('category_id'),
+            'title' => request('title'),
+            'slug' => request('slug'),
+            'body' => request('body'),
+            'num_of_replies' => request('num_of_replies'),
+            'visits' => request('visits'),
         ]);
+
+        return redirect()->back();
     }
 
     /**
@@ -113,7 +123,11 @@ class PostController extends Controller
      */
     public function destroy(Category $category, Post $post)
     {
+
+        // dd($post);
         $post->delete();
+
+        return redirect()->back()->withSuccess('success','Successfully Deleted');
     }
 
     /**
