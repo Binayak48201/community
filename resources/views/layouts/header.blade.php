@@ -36,20 +36,20 @@
                     <nav>
                         <ul>
                             <li><a href="/posts"><span>All Posts</span></a></li>
-                            @if(auth()->check())
+                            @if (auth()->check())
                                 <li>
                                     <a href="/posts?by={{ auth()->user()->name }}">
                                         <span>My Post</span>
                                     </a>
                                 </li>
                             @endif
-                            <li><a href="/posts/desce"><span>Views</span></a></li>
+                            <li><a href="/posts?popular=1"><span>Views</span></a></li>
                             <li><a href="page-create-topic.html"><span>Popular</span></a></li>
                             <li><a href="page-create-topic.html"><span>Likes</span></a></li>
                             <li>
                                 <a href="#"><span>Categories</span></a>
                                 <ul>
-                                    @foreach($categories as $category)
+                                    @foreach ($categories as $category)
                                         <li>
                                             <a href="/posts/{{ $category->slug }}">{{ $category->title }}</a>
                                         </li>
@@ -137,7 +137,7 @@
                                 </ul>
                             </div>
                             <button type="button" class="tt-view-all" data-toggle="modal"
-                                    data-target="#modalAdvancedSearch">Advanced Search
+                                data-target="#modalAdvancedSearch">Advanced Search
                             </button>
                         </div>
                     </form>

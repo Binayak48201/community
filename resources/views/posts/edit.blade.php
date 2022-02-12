@@ -9,7 +9,7 @@
                 </h1>
                 <form class="form-default form-create-topic" method="POST" action="/posts">
                     @csrf
-                    {{-- @method('PATCH') --}}
+                    {{-- @method('PUT') --}}
                     <div class="form-group">
                         <div class="col-md-12 pl-0 pr-0">
                             <div class="form-group">

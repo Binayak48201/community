@@ -55,7 +55,7 @@ class PostController extends Controller
             'body' => request('body'),
         ]);
 
-        return redirect('/posts');
+        return redirect()->route('posts')->withSuccess('success', 'Updated Successfully');
     }
 
     /**
@@ -100,19 +100,14 @@ class PostController extends Controller
      */
     public function update(Category $category, Post $post)
     {
-        // dump($category);
-        // dd($post);
         $post->update([
-            'user_id' => request('user_id'),
-            'category_id' => request('category_id'),
+            'category_id' => $category,
+            'user_id' => auth()->id(),
             'title' => request('title'),
-            'slug' => request('slug'),
             'body' => request('body'),
-            'num_of_replies' => request('num_of_replies'),
-            'visits' => request('visits'),
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->withSuccess('success', 'Updated Successfully');
     }
 
     /**
@@ -127,7 +122,7 @@ class PostController extends Controller
         // dd($post);
         $post->delete();
 
-        return redirect()->back()->withSuccess('success','Successfully Deleted');
+        return redirect()->back()->withSuccess('success', 'Successfully Deleted');
     }
 
     /**
