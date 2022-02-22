@@ -24,7 +24,7 @@ class ReadPostTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_read_a_single_post()
+    public function a_guest_user_can_read_a_single_post()
     {
         $this->withoutExceptionHandling();
 
@@ -63,7 +63,6 @@ class ReadPostTest extends TestCase
         $this->get('/posts/' . $category->slug)
             ->assertSee($postsInCategory->title)
             ->assertDontSee($postsNotInCategory->title);
-
     }
 
     /** @test */

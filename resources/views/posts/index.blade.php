@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <main id="tt-pageContent" class="tt-offset-small">
+    <main id="tt-pageContent" class="tt-offset-small tw-bg-deep-black/5">
         <div class="container">
             <div class="tt-topic-list">
                 @include('layouts.subheader')

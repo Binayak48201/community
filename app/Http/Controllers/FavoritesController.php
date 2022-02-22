@@ -11,6 +11,8 @@ class FavoritesController extends Controller
 {
     public function store(Reply $reply)
     {
-        $reply->favourite();
+        $reply->favorite();
+        
+        return redirect()->back();
     }
 }

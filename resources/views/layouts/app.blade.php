@@ -12,6 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
     </script>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
         ul {
             list-style-type: none;
@@ -36,6 +37,16 @@
             color: white;
         }
 
+        .custom-button {
+            background: none;
+            color: inherit;
+            border: none;
+            padding: 0;
+            font: inherit;
+            cursor: pointer;
+            outline: inherit;
+        }
+
     </style>
 </head>
 
@@ -51,6 +62,8 @@
             </div>
         @endif
         @yield('content')
+        {{-- <div id="app"> --}}
+        {{-- <Home></Home> --}}
 
     </div>
     <script src="{{ asset('custom/app.js') }}"></script>

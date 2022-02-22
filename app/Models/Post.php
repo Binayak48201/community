@@ -17,7 +17,7 @@ class Post extends Model
 
 
     /**
-     *
+     * Boot The Post Modal
      */
     public static function boot()
     {
@@ -45,7 +45,7 @@ class Post extends Model
      */
     public function reply()
     {
-        return $this->hasMany(Reply::class);
+        return $this->hasMany(Reply::class)->withCount('favorites');
     }
 
     /**

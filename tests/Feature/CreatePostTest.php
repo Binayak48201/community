@@ -56,7 +56,7 @@ class CreatePostTest extends TestCase
     }
 
     /** @test */
-    public function a_project_requires_a_body()
+    public function a_posts_requires_a_body()
     {
         $user = User::factory()->create();
 
@@ -121,10 +121,10 @@ class CreatePostTest extends TestCase
         $this->be($user);
 
         $post = Post::factory()->create(['title' => 'Some title']);
-
         $this->patch($post->path(), [
             'title' => 'Updated Title'
         ]);
+
 //        dd($post->fresh());
         $this->assertEquals("Updated Title", $post->fresh()->title);
         $this->assertDatabaseHas('posts', [
@@ -133,7 +133,17 @@ class CreatePostTest extends TestCase
     }
 
     /** @test */
-    public function a_post_can_be_deleted()
+    public function a_get_user_may_not_delete_post()
+    {
+        $this->withExceptionHandling();
+
+        $post = Post::factory()->create();
+
+        $this->delete($post->path())->assertRedirect('/login');
+    }
+
+    /** @test */
+    public function a_unauthorized_user_may_not_delete_post()
     {
         // $this->withExceptionHandling();
 
@@ -142,6 +152,20 @@ class CreatePostTest extends TestCase
         $this->be($user);
 
         $post = Post::factory()->create();
+
+        $this->delete($post->path())->assertStatus(403);
+    }
+
+    /** @test */
+    public function an_authorized_user_only_can_delete_there_post()
+    {
+        $this->withExceptionHandling();
+
+        $user = User::factory()->create();
+
+        $this->be($user);
+
+        $post = Post::factory()->create(['user_id' => auth()->id()]);
 
         $this->delete($post->path());
 

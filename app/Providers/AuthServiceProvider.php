@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        'App\Models\Post' => 'App\Policies\PostPolicy',
     ];
 
     /**
@@ -25,6 +25,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::before(function ($user) {
+            if ($user->id == 2) {
+                return true;
+            }
+        });
     }
 }

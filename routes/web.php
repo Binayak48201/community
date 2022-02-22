@@ -22,9 +22,11 @@ Route::get('/posts', [PostController::class, 'index'])->name('posts');
 Route::post('/posts', [PostController::class, 'store'])->middleware('auth');
 Route::get('/posts/{category:slug}/{post:slug}', [PostController::class, 'show']);
 Route::get('/posts/create', [PostController::class, 'create'])->middleware('auth');
-Route::match(['put','patch'],'/posts/{post:slug}', [PostController::class, 'update'])->name('posts.update');
+// Route::match(['put','patch'],'/posts/{post:slug}', [PostController::class, 'update'])->name('posts.update');
 // Route::delete('/posts/{category:slug}/{post:slug}', [PostController::class, 'destroy'])->name('posts.delete');
-Route::delete('/posts/{post:slug}', [PostController::class, 'destroy'])->name('posts.delete');
+// Route::delete('/posts/{post:slug}', [PostController::class, 'destroy'])->name('posts.delete');
+Route::patch('/posts/{category:slug}/{post:slug}', [PostController::class, 'update']);
+Route::delete('/posts/{category:slug}/{post:slug}', [PostController::class, 'destroy'])->middleware('auth');;
 Route::get('/posts/{category:slug}', [PostController::class, 'index']);
 
 Route::get('/category', [CategoryController::class, 'index']);
@@ -35,8 +37,9 @@ Route::post('/posts/{category:slug}/{post:slug}/reply', [ReplyController::class,
 
 Route::get('/posts/{category:slug}/{post:slug}/edit', [PostController::class, 'edit']);
 
-Route::post('/replies/{reply}/favorites', [FavoritesController::class, 'store'])->middleware('auth');
+// Route::post('/replies/{reply}/favorites', [FavoritesController::class, 'store'])->middleware('auth');
 
+Route::post('/replies/{reply}/favorites', [FavoritesController::class, 'store'])->name('favorite')->middleware('auth');
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

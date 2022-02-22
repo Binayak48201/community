@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <main id="tt-pageContent">
+    <main id="tt-pageContent" class="tw-bg-deep-black/5">
         <div class="container">
             <div class="tt-wrapper-inner">
                 <h1 class="tt-title-border">
