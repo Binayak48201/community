@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{FavoritesController, PostController, ReplyController};
+use App\Http\Controllers\{FavoritesController, PostController, ReplyController, CategoryController};
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -29,7 +29,7 @@ Route::get('/posts/{category:slug}', [PostController::class, 'index']);
 
 Route::get('/category', [CategoryController::class, 'index']);
 // Route::post('/category', [CategoryController::class, 'store']);
-Route::post('/category/{category:slug}', [CategoryController::class, 'update']);
+Route::match(['put','patch'],'/category/{category:slug}', [CategoryController::class, 'update']);
 
 Route::post('/posts/{category:slug}/{post:slug}/reply', [ReplyController::class, 'store']);
 

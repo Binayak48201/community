@@ -69,8 +69,12 @@ class CategoryController extends Controller
      */
     public function update(Category $category)
     {
-        return 'update cat';
-        // $category->update($request->all());
+        dd($category);
+        $category->update([
+            'title' => request('title'),
+            'slug' => request('slug'),
+        ]);
+        return $category;
     }
 
     /**

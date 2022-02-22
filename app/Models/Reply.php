@@ -37,4 +37,7 @@ class Reply extends Model
             'user_id' => auth()->id()
         ]);
     }
+
+
+    
 }

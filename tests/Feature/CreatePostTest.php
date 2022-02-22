@@ -114,7 +114,7 @@ class CreatePostTest extends TestCase
     /** @test */
     public function a_post_can_be_updated()
     {
-        $this->withoutExceptionHandling();
+        // $this->withoutExceptionHandling();
 
         $user = User::factory()->create();
 
@@ -135,7 +135,7 @@ class CreatePostTest extends TestCase
     /** @test */
     public function a_post_can_be_deleted()
     {
-        $this->withExceptionHandling();
+        // $this->withExceptionHandling();
 
         $user = User::factory()->create();
 

@@ -37,7 +37,7 @@ class FavouriteTest extends TestCase
     /** @test */
     public function an_authenticated_user_may_not_favorite_any_reply_twice()
     {
-        $this->withoutExceptionHandling();
+        // $this->withoutExceptionHandling();
 
         $user = User::factory()->create();
 
@@ -46,7 +46,6 @@ class FavouriteTest extends TestCase
         $reply = Reply::factory()->create();
 
         try {
-
             $this->post('/replies/' . $reply->id . '/favorites');
             $this->post('/replies/' . $reply->id . '/favorites');
         } catch (\Exception $e) {

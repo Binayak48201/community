@@ -30,6 +30,7 @@ class CategoryTest extends TestCase
     /** @test */
     public function create_category()
     {
+        // $this->withoutExceptionHandling();
         $user = User::factory()->create();
         $this->be($user);
 
@@ -39,8 +40,8 @@ class CategoryTest extends TestCase
             'slug' => 'new-category',
         ];
         $response = $this->post('/category', $category);
-        $response->assertRedirect('/category');
-        // $this->assertSee('categories', $category);
+        $response->assertSee($category);
+        // $response->assertRedirect('/category');
     }
 
     /** @test */
@@ -49,19 +50,16 @@ class CategoryTest extends TestCase
         $this->withoutExceptionHandling();
         $user = User::factory()->create();
         $this->be($user);
-
-        $category = Category::factory()->create();
+        $category = Category::factory()->create(['title' => 'Some Category']);
         // $post = Post::factory()->create();
-
-        $category->patch($post->path(), []);
-        $category->update([
-            'title' => 'Title',
-            'slug' => 'Slug',
+        $this->patch($category->id, [
+            'title' => 'Updated Data',
         ]);
-        // dd($category->fresh());
-        // $response = $this->post('/category', $category->toArray());
-        // $response->assertSee($category->title);
+        // dd($category);
         $this->assertEquals("Updated Data", $category->fresh()->title);
+        // $this->assertDatabaseHas('categories', [
+        //     'title' => $category->fresh()->title
+        // ]);
     }
 
     /** @test */
