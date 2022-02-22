@@ -21,6 +21,12 @@ Category has Many posts
 Post belongs to a Category
 
 
-        $post = Post::factory(10)->create();
+        $posts = Post::factory(10)->create();
 
         $posts->each(function ($post) {Reply::factory(10)->create(['post_id' => $post->id]);});
+
+
+/posts => all
+/posts/2 => /posts/aut-molestias-vero-est-dignissimos
+/posts/2 => /posts/cateogry/aut-molestias-vero-est-dignissimos
+/posts/2 => /posts/1/1

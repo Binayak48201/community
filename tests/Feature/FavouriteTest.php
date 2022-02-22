@@ -27,7 +27,7 @@ class FavouriteTest extends TestCase
 
         $this->be($user);
 
-        $reply = Reply::factory()->create();
+        $reply = Reply::factory()->create(); //post
 
         $this->post('/replies/' . $reply->id . '/favorites');
 
@@ -50,7 +50,7 @@ class FavouriteTest extends TestCase
             $this->post('/replies/' . $reply->id . '/favorites');
             $this->post('/replies/' . $reply->id . '/favorites');
         } catch (\Exception $e) {
-            die('You cannot favourite twice.');
+            $this->fail('You cannot favourite twice.');
         }
 
         $this->assertCount(1, $reply->favorites);

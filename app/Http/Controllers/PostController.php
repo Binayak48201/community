@@ -65,7 +65,9 @@ class PostController extends Controller
      */
     public function show(Category $category, Post $post)
     {
+
         $post->increment('visits');
+
 //        return $post->toSql();
         return view('posts.show', [
             'post' => $post,
@@ -98,14 +100,17 @@ class PostController extends Controller
         ]);
     }
 
+
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\Post $post
-     * @return int
+     * @param Category $category
+     * @param Post $post
      */
     public function destroy(Category $category, Post $post)
     {
+//        if ($post->user_id != auth()->id()) {
+//            abort(403);
+//        }
+        $this->authorize('delete', $post);
         $post->delete();
     }
 
@@ -113,7 +118,7 @@ class PostController extends Controller
      * @param Category $category
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    private function getPosts(Category $category): \Illuminate\Contracts\Pagination\LengthAwarePaginator
+    private function getPosts(Category $category)
     {
         $post = Post::with('category', 'user');
 
@@ -133,3 +138,4 @@ class PostController extends Controller
         return $post->paginate(10);
     }
 }
+

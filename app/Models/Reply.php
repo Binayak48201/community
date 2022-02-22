@@ -14,6 +14,10 @@ class Reply extends Model
      */
     protected $guarded = [];
 
+//    protected $with = ['favorites'];
+
+    protected $appends = ['isFavorited'];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -31,10 +35,25 @@ class Reply extends Model
         return $this->morphMany(Favourite::class, 'favorited');
     }
 
-    public function favourite()
+    /**
+     * Favourite any modal
+     */
+    public function favorite()
     {
-        return $this->favorites()->create([
-            'user_id' => auth()->id()
-        ]);
+        $userId = ['user_id' => auth()->id()];
+        if (!$this->favorites()->where($userId)->exists()) {
+            $this->favorites()->create($userId);
+        }
+    }
+
+    public function isFavorited()
+    {
+        return ! ! $this->favorites()->where(['user_id' => auth()->id()])->count();
+    }
+
+    public function getIsFavoritedAttribute()
+    {
+        return $this->isFavorited();
     }
 }
+

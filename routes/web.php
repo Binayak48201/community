@@ -21,14 +21,13 @@ Route::post('/posts', [PostController::class, 'store'])->middleware('auth');
 Route::get('/posts/{category:slug}/{post:slug}', [PostController::class, 'show']);
 Route::get('/posts/create', [PostController::class, 'create'])->middleware('auth');
 Route::patch('/posts/{category:slug}/{post:slug}', [PostController::class, 'update']);
-Route::delete('/posts/{category:slug}/{post:slug}', [PostController::class, 'destroy']);
+Route::delete('/posts/{category:slug}/{post:slug}', [PostController::class, 'destroy'])->middleware('auth');;
 Route::get('/posts/{category:slug}', [PostController::class, 'index']);
 
 
 Route::post('/posts/{category:slug}/{post:slug}/reply', [ReplyController::class, 'store']);
 
-Route::post('/replies/{reply}/favorites', [FavoritesController::class, 'store'])->middleware('auth');
-
+Route::post('/replies/{reply}/favorites', [FavoritesController::class, 'store'])->name('favorite')->middleware('auth');
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

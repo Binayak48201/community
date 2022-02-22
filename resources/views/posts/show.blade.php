@@ -26,6 +26,9 @@
                                         </svg>
                                     </i>
                                     {{ $post->created_at->diffForHumans() }}
+                                    @can('update',$post)
+                                        <button>Delete</button>
+                                    @endcan
                                 </a>
                             </div>
                             <h3 class="tt-item-title">
@@ -157,37 +160,38 @@
                             <div class="tt-item-description">
                                 {{ $reply->body }}
                             </div>
-                            <div class="tt-item-info info-bottom">
+                            <div class=" tw-flex pt-3">
+                                <div>
+                                    <form action="{{ route('favorite',$reply->id) }}" method="POST">
+                                        @csrf
+                                        <button class="custom-button tw-flex"
+                                                type="submit" {{ $reply->isFavorited ? 'disabled' : '' }}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" style="height: 1.5rem;" fill="none"
+                                                 viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                      d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/>
+                                            </svg>
+                                            <span class="tt-text">{{ $reply->favorites_count }}  </span>
+                                        </button>
+                                    </form>
+                                </div>
+
                                 <a href="#" class="tt-icon-btn">
                                     <i class="tt-icon">
-                                        <svg>
-                                            <use xlink:href="#icon-like"></use>
-                                        </svg>
-                                    </i>
-                                    <span class="tt-text">671</span>
-                                </a>
-                                <a href="#" class="tt-icon-btn">
-                                    <i class="tt-icon">
-                                        <svg>
-                                            <use xlink:href="#icon-dislike"></use>
-                                        </svg>
+
                                     </i>
                                     <span class="tt-text">39</span>
                                 </a>
                                 <a href="#" class="tt-icon-btn">
                                     <i class="tt-icon">
-                                        <svg>
-                                            <use xlink:href="#icon-favorite"></use>
-                                        </svg>
+
                                     </i>
                                     <span class="tt-text">12</span>
                                 </a>
                                 <div class="col-separator"></div>
                                 <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
                                     <i class="tt-icon">
-                                        <svg>
-                                            <use xlink:href="#icon-share"></use>
-                                        </svg>
+
                                     </i>
                                 </a>
                                 <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">

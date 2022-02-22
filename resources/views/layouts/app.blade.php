@@ -6,6 +6,7 @@
     <link rel="shortcut icon" href="{{ asset('design/favicon/favicon.ico') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="{{ asset('design/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
         ul {
             list-style-type: none;
@@ -20,14 +21,25 @@
             display: flex;
             justify-content: end;
         }
-        .custom-red{
+
+        .custom-red {
             color: red;
+        }
+
+        .custom-button {
+            background: none;
+            color: inherit;
+            border: none;
+            padding: 0;
+            font: inherit;
+            cursor: pointer;
+            outline: inherit;
         }
     </style>
 </head>
 <body>
 <div id="app">
-{{--    <Home></Home>--}}
+    {{--    <Home></Home>--}}
 
     @include('layouts.header')
     @yield('content')
