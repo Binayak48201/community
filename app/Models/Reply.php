@@ -14,8 +14,14 @@ class Reply extends Model
      */
     protected $guarded = [];
 
-//    protected $with = ['favorites'];
+    /**
+     * @var string[]
+     */
+    protected $with = ['favorites'];
 
+    /**
+     * @var string[]
+     */
     protected $appends = ['isFavorited'];
 
     /**
@@ -46,14 +52,28 @@ class Reply extends Model
         }
     }
 
+    /**
+     * @return bool
+     */
     public function isFavorited()
     {
-        return ! ! $this->favorites()->where(['user_id' => auth()->id()])->count();
+        return !!$this->favorites->where('user_id', auth()->id())->count();
     }
 
+    /**
+     * @return bool
+     */
     public function getIsFavoritedAttribute()
     {
         return $this->isFavorited();
     }
+
+//    /**
+//     * @return mixed
+//     */
+//    public function getFavoritesCountAttribute()
+//    {
+//        return $this->favorites->count();
+//    }
 }
 

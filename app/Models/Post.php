@@ -17,7 +17,7 @@ class Post extends Model
 
 
     /**
-     *
+     * Boot The Post Modal
      */
     public static function boot()
     {

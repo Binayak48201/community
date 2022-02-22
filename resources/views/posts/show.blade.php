@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <main id="tt-pageContent">
+    <main id="tt-pageContent" class="tw-bg-deep-black/5">
         <div class="container">
             <div class="tt-single-topic-list">
                 <div class="tt-item">
@@ -161,7 +161,7 @@
                                 {{ $reply->body }}
                             </div>
                             <div class=" tw-flex pt-3">
-                                <div>
+                                <div class="{{ $reply->isFavorited ? '' : '' }}">
                                     <form action="{{ route('favorite',$reply->id) }}" method="POST">
                                         @csrf
                                         <button class="custom-button tw-flex"
