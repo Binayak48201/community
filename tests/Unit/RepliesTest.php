@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -13,9 +14,9 @@ class RepliesTest extends TestCase
     /** @test */
     public function it_can_add_reply()
     {
-        $post = Post::factory()->create();
+        $this->be(User::factory()->create());
 
-//        $this->assertCount(0, $post->reply);
+        $post = Post::factory()->create();
 
         $post->addReply('test');
 

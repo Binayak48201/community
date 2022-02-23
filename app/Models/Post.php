@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\RecordsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory,RecordsActivity;
 
     /**
      * @var array
@@ -30,6 +31,8 @@ class Post extends Model
         static::addGlobalScope('replyCount', function ($post) {
             $post->withCount('reply');
         });
+
+
     }
 
     /**
@@ -45,7 +48,7 @@ class Post extends Model
      */
     public function reply()
     {
-        return $this->hasMany(Reply::class)->withCount('favorites');
+        return $this->hasMany(Reply::class);
     }
 
     /**
@@ -76,13 +79,15 @@ class Post extends Model
         $this->attributes['slug'] = $slug;
     }
 
+
     /**
      * @param $data
+     * @return Model
      */
     public function addReply($data)
     {
-        $this->reply()->create([
-            'user_id' => 1,
+         $this->reply()->create([
+            'user_id' => auth()->id(),
             'body' => $data
         ]);
     }

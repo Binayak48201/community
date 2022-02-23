@@ -6,7 +6,6 @@
     <link rel="shortcut icon" href="{{ asset('design/favicon/favicon.ico') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="{{ asset('design/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
         ul {
             list-style-type: none;
@@ -35,14 +34,20 @@
             cursor: pointer;
             outline: inherit;
         }
+
+        .tw-flex {
+            display: flex;
+        }
     </style>
 </head>
 <body>
 <div id="app">
-    {{--    <Home></Home>--}}
 
     @include('layouts.header')
     @yield('content')
+
+    <Flash message="{{ session('flash') }}"></Flash>
+
 </div>
 <script src="{{ asset('custom/app.js') }}"></script>
 </body>
