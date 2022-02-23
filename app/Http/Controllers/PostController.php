@@ -73,7 +73,7 @@ class PostController extends Controller
 
         $post->increment('visits');
 
-//        return $post->toSql();
+        //        return $post->toSql();
         return view('posts.show', [
             'post' => $post,
             'replies' => $post->load('reply')
@@ -86,7 +86,7 @@ class PostController extends Controller
      * @param \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category,Post $post)
+    public function edit(Category $category, Post $post)
     {
         return view('posts.edit', compact('post'));
     }
@@ -116,9 +116,9 @@ class PostController extends Controller
      */
     public function destroy(Category $category, Post $post)
     {
-//        if ($post->user_id != auth()->id()) {
-//            abort(403);
-//        }
+        //        if ($post->user_id != auth()->id()) {
+        //            abort(403);
+        //        }
         $this->authorize('delete', $post);
         $post->delete();
 
@@ -158,4 +158,3 @@ class PostController extends Controller
         ]);
     }
 }
-

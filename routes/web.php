@@ -22,7 +22,7 @@ Route::get('/posts', [PostController::class, 'index'])->name('posts');
 Route::post('/posts', [PostController::class, 'store'])->middleware('auth');
 Route::get('/posts/{category:slug}/{post:slug}', [PostController::class, 'show']);
 Route::get('/posts/create', [PostController::class, 'create'])->middleware('auth');
-Route::match(['put','patch'],'/posts/{post:slug}', [PostController::class, 'update'])->name('posts.update');
+Route::match(['put', 'patch'], '/posts/{post:slug}', [PostController::class, 'update'])->name('posts.update');
 // Route::delete('/posts/{category:slug}/{post:slug}', [PostController::class, 'destroy'])->name('posts.delete');
 // Route::patch('/posts/{category:slug}/{post:slug}', [PostController::class, 'update']);
 Route::delete('/posts/{post:slug}', [PostController::class, 'destroy'])->name('posts.destroy');
@@ -51,3 +51,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::get('/admin/dashboard', [DashboardController::class, 'dashboard']);
 Route::get('/profile', [ProfileController::class, 'profile'])->name('profile.index');
+
+
+// favourite post
+Route::post('/posts/{post}', [PostController::class, 'favourites'])->name('posts.favourites');

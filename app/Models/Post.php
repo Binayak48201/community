@@ -83,7 +83,7 @@ class Post extends Model
     public function addReply($data)
     {
         $this->reply()->create([
-            'user_id' => 1,
+            'user_id' => auth()->id(),
             'body' => $data
         ]);
     }
