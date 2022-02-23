@@ -30,9 +30,12 @@ class PostController extends Controller
      *
      * @return Application|Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function create()
+    public function create(Category $category)
     {
-        return view('posts.create');
+        // dd($category);
+        return view('posts.create')->with([
+            'categories' => $category,
+        ]);
     }
 
     /**
@@ -119,15 +122,10 @@ class PostController extends Controller
      */
     public function destroy(Category $category, Post $post)
     {
-<<<<<<< HEAD
-
-        // dd($post);
-=======
 //        if ($post->user_id != auth()->id()) {
 //            abort(403);
 //        }
         $this->authorize('delete', $post);
->>>>>>> bd7ea90f91c95ba5b5ea6cd4af1cdd233e760a44
         $post->delete();
 
         return redirect()->back()->withSuccess('success', 'Successfully Deleted');
