@@ -19,6 +19,10 @@ class ReplyController extends Controller
      */
     public function store(Category $category, Post $post)
     {
+        $body = request()->validate([
+            'body' => 'required'
+        ]);
+
         $post->addReply(request('body'));
 
         return redirect()->back();

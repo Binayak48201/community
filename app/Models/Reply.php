@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\RecordsActivity;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {
-    use HasFactory;
+    use HasFactory,RecordsActivity;
 
     /**
      * @var array
@@ -17,7 +18,7 @@ class Reply extends Model
     /**
      * @var string[]
      */
-    protected $with = ['favorites'];
+    protected $with = ['favorites', 'user'];
 
     /**
      * @var string[]
@@ -30,6 +31,14 @@ class Reply extends Model
     public function post()
     {
         return $this->belongsTo(Post::class, 'post_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
 
@@ -68,11 +77,11 @@ class Reply extends Model
         return $this->isFavorited();
     }
 
-    //    /**
-    //     * @return mixed
-    //     */
-    //    public function getFavoritesCountAttribute()
-    //    {
-    //        return $this->favorites->count();
-    //    }
+    /**
+     * @return mixed
+     */
+    public function getFavoritesCountAttribute()
+    {
+        return $this->favorites->count();
+    }
 }

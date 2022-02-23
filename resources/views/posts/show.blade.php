@@ -148,14 +148,9 @@
                                         </i>
                                     </div>
                                     <div class="tt-avatar-title">
-                                        <a href="#">tesla02</a>
+                                        <a href="#">{{ $reply->user->name }}</a>
                                     </div>
                                     <a href="#" class="tt-info-time">
-                                        <i class="tt-icon">
-                                            <svg>
-                                                <use xlink:href="#icon-time"></use>
-                                            </svg>
-                                        </i>
                                         {{ $reply->created_at->diffForHumans() }}
                                     </a>
                                 </div>
@@ -179,17 +174,11 @@
                                     </form>
                                 </div>
 
-                                <a href="#" class="tt-icon-btn">
-                                    <i class="tt-icon">
-
-                                    </i>
-                                    <span class="tt-text">39</span>
+                                <a href="#" class="tt-icon-btn pl-4">
+                                    <span class="tt-text">Edit</span>
                                 </a>
                                 <a href="#" class="tt-icon-btn">
-                                    <i class="tt-icon">
-
-                                    </i>
-                                    <span class="tt-text">12</span>
+                                    <span class="tt-text">Delete</span>
                                 </a>
                                 <div class="col-separator"></div>
                                 <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
@@ -236,8 +225,17 @@
                         <form action="{{ $post->path() . '/reply' }}" method="POST">
                             @csrf
                             <div class="form-group">
+<<<<<<< HEAD
                                 <textarea name="body" class="form-control" rows="5" placeholder="Lets get started"></textarea>
+=======
+                        <textarea name="body" class="form-control" rows="5"
+                                  placeholder="Lets get started"></textarea>
+
+>>>>>>> 3c8009a2ca553d612fde8770e4899a9fa2523fdd
                             </div>
+                            @error('body')
+                            <p class="custom-red">{{ $message }}</p>
+                            @enderror
                             <div class="pt-row">
                                 <div class="col-auto">
                                     <button type="submit" class="btn btn-secondary btn-width-lg">Reply</button>
@@ -245,6 +243,7 @@
                             </div>
                         </form>
                     </div>
+
                 @else
                     <h4 class="text-center">Please, <a href="/login">login</a> to participate in the posts.</h4>
                 @endauth
