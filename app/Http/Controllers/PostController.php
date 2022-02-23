@@ -58,7 +58,7 @@ class PostController extends Controller
             'body' => request('body'),
         ]);
 
-        return redirect()->route('posts')->withSuccess('success', 'Updated Successfully');
+        return redirect()->route('posts')->withSuccess('Stored Successfully');
     }
 
     /**
@@ -86,14 +86,9 @@ class PostController extends Controller
      * @param \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category, Post $post)
+    public function edit(Category $category,Post $post)
     {
-        // dd($category);
-        $category = Category::all();
-        return view('posts.edit')->with([
-            'category' => $category,
-            'post' => $post,
-        ]);
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -103,16 +98,15 @@ class PostController extends Controller
      * @param \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Category $category, Post $post)
+    public function update(Category $categories, Post $post)
     {
         $post->update([
-            'category_id' => $category,
             'user_id' => auth()->id(),
             'title' => request('title'),
             'body' => request('body'),
         ]);
 
-        return redirect()->back()->withSuccess('success', 'Updated Successfully');
+        return redirect()->route('posts')->withSuccess('Updated Successfully');
     }
 
 
@@ -128,7 +122,7 @@ class PostController extends Controller
         $this->authorize('delete', $post);
         $post->delete();
 
-        return redirect()->back()->withSuccess('success', 'Successfully Deleted');
+        return redirect()->route('posts')->withSuccess('Successfully Deleted');
     }
 
     /**

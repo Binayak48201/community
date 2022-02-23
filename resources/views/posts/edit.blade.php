@@ -7,17 +7,16 @@
                 <h1 class="tt-title-border">
                     Edit Posts
                 </h1>
-                <form class="form-default form-create-topic" method="POST" action="/posts">
+                <form class="form-default form-create-topic" method="POST" action="{{ route('posts.update', $post->slug) }}">
                     @csrf
-                    {{-- @method('PUT') --}}
+                    @method('PATCH')
                     <div class="form-group">
                         <div class="col-md-12 pl-0 pr-0">
                             <div class="form-group">
                                 <label for="inputTopicTitle">Category</label>
                                 <select class="form-control" name="category_id">
-                                    @foreach ($category as $cat)
+                                    @foreach ($categories as $cat)
                                         <option
-                                            {{ $cat->id == old('category_id') ? 'selected' : '' }}
                                             value="{{ $cat->id }}">
                                             {{ $cat->title }}
                                         </option>

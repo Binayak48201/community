@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
     <main id="tt-pageContent" class="tw-bg-deep-black/5">
         <div class="container">
             <div class="tt-single-topic-list">
@@ -26,8 +25,12 @@
                                         </svg>
                                     </i>
                                     {{ $post->created_at->diffForHumans() }}
-                                    @can('update',$post)
-                                        <button>Delete</button>
+                                    @can('update', $post)
+                                        <form action="{{ route('posts.destroy', $post->slug) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger bg-danger">Delete</button>
+                                        </form>
                                     @endcan
                                 </a>
                             </div>
@@ -162,16 +165,16 @@
                             </div>
                             <div class=" tw-flex pt-3">
                                 <div class="{{ $reply->isFavorited ? '' : '' }}">
-                                    <form action="{{ route('favorite',$reply->id) }}" method="POST">
+                                    <form action="{{ route('favorite', $reply->id) }}" method="POST">
                                         @csrf
-                                        <button class="custom-button tw-flex"
-                                                type="submit" {{ $reply->isFavorited ? 'disabled' : '' }}>
+                                        <button class="custom-button tw-flex" type="submit"
+                                            {{ $reply->isFavorited ? 'disabled' : '' }}>
                                             <svg xmlns="http://www.w3.org/2000/svg" style="height: 1.5rem;" fill="none"
-                                                 viewBox="0 0 24 24" stroke="currentColor">
+                                                viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                      d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/>
+                                                    d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
                                             </svg>
-                                            <span class="tt-text">{{ $reply->favorites_count }}  </span>
+                                            <span class="tt-text">{{ $reply->favorites_count }} </span>
                                         </button>
                                     </form>
                                 </div>
@@ -230,11 +233,10 @@
                 @auth
                     <div class="pt-editor form-default">
                         <h6 class="pt-title">Post Your Reply</h6>
-                        <form action="{{ $post->path() . '/reply'}}" method="post">
+                        <form action="{{ $post->path() . '/reply' }}" method="POST">
                             @csrf
                             <div class="form-group">
-                        <textarea name="body" class="form-control" rows="5"
-                                  placeholder="Lets get started"></textarea>
+                                <textarea name="body" class="form-control" rows="5" placeholder="Lets get started"></textarea>
                             </div>
                             <div class="pt-row">
                                 <div class="col-auto">
@@ -322,7 +324,8 @@
                         <div class="row align-items-center no-gutters hide-desktope">
                             <div class="col-11">
                                 <ul class="tt-list-badge">
-                                    <li class="show-mobile"><a href="#"><span class="tt-color06 tt-badge">movies</span></a>
+                                    <li class="show-mobile"><a href="#"><span
+                                                class="tt-color06 tt-badge">movies</span></a>
                                     </li>
                                 </ul>
                             </div>
@@ -380,8 +383,8 @@
                         <div class="row align-items-center no-gutters">
                             <div class="col-11">
                                 <ul class="tt-list-badge">
-                                    <li class="show-mobile"><a href="#"><span
-                                                class="tt-color07 tt-badge">video games</span></a></li>
+                                    <li class="show-mobile"><a href="#"><span class="tt-color07 tt-badge">video
+                                                games</span></a></li>
                                     <li><a href="#"><span class="tt-badge">videohive</span></a></li>
                                     <li><a href="#"><span class="tt-badge">photodune</span></a></li>
                                 </ul>
@@ -413,7 +416,8 @@
                         <div class="row align-items-center no-gutters hide-desktope">
                             <div class="col-11">
                                 <ul class="tt-list-badge">
-                                    <li class="show-mobile"><a href="#"><span class="tt-color08 tt-badge">youtube</span></a>
+                                    <li class="show-mobile"><a href="#"><span
+                                                class="tt-color08 tt-badge">youtube</span></a>
                                     </li>
                                 </ul>
                             </div>

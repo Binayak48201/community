@@ -45,7 +45,8 @@ class Post extends Model
      */
     public function reply()
     {
-        return $this->hasMany(Reply::class)->withCount('favorites');
+        // return $this->hasMany(Reply::class)->withCount('favorites');
+        return $this->hasMany(Reply::class);
     }
 
     /**

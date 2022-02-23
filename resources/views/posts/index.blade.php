@@ -43,10 +43,9 @@
                         <div class="tt-col-value hide-mobile"><a href="{{ $post->path() . '/edit' }}"
                                 class="btn btn-color01" type="submit">Edit</a></div>
 
-                        <form action="{{ route("posts.delete", $post->slug) }}" method="POST">
-                            @csrf
+                        <form action="{{ route('posts.destroy', $post->slug) }}" method="POST">
+                            @csrf 
                             @method('DELETE')
-                            {{-- @dd($post) --}}
                             <div class="tt-col-value hide-mobile"><button class="btn btn-colorred"
                                     type="submit">Delete</button>
                             </div>
