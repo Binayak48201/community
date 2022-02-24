@@ -51,6 +51,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
 
+Route::get('/test', [ProfileController::class, 'test'])->name('profile.test');
 Route::get('/admin/dashboard', [DashboardController::class, 'dashboard']);
 // Route::get('/profile', [ProfileController::class, 'profile'])->name('profile.index');
 

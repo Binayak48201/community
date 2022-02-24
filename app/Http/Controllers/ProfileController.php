@@ -24,4 +24,8 @@ class ProfileController extends Controller
             });
         return view('profile.profile', compact('activities'));
     }
+
+    public function test(){
+        return view('profile.activity.test');
+    }
 }
