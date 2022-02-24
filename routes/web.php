@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\{FavoritesController, PostController, ReplyController,ProfileController};
+use App\Http\Controllers\{FavoritesController, PostController, ReplyController, ProfileController};
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -36,7 +36,7 @@ Route::get('/posts/{category:slug}/{post:slug}/edit', [PostController::class, 'e
 // Route::post('/replies/{reply}/favorites', [FavoritesController::class, 'store'])->middleware('auth');
 Route::post('/replies/{reply}/favorites', [FavoritesController::class, 'store'])->name('favorite')->middleware('auth');
 
-Route::get('/profile',ProfileController::class);
+Route::get('/profile', ProfileController::class);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -52,8 +52,8 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::get('/admin/dashboard', [DashboardController::class, 'dashboard']);
-Route::get('/profile', [ProfileController::class, 'profile'])->name('profile.index');
+// Route::get('/profile', [ProfileController::class, 'profile'])->name('profile.index');
 
 
 // favourite post
-Route::post('/posts/{post}', [PostController::class, 'favourites'])->name('posts.favourites');
+Route::post('/posts/{post}/favorites', [FavoritesController::class, 'storePost'])->name('posts.favorites')->middleware('auth');

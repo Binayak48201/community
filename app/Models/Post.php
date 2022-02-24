@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class Post extends Model
 {
-    use HasFactory,RecordsActivity;
+    use HasFactory, RecordsActivity;
 
     /**
      * @var array
@@ -31,8 +31,6 @@ class Post extends Model
         static::addGlobalScope('replyCount', function ($post) {
             $post->withCount('reply');
         });
-
-
     }
 
     /**
@@ -87,15 +85,25 @@ class Post extends Model
      */
     public function addReply($data)
     {
-<<<<<<< HEAD
         $this->reply()->create([
-=======
-         $this->reply()->create([
->>>>>>> 3c8009a2ca553d612fde8770e4899a9fa2523fdd
             'user_id' => auth()->id(),
             'body' => $data
         ]);
     }
+
+    public function favourites()
+    {
+        return $this->morphMany(Favourite::class, 'favorited');
+    }
+
+    /**
+     * Favourite any modal
+     */
+    public function favourite()
+    {
+        $userId = ['user_id' => auth()->id()];
+        if (!$this->favourites()->where($userId)->exists()) {
+            $this->favourites()->create($userId);
+        }
+    }
 }
-
-

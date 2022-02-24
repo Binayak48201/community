@@ -225,13 +225,9 @@
                         <form action="{{ $post->path() . '/reply' }}" method="POST">
                             @csrf
                             <div class="form-group">
-<<<<<<< HEAD
-                                <textarea name="body" class="form-control" rows="5" placeholder="Lets get started"></textarea>
-=======
                         <textarea name="body" class="form-control" rows="5"
                                   placeholder="Lets get started"></textarea>
 
->>>>>>> 3c8009a2ca553d612fde8770e4899a9fa2523fdd
                             </div>
                             @error('body')
                             <p class="custom-red">{{ $message }}</p>
