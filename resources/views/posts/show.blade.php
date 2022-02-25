@@ -132,85 +132,9 @@
                         </div>
                     </div>
                 </div>
-                @forelse($replies->reply as $reply)
-                    <div class="tt-item">
-                        <div class="tt-single-topic">
-                            <div class="tt-item-header pt-noborder">
-                                <div class="tt-item-info info-top">
-                                    <div class="tt-avatar-icon">
-                                        <i class="tt-icon">
-                                            <svg>
-                                                <use xlink:href="#icon-ava-t"></use>
-                                            </svg>
-                                        </i>
-                                    </div>
-                                    <div class="tt-avatar-title">
-                                        <a href="#">{{ $reply->user->name }}</a>
-                                    </div>
-                                    <a href="#" class="tt-info-time">
-                                        {{ $reply->created_at->diffForHumans() }}
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="tt-item-description">
-                                {{ $reply->body }}
-                            </div>
-                            <div class=" tw-flex pt-3">
-                                <div class="{{ $reply->isFavorited ? '' : '' }}">
-                                    <form action="{{ route('favorite',$reply->id) }}" method="POST">
-                                        @csrf
-                                        <button class="custom-button tw-flex"
-                                                type="submit" {{ $reply->isFavorited ? 'disabled' : '' }}>
-                                            <svg xmlns="http://www.w3.org/2000/svg" style="height: 1.5rem;" fill="none"
-                                                 viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                      d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/>
-                                            </svg>
-                                            <span class="tt-text">{{ $reply->favorites_count }}  </span>
-                                        </button>
-                                    </form>
-                                </div>
 
-                                <a href="#" class="tt-icon-btn pl-4">
-                                    <span class="tt-text">Edit</span>
-                                </a>
-                                <a href="#" class="tt-icon-btn">
-                                    <span class="tt-text">Delete</span>
-                                </a>
-                                <div class="col-separator"></div>
-                                <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                                    <i class="tt-icon">
+                @include('posts.reply')
 
-                                    </i>
-                                </a>
-                                <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                                    <i class="tt-icon">
-                                        <svg>
-                                            <use xlink:href="#icon-flag"></use>
-                                        </svg>
-                                    </i>
-                                </a>
-                                <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                                    <i class="tt-icon">
-                                        <svg>
-                                            <use xlink:href="#icon-reply"></use>
-                                        </svg>
-                                    </i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                @empty
-                    <div class="tt-item">
-                        <div class="tt-single-topic">
-                            <div class="tt-item-header pt-noborder">
-                                <div class="tt-item-info info-top">
-                                    No data available at this moment.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforelse
             </div>
             <div class="tt-wrapper-inner">
                 <h4 class="tt-title-separator"><span>You’ve reached the end of replies</span></h4>

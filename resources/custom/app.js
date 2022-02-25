@@ -11,10 +11,12 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 import {createApp} from "vue";
 
 import Flash from "./components/Flash.vue";
+import Reply from "./components/Reply.vue";
 
 const app = createApp({
     components: {
-        Flash
+        Flash,
+        Reply
     }
 });
 

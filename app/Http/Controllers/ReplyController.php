@@ -37,7 +37,9 @@ class ReplyController extends Controller
      */
     public function update(Request $request, Reply $reply)
     {
-        //
+        $reply->update([
+            'body' => request('body')
+        ]);
     }
 
     /**
@@ -48,6 +50,11 @@ class ReplyController extends Controller
      */
     public function destroy(Reply $reply)
     {
-        //
+        if ($reply->user_id != auth()->id()) {
+            abort(403);
+        }
+
+        $reply->delete();
+
     }
 }

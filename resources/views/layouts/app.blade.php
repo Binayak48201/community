@@ -50,6 +50,7 @@
 
 </div>
 <script src="{{ asset('custom/app.js') }}"></script>
+<script src="{{ asset('design/js/bundle.js') }}"></script>
 </body>
 
 </html>
