@@ -4,19 +4,20 @@
 //     window.events.$emit('flash', message);
 // }
 
-window.axios = require('axios');
+window.axios = require("axios");
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
-import {createApp} from "vue";
+import { createApp } from "vue";
 
 import Flash from "./components/Flash.vue";
+import Posts from "./components/Posts/Posts.vue";
 
 const app = createApp({
     components: {
-        Flash
-    }
+        Flash,
+        Posts,
+    },
 });
 
 app.mount("#app");
-
