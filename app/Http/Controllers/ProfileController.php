@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activities;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -14,7 +15,7 @@ class ProfileController extends Controller
     // }
     public function __invoke()
     {
-         $activities =
+        $activities =
             Activities::with('subject')
             ->latest()
             ->where('user_id', auth()->id())
@@ -25,7 +26,16 @@ class ProfileController extends Controller
         return view('profile.profile', compact('activities'));
     }
 
-    public function test(){
+    //     public function __invoke(User $user)
+    //     {
+    //         $activities = Activities::actvities($user);
+
+    // //          return $activities;
+    //         return view('profile.profile', compact('activities','user'));
+    //     }
+
+    public function test()
+    {
         return view('profile.activity.test');
     }
 }

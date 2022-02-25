@@ -4,8 +4,10 @@
 namespace Tests\Feature;
 
 
-use App\Models\User;
+use App\Models\Category;
 use App\Models\Post;
+use App\Models\Reply;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
@@ -170,5 +172,38 @@ class CreatePostTest extends TestCase
         $this->delete($post->path());
 
         $this->assertDatabaseMissing('posts', ['id' => $post->id]);
+    }
+
+    /** @test */
+    public function an_un_authorized_user_may_not_delete_reply()
+    {
+        $reply = Reply::factory()->create();
+
+        $this->delete('/replies' . '/' . $reply->id)
+            ->assertRedirect('/login');
+
+        $user = User::factory()->create();
+
+        $this->be($user);
+
+        $this->delete('/replies' . '/' . $reply->id)
+            ->assertStatus(403);
+
+    }
+
+    /** @test */
+    public function only_authorized_user_can_delete_their_reply()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = User::factory()->create();
+
+        $this->be($user);
+
+        $reply = Reply::factory()->create(['user_id' => auth()->id()]);
+
+        $this->delete('/replies' . '/' . $reply->id);
+
+        $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
     }
 }

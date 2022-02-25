@@ -135,7 +135,7 @@
                         </div>
                     </div>
                 </div>
-                @forelse($replies->reply as $reply)
+                {{-- @forelse($replies->reply as $reply)
                     <div class="tt-item">
                         <div class="tt-single-topic">
                             <div class="tt-item-header pt-noborder">
@@ -172,48 +172,10 @@
                                             <span class="tt-text">{{ $reply->favorites_count }} </span>
                                         </button>
                                     </form>
-                                </div>
+                                </div> --}}
 
-                                <a href="#" class="tt-icon-btn pl-4">
-                                    <span class="tt-text">Edit</span>
-                                </a>
-                                <a href="#" class="tt-icon-btn">
-                                    <span class="tt-text">Delete</span>
-                                </a>
-                                <div class="col-separator"></div>
-                                <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                                    <i class="tt-icon">
+                @include('posts.reply')
 
-                                    </i>
-                                </a>
-                                <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                                    <i class="tt-icon">
-                                        <svg>
-                                            <use xlink:href="#icon-flag"></use>
-                                        </svg>
-                                    </i>
-                                </a>
-                                <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
-                                    <i class="tt-icon">
-                                        <svg>
-                                            <use xlink:href="#icon-reply"></use>
-                                        </svg>
-                                    </i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                @empty
-                    <div class="tt-item">
-                        <div class="tt-single-topic">
-                            <div class="tt-item-header pt-noborder">
-                                <div class="tt-item-info info-top">
-                                    No data available at this moment.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                @endforelse
             </div>
             <div class="tt-wrapper-inner">
                 <h4 class="tt-title-separator"><span>You’ve reached the end of replies</span></h4>

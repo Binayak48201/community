@@ -12,11 +12,13 @@ import { createApp } from "vue";
 
 import Flash from "./components/Flash.vue";
 import Posts from "./components/Posts/Posts.vue";
+import Reply from "./components/Reply.vue";
 
 const app = createApp({
     components: {
         Flash,
         Posts,
+        Reply,
     },
 });
 
