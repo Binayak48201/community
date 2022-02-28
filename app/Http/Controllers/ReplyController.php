@@ -53,8 +53,7 @@ class ReplyController extends Controller
         if ($reply->user_id != auth()->id()) {
             abort(403);
         }
-
         $reply->delete();
-
+        return redirect()->back()->with('success', 'Deleted Successfully');
     }
 }
