@@ -10,27 +10,31 @@ use Illuminate\Http\Request;
 
 class ReplyController extends Controller
 {
-
-    public function index()
+    public function index(Post $post)
     {
-        return 'replies';
+        $posts = $post->reply()->paginate(20);
+
+        return response()->json($posts);
     }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param Category $category
      * @param Post $post
-     * @return RedirectResponse
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Category $category, Post $post)
     {
+
         $body = request()->validate([
             'body' => 'required'
         ]);
 
         $post->addReply(request('body'));
 
-        return redirect()->back();
+        return response()->json(['data' => 'Reply Created'], 200);
+
     }
 
     /**
@@ -38,13 +42,14 @@ class ReplyController extends Controller
      *
      * @param Request $request
      * @param \App\Models\Reply $reply
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, Reply $reply)
     {
         $reply->update([
             'body' => request('body')
         ]);
+
     }
 
     /**
@@ -55,9 +60,10 @@ class ReplyController extends Controller
      */
     public function destroy(Reply $reply)
     {
-        if ($reply->user_id != auth()->id()) {
-            abort(403);
-        }
+//        if ($reply->user_id != auth()->id()) {
+//            abort(403);
+//        }
+
         $reply->delete();
         return redirect()->back()->with('success', 'Deleted Successfully');
     }

@@ -16,6 +16,10 @@ class Post extends Model
      */
     protected $guarded = [];
 
+    /**
+     * @var string[]
+     */
+    protected $appends = ['path','created_date'];
 
     /**
      * Boot The Post Modal
@@ -61,7 +65,7 @@ class Post extends Model
     /**
      * @return string
      */
-    public function path()
+    public function getPathAttribute()
     {
         return "/posts/{$this->category->slug}/{$this->slug}";
     }
@@ -90,6 +94,15 @@ class Post extends Model
             'body' => $data
         ]);
     }
+
+    /**
+     * @return mixed
+     */
+    public function getCreatedDateAttribute()
+    {
+        return $this->created_at->diffForHumans();
+    }
+
 
     public function favourites()
     {

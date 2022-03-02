@@ -14,7 +14,16 @@ class FavoritesController extends Controller
     {
         $reply->favorite();
 
-        return redirect()->back();
+        return response()->json(['data' => 'Reply Favorites'], 200);
+
+    }
+
+    public function destroy(Reply $reply)
+    {
+        $reply->unfavourite();
+
+        return response()->json(['data' => 'Reply UnFavorites'], 200);
+
     }
 
     public function storePost(Post $post)

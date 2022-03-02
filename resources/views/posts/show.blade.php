@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<<<<<<< HEAD
     <main id="tt-pageContent" class="tw-bg-deep-black/5">
         <div class="container">
             <div class="tt-single-topic-list">
@@ -399,4 +400,9 @@
             </div>
         </div>
     </main>
+=======
+
+    <replies-view :post="{{ $post }}"></replies-view>
+
+>>>>>>> 7eaf5b6daf1b4bd89c1810e3e91c2a369c4e0eb2
 @endsection

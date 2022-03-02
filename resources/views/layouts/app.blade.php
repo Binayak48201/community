@@ -52,7 +52,14 @@
         }
 
     </style>
+    <script src="{{ asset('custom/app.js') }}" defer></script>
 
+    <script>
+        window.App = {!! json_encode([
+        'signedIn' => auth()->check()
+        ])   !!};
+    </script>
+</head>
 <body>
     {{-- <div id="app">
         <Home></Home>
@@ -79,9 +86,6 @@
         <Flash message="{{ session('flash') }}"></Flash>
 
     </div>
-    </div>
-    <script src="{{ asset('custom/app.js') }}"></script>
-    <script src="{{ asset('design/js/bundle.js') }}"></script>
 </body>
 
 </html>
