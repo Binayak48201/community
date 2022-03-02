@@ -10,6 +10,11 @@ use Illuminate\Http\Request;
 
 class ReplyController extends Controller
 {
+
+    public function index()
+    {
+        return 'replies';
+    }
     /**
      * Store a newly created resource in storage.
      *

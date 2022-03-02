@@ -1,5 +1,6 @@
 <template>
-  <div class="tt-item" :id="`reply-${reply.id}`">
+  <!-- :id="`reply-${reply.id}`" -->
+  <div class="tt-item">
     <div class="tt-single-topic">
       <div class="tt-item-header pt-noborder">
         <div class="tt-item-info info-top">
@@ -43,7 +44,6 @@
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                s
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -56,10 +56,13 @@
           </form>
         </div>
 
-        <button class="btn btn-color02 mr-3 ml-4" @click="editing = true">
+        <button
+          class="btn btn-color02 mr-3 ml-4"
+          @click.prevent="editing = true"
+        >
           <span class="tt-text">Edit</span>
         </button>
-        <button type="button" class="btn btn-custom" @click="deleteReply">
+        <button class="btn btn-custom" @click.prevent="deleteReply">
           <span class="tt-text">Delete</span>
         </button>
         <div class="col-separator"></div>
@@ -75,19 +78,33 @@ export default {
   components: ["flash"],
   data() {
     return {
+      replies: [],
       editing: false,
       body: this.reply.body,
     };
   },
+  created() {
+    this.getAllReplies();
+  },
   methods: {
+    getAllReplies() {
+      axios.get("/replies").then((res) => console.log(res.data));
+    },
     update() {
       axios.patch("/replies/" + this.reply.id, { body: this.body });
       this.editing = false;
     },
     deleteReply() {
-      //   axios.delete(`/replies/${id}`);
-      console.log("deleted");
-      alert("hello world");
+      if (confirm("Are You Sure?")) {
+        axios
+          .post("/replies/" + this.reply.id, { _method: "delete" })
+          .then((res) => console.log(res))
+          .then((data) => {
+            alert("Replies Deleted");
+            this.replies;
+          })
+          .catch((err) => console.log(err));
+      }
     },
   },
 };
