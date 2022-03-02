@@ -14,7 +14,7 @@
                         </div>
                         <div class="tt-col-description">
                             <h6 class="tt-title">
-                                <a href="{{ $post->path() }}">
+                                <a href="{{ $post->path }}">
                                     {{ $post->title }}
                                 </a>
                             </h6>

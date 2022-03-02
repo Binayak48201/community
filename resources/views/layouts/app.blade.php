@@ -39,6 +39,13 @@
             display: flex;
         }
     </style>
+    <script src="{{ asset('custom/app.js') }}" defer></script>
+
+    <script>
+        window.App = {!! json_encode([
+        'signedIn' => auth()->check()
+        ])   !!};
+    </script>
 </head>
 <body>
 <div id="app">
@@ -46,10 +53,9 @@
     @include('layouts.header')
     @yield('content')
 
-    <Flash message="{{ session('flash') }}"></Flash>
+    <flash message="{{ session('flash') }}"></flash>
 
 </div>
-<script src="{{ asset('custom/app.js') }}"></script>
 <script src="{{ asset('design/js/bundle.js') }}"></script>
 </body>
 

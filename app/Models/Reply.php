@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\RecordsActivity;
+use App\Favourable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {
-    use HasFactory,RecordsActivity;
+    use HasFactory, RecordsActivity, Favourable;
 
     /**
      * @var array
@@ -23,7 +24,7 @@ class Reply extends Model
     /**
      * @var string[]
      */
-    protected $appends = ['isFavorited'];
+    protected $appends = ['isFavorited', 'favoritesCount', 'created_date'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -41,48 +42,9 @@ class Reply extends Model
         return $this->belongsTo(User::class);
     }
 
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
-    public function favorites()
+    public function getCreatedDateAttribute()
     {
-        return $this->morphMany(Favourite::class, 'favorited');
-    }
-
-    /**
-     * Favourite any modal
-     */
-    public function favorite()
-    {
-        $userId = ['user_id' => auth()->id()];
-        if (!$this->favorites()->where($userId)->exists()) {
-            $this->favorites()->create($userId);
-        }
-    }
-
-    /**
-     * @return bool
-     */
-    public function isFavorited()
-    {
-        return !!$this->favorites->where('user_id', auth()->id())->count();
-    }
-
-    /**
-     * @return bool
-     */
-    public function getIsFavoritedAttribute()
-    {
-        return $this->isFavorited();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getFavoritesCountAttribute()
-    {
-        return $this->favorites->count();
+        return $this->created_at->diffForHumans();
     }
 }
 

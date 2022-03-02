@@ -53,7 +53,7 @@ class PostController extends Controller
             'body' => request('body')
         ]);
 
-        return redirect('/posts')->with('flash','Post created successfully');
+        return redirect('/posts')->with('flash', 'Post created successfully');
     }
 
     /**
@@ -65,13 +65,10 @@ class PostController extends Controller
      */
     public function show(Category $category, Post $post)
     {
-//        return $post->load('reply');
         $post->increment('visits');
 
-//        return $post->toSql();
         return view('posts.show', [
             'post' => $post,
-            'replies' => $post->load('reply')
         ]);
     }
 

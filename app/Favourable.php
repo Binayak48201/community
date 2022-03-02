@@ -4,6 +4,8 @@
 namespace App;
 
 
+use App\Models\Favourite;
+
 trait Favourable
 {
     /**
@@ -23,6 +25,16 @@ trait Favourable
         if (!$this->favorites()->where($userId)->exists()) {
             $this->favorites()->create($userId);
         }
+    }
+
+    /**
+     * Favourite any modal
+     */
+    public function unfavourite()
+    {
+        $userId = ['user_id' => auth()->id()];
+
+        $this->favorites()->where($userId)->delete();
     }
 
     /**
