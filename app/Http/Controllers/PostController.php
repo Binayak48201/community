@@ -19,7 +19,6 @@ class PostController extends Controller
     public function index(Category $category)
     {
         $posts = $this->getPosts($category);
-
         return view('posts.index', compact('posts'));
     }
 
@@ -69,7 +68,7 @@ class PostController extends Controller
 
 
         return view('posts.show', [
-            'post' => $post,
+            'post' => $post->load('user'),
         ]);
     }
 
@@ -133,7 +132,7 @@ class PostController extends Controller
             $post->latest();
         }
 
-        return $post->paginate(10);
+        return $post->paginate(5);
     }
 }
 

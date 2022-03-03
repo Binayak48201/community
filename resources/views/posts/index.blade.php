@@ -8,9 +8,8 @@
                 @foreach($posts as $post)
                     <div class="tt-item">
                         <div class="tt-col-avatar">
-                            <svg class="tt-icon">
-                                <use xlink:href="#icon-ava-n"></use>
-                            </svg>
+                            <img src="https://s3.amazonaws.com/laracasts/images/default-square-avatar.jpg" alt=""
+                                 style="height: 63px;">
                         </div>
                         <div class="tt-col-description">
                             <h6 class="tt-title">
@@ -24,8 +23,12 @@
                             <div class="row align-items-center no-gutters  hide-desktope">
                                 <div class="col-11">
                                     <ul class="tt-list-badge">
-                                        <li class="show-mobile"><a href="#"><span
-                                                    class="tt-color05 tt-badge">{{ $post->category->title }}</span></a>
+                                        <li class="show-mobile">
+                                            <a href="#">
+                                                <span class="tt-color05 tt-badge">
+                                                    {{ $post->category->title }}
+                                                </span>
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -34,15 +37,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="tt-col-category"><span
-                                class="tt-color05 tt-badge">{{ $post->category->title }}</span></div>
+                        <div class="tt-col-category">
+                            <span class="tt-badge"
+                                  style="background: {{ color() }};color: white">{{ $post->category->title }}</span>
+                        </div>
                         <div class="tt-col-value tt-color-s elect hide-mobile">68</div>
                         <div class="tt-col-value hide-mobile">{{ $post->reply_count }}</div>
                         <div class="tt-col-value hide-mobile">{{ $post->visits }}</div>
-                        <div class="tt-col-value hide-mobile">1d</div>
                     </div>
                 @endforeach
                 {{ $posts->links() }}
+
             </div>
         </div>
     </main>

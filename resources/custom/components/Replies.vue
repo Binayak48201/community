@@ -1,5 +1,5 @@
 <template>
-    <div v-for="(reply,index) in replies" :key="reply.id">
+    <div v-for="(reply,index) in replies" :key="reply.id" class="tt-item">
         <Reply :reply="reply" @deleted="removeItem(index)"></Reply>
     </div>
     <div class="tt-wrapper-inner" v-if="signedIn">
