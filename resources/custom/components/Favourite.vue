@@ -24,6 +24,9 @@ export default {
             favouriteDisabled: false
         }
     },
+    mounted() {
+        return this.data.user_id === window.App.user.id ? this.favouriteDisabled = true : ''
+    },
     methods: {
         createFavourite() {
             window.axios.post(this.endpoint)

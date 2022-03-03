@@ -35,6 +35,7 @@
                 <div class="tt-desktop-menu">
                     <nav>
                         <ul>
+                            <li><a href="\posts"><span>All Posts</span></a></li>
                             @if(auth()->check())
                                 <li>
                                     <a href="/posts?by={{ auth()->user()->name }}">
