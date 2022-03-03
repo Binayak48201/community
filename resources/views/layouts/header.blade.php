@@ -35,8 +35,13 @@
                 <div class="tt-desktop-menu">
                     <nav>
                         <ul>
+<<<<<<< HEAD
                             <li><a href="/posts"><span>All Posts</span></a></li>
                             @if (auth()->check())
+=======
+                            <li><a href="\posts"><span>All Posts</span></a></li>
+                            @if(auth()->check())
+>>>>>>> 39a8856ac9d4f6b5ccd51bcbfe82be822d083db8
                                 <li>
                                     <a href="/posts?by={{ auth()->user()->name }}">
                                         <span>My Post</span>

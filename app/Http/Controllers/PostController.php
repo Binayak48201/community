@@ -72,6 +72,7 @@ class PostController extends Controller
     {
         $post->increment('visits');
 
+
         return view('posts.show', [
             'post' => $post,
         ]);

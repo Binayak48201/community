@@ -19,7 +19,7 @@ class Post extends Model
     /**
      * @var string[]
      */
-    protected $appends = ['path','created_date'];
+    protected $appends = ['path', 'created_date'];
 
     /**
      * Boot The Post Modal
@@ -89,7 +89,7 @@ class Post extends Model
      */
     public function addReply($data)
     {
-        $this->reply()->create([
+        return $this->reply()->create([
             'user_id' => auth()->id(),
             'body' => $data
         ]);

@@ -12,7 +12,7 @@ class ReplyController extends Controller
 {
     public function index(Post $post)
     {
-        $posts = $post->reply()->paginate(20);
+        $posts = $post->reply()->paginate(1);
 
         return response()->json($posts);
     }
@@ -26,15 +26,17 @@ class ReplyController extends Controller
      */
     public function store(Category $category, Post $post)
     {
-
-        $body = request()->validate([
+        request()->validate([
             'body' => 'required'
         ]);
 
-        $post->addReply(request('body'));
+        $reply = $post->addReply(request('body'));
 
-        return response()->json(['data' => 'Reply Created'], 200);
-
+        return response()->json(
+            [
+                'data' => $reply->load('user')
+            ]
+        );
     }
 
     /**
@@ -60,11 +62,17 @@ class ReplyController extends Controller
      */
     public function destroy(Reply $reply)
     {
-//        if ($reply->user_id != auth()->id()) {
-//            abort(403);
-//        }
+        if ($reply->user_id != auth()->id()) {
+            abort(403);
+            if (request()->wantsJson()) {
+                return response([], 204);
+            }
+        }
 
         $reply->delete();
+<<<<<<< HEAD
         return redirect()->back()->with('success', 'Deleted Successfully');
+=======
+>>>>>>> 39a8856ac9d4f6b5ccd51bcbfe82be822d083db8
     }
 }

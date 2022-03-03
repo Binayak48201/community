@@ -115,37 +115,8 @@
                         </div>
                     </div>
                 </div>
-
-                <Replies :slug="post.slug"></Replies>
-
             </div>
-            <div class="tt-wrapper-inner">
-                <h4 class="tt-title-separator"><span>You’ve reached the end of replies</span></h4>
-            </div>
-            <div class="tt-wrapper-inner">
-                <template v-if="signedIn">
-
-                    <div class="pt-editor form-default">
-                        <h6 class="pt-title">Post Your Reply</h6>
-                        <form @submit.prevent="createReply">
-                            <div class="form-group">
-                                        <textarea v-model="body" class="form-control" rows="5"
-                                                  placeholder="Lets get started"></textarea>
-
-                            </div>
-                            <div class="pt-row">
-                                <div class="col-auto">
-                                    <button class="btn btn-secondary btn-width-lg">Reply</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
-                </template>
-                <template v-else>
-                    <h4 class="text-center">Please, <a href="/login">login</a> to participate in the posts.</h4>
-                </template>
-            </div>
+            <Replies :slug="post.slug" :path="post.path"></Replies>
         </div>
     </main>
 </template>
@@ -162,16 +133,6 @@ export default {
             body: ''
         }
     },
-    methods: {
-        createReply() {
-            window.axios.post(this.post.path + '/reply', {body: this.body})
-                .then((response) => {
-                    this.emitter.emit('flash', response.data.data);
-                    this.body = ''
-                })
-
-        }
-    }
 }
 
 </script>

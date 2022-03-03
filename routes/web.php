@@ -40,11 +40,11 @@ Route::get('/profile', ProfileController::class);
 
 Route::get('/{post:slug}/replies', [ReplyController::class, 'index']);
 Route::post('/posts/{category:slug}/{post:slug}/reply', [ReplyController::class, 'store']);
-Route::match(['put', 'patch'], '/replies/{reply}', [ReplyController::class, 'update'])->middleware('auth');
-Route::delete('/replies/{reply}', [ReplyController::class, 'destroy'])->middleware('auth');
+Route::patch('/replies/{reply}', [ReplyController::class, 'update'])->middleware('auth');
 
 Route::post('/replies/{reply}/favorites', [FavoritesController::class, 'store'])->name('favorite')->middleware('auth');
 Route::delete('/replies/{reply}/favorites', [FavoritesController::class, 'destroy'])->middleware('auth');
+Route::delete('/replies/{reply}', [ReplyController::class, 'destroy'])->middleware('auth');
 
 // Route::get('/profile/{user}', ProfileController::class)->middleware('auth');
 

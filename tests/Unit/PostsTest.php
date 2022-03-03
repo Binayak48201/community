@@ -42,7 +42,7 @@ class PostsTest extends TestCase
     {
         $post = Post::factory()->create();
 
-        $this->assertEquals("/posts/{$post->category->slug}/{$post->slug}", $post->path());
+        $this->assertEquals("/posts/{$post->category->slug}/{$post->slug}", $post->path);
     }
 
 }
