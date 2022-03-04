@@ -2,6 +2,8 @@
     <div v-for="(reply,index) in replies" :key="reply.id" class="tt-item">
         <Reply :reply="reply" @deleted="removeItem(index)"></Reply>
     </div>
+    <Paginator :dataSet="dataSet" @changed="fetch"></Paginator>
+
     <div class="tt-wrapper-inner" v-if="signedIn">
         <CreateReply :path="path" @created="replyCreated"></CreateReply>
     </div>
@@ -9,16 +11,19 @@
 <script>
 import Reply from './Reply';
 import CreateReply from "./CreateReply";
+import Paginator from "./Paginator"
 
 export default {
     name: "Replies",
     props: ['slug', 'path'],
-    components: {Reply, CreateReply},
+    emits: ['created','decreased'],
+    components: {Reply, CreateReply, Paginator},
     data() {
         return {
             signedIn: window.App.signedIn,
             endpoint: this.slug + '/replies',
             replies: [],
+            dataSet: false
         }
     },
 
@@ -34,13 +39,16 @@ export default {
             return `${this.endpoint}?page=${page}`;
         },
         refresh({data}) {
+            this.dataSet = data
             this.replies = data.data
         },
         removeItem(index) {
             this.replies.splice(index, 1)
+             this.$emit('decreased')
         },
         replyCreated(data) {
             this.replies.push(data);
+            this.$emit('created')
         }
     },
     mounted() {

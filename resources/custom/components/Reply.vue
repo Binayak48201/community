@@ -32,9 +32,9 @@
             <div v-else class="tt-item-description">
                 {{ body }}
             </div>
-            <div class=" tw-flex pt-3">
+            <div class="tw-flex pt-3">
                 <Favourite :data="reply"></Favourite>
-                <div v-if="authorized" class="pl-3">
+                <div v-if="authorized && signedIn" class="pl-3">
                     <a  class="tt-icon-btn tt-hover-02 tt-small-indent">
                         <svg xmlns="http://www.w3.org/2000/svg" class="height" fill="none" viewBox="0 0 24 24"
                              @click="editing = true"

@@ -11,4 +11,6 @@ class Favourite extends Model
     use HasFactory, RecordsActivity;
 
     protected $guarded = [];
+
+
 }

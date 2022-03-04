@@ -12,7 +12,7 @@ class ReplyController extends Controller
 {
     public function index(Post $post)
     {
-        $posts = $post->reply()->paginate(20);
+        $posts = $post->reply()->paginate(5);
 
         return response()->json($posts);
     }

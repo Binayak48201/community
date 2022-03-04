@@ -26,7 +26,7 @@
                             </h3>
                             <div class="tt-item-tag">
                                 <ul class="tt-list-badge">
-                                    <li><a href="#"><span class="tt-color03 tt-badge">Category Name</span></a></li>
+                                    <li><a href="#"><span class="tt-color03 tt-badge">{{ post.category.title }}</span></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -96,7 +96,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round"
                                               d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/>
                                     </svg>
-                                    <span class="tt-text">10.5k</span>
+                                    <span class="tt-text">{{ reply_count }}</span>
                                 </a>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                         </div>
                     </div>
                 </div>
-                <Replies :slug="post.slug" :path="post.path"></Replies>
+                <Replies :slug="post.slug" :path="post.path" @created="reply_count++" @decreased="reply_count--"></Replies>
             </div>
 
         </div>
@@ -136,7 +136,8 @@ export default {
     data() {
         return {
             signedIn: window.App.signedIn,
-            body: ''
+            body: '',
+            reply_count:this.post.reply_count
         }
     },
 }

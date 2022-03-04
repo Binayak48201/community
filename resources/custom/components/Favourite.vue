@@ -25,7 +25,9 @@ export default {
         }
     },
     mounted() {
-        return this.data.user_id === window.App.user.id ? this.favouriteDisabled = true : ''
+        if (window.App.signedIn) {
+            return this.data.user_id === window.App.user.id ? this.favouriteDisabled = true : ''
+        }
     },
     methods: {
         createFavourite() {

@@ -21,5 +21,7 @@ class RepliesTest extends TestCase
         $post->addReply('test');
 
         $this->assertCount(1, $post->reply);
+
+        $this->assertEquals(1, $post->reply_count);
     }
 }

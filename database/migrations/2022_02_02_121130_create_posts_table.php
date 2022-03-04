@@ -18,6 +18,7 @@ class CreatePostsTable extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->string('title');
+            $table->integer('reply_count')->default(0);
             $table->string('slug')->unique()->nullable();
             $table->text('body');
             $table->integer('visits')->default(0);

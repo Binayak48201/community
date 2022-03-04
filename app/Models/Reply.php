@@ -26,6 +26,19 @@ class Reply extends Model
      */
     protected $appends = ['isFavorited', 'favoritesCount', 'created_date'];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($reply) {
+            $reply->post()->increment('reply_count');
+        });
+
+        static::deleting(function ($reply) {
+            $reply->post()->decrement('reply_count');
+        });
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

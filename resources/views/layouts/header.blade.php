@@ -20,7 +20,7 @@
                                         @endif
                                         <a href="page-create-topic.html"><span>Views</span></a>
                                         <a href="/posts?popular=1"><span>Popular</span></a>
-                                        <a href="/posts?unanswered=1"><span>Likes</span></a>
+                                        <a href="/posts?unanswered=1"><span>UnAnswared</span></a>
                                     </li>
                                 </ul>
                             </li>

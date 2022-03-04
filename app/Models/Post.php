@@ -31,12 +31,6 @@ class Post extends Model
         static::created(function ($post) {
             $post->update(['slug' => $post->title]);
         });
-
-        static::addGlobalScope('replyCount', function ($post) {
-            $post->withCount('reply');
-        });
-
-
     }
 
     /**
@@ -90,6 +84,8 @@ class Post extends Model
      */
     public function addReply($data)
     {
+        $this->increment('reply_count');
+
         return $this->reply()->create([
             'user_id' => auth()->id(),
             'body' => $data

@@ -128,6 +128,8 @@ class PostController extends Controller
             $post->where('user_id', $user->id);
         } elseif (request('popular')) {
             $post->orderBy('reply_count', 'desc');
+        } elseif (request('unanswered')) {
+            $post->orderBy('reply_count');
         } else {
             $post->latest();
         }

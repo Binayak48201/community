@@ -1,16 +1,44 @@
 <template>
-    <nav class="custom-flex mt-4">
+    <nav class="custom-flex mt-4" v-if="shouldPaginate">
         <ul class="pagination row">
-            <li class="page-item disabled" aria-disabled="true" aria-label="« Previous">
-                <span class="page-link" aria-hidden="true">‹ Previous</span>
+            <li class="page-item" rel="prev" v-show="preUrl">
+                <span @click.prevent="page--;broadcast()" class="page-link" aria-hidden="true">‹‹Previous</span>
             </li>
 
-            <li class="page-item">
-                <a class="page-link" href="http://127.0.0.1:8000/posts?page=2" rel="next"
-                   aria-label="Next »">› Next</a></li>
+            <li class="page-item" rel="next" v-show="nextUrl">
+                <span @click.prevent="page++;broadcast()" class="page-link" aria-hidden="true">Next››</span>
+            </li>
         </ul>
     </nav>
 </template>
 <script>
-export default {}
+export default {
+    props: ['dataSet'],
+    emits: ['changed'],
+    data() {
+        return {
+            page: 1,
+            preUrl: false,
+            nextUrl: false
+        }
+    },
+    methods: {
+        broadcast() {
+            this.$emit('changed', this.page)
+        }
+    },
+    computed: {
+        shouldPaginate() {
+            return !!this.preUrl || !!this.nextUrl
+        }
+    },
+    watch: {
+        dataSet() {
+            this.page = this.dataSet.current_page
+            this.preUrl = this.dataSet.prev_page_url
+            this.nextUrl = this.dataSet.next_page_url
+
+        },
+    },
+}
 </script>
