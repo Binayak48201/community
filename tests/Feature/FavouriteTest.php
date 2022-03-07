@@ -46,7 +46,6 @@ class FavouriteTest extends TestCase
         $reply = Reply::factory()->create();
 
         try {
-
             $this->post('/replies/' . $reply->id . '/favorites');
             $this->post('/replies/' . $reply->id . '/favorites');
         } catch (\Exception $e) {

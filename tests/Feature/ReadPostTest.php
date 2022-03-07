@@ -85,10 +85,18 @@ class ReadPostTest extends TestCase
 
         $posts2 = Post::factory()->create();
 
-        Reply::factory(2)->create(['post_id' => $posts1->id]);
+        $posts3 = Post::factory()->create();
+
+        $reply1 = Reply::factory(2)->create(['post_id' => $posts2->id]);
+
+        $reply2 = Reply::factory(3)->create(['post_id' => $posts3->id]);
+
+        $posts = Post::all();
 
         $response = $this->get('/posts?unanswered=1');
-
-        $response->assertSee($posts2->title);
+        
+        $this->assertEquals($posts1->title, $posts[0]->title);
+        $this->assertEquals($posts2->title, $posts[1]->title);
+        $this->assertEquals($posts3->title, $posts[2]->title);
     }
 }

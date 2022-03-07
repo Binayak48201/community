@@ -64,6 +64,8 @@ class PostController extends Controller
      */
     public function show(Category $category, Post $post)
     {
+//        return $post;
+
         $post->increment('visits');
 
 

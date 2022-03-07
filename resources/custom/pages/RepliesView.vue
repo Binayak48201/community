@@ -43,6 +43,9 @@
                                 <span class="tt-text">671</span>
                             </a>
                             <div class="col-separator"></div>
+
+                            <Subscribe :post="post"></Subscribe>
+
                             <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="height" fill="none"
                                      viewBox="0 0 24 24"
@@ -128,11 +131,13 @@
 </template>
 <script>
 import Replies from "../components/Replies";
+import Favourite from "../components/Favourite";
+import Subscribe from "../components/Subscribe";
 
 export default {
     name: 'RepliesView',
     props: ['post'],
-    components: {Replies},
+    components: {Subscribe, Favourite, Replies},
     data() {
         return {
             signedIn: window.App.signedIn,

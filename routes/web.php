@@ -1,6 +1,11 @@
 <?php
 
-use App\Http\Controllers\{FavoritesController, PostController, ReplyController, ProfileController};
+use App\Http\Controllers\{FavoritesController,
+    PostController,
+    ReplyController,
+    ProfileController,
+    SubscriptionController
+};
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,6 +40,9 @@ Route::delete('/replies/{reply}/favorites', [FavoritesController::class, 'destro
 Route::delete('/replies/{reply}', [ReplyController::class, 'destroy'])->middleware('auth');
 
 Route::get('/profile/{user}', ProfileController::class)->middleware('auth');
+
+Route::post('/posts/{category:slug}/{post:slug}/subscribe', [SubscriptionController::class, 'store'])->middleware('auth');
+Route::delete('/posts/{category:slug}/{post:slug}/unsubscribe', [SubscriptionController::class, 'destroy'])->middleware('auth');
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
