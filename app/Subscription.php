@@ -8,9 +8,10 @@ trait Subscription
 {
     public function subscribe($user = null)
     {
-        return $this->subscriptions()->create([
+        $this->subscriptions()->create([
             'user_id' => $user ?: auth()->id()
         ]);
+        return $this;
     }
 
     public function unsubscribe($user = null)

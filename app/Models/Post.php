@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\PostWasUpdate;
 use App\RecordsActivity;
 use App\Subscription;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -87,10 +88,18 @@ class Post extends Model
     {
         $this->increment('reply_count');
 
-        return $this->reply()->create([
+        $reply = $this->reply()->create([
             'user_id' => auth()->id(),
             'body' => $data
         ]);
+
+        foreach ($this->subscriptions as $subscription) {
+            $user = User::findOrFail($subscription->user_id);
+            if ($reply->user_id != $this->user_id) {
+                $user->notify(new PostWasUpdate());
+            }
+        }
+        return $reply;
     }
 
     /**

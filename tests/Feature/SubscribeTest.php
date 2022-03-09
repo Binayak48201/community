@@ -35,6 +35,8 @@ class SubscribeTest extends TestCase
             'user_id' => auth()->id(),
             'post_id' => $post->id
         ]);
+
+
     }
 
     /** @test */
