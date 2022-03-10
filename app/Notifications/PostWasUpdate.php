@@ -6,14 +6,18 @@ use Illuminate\Notifications\Notification;
 
 class PostWasUpdate extends Notification
 {
+    protected $post;
+    protected $reply;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($post, $reply)
     {
-        //
+        $this->post = $post;
+        $this->reply = $reply;
     }
 
     /**
@@ -36,7 +40,8 @@ class PostWasUpdate extends Notification
     public function toArray($notifiable)
     {
         return [
-            'data' => 'hello there'
+            'message' => $this->reply->user->name . ' replied to ' . $this->post->title,
+            'link' => $this->reply->path()
         ];
     }
 }

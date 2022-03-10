@@ -96,7 +96,7 @@ class Post extends Model
         foreach ($this->subscriptions as $subscription) {
             $user = User::findOrFail($subscription->user_id);
             if ($reply->user_id != $this->user_id) {
-                $user->notify(new PostWasUpdate());
+                $user->notify(new PostWasUpdate($this, $reply));
             }
         }
         return $reply;
