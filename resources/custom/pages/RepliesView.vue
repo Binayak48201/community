@@ -6,92 +6,100 @@
                     <div class="tt-single-topic">
                         <div class="tt-item-header">
                             <div class="tt-item-info info-top">
-                                <div class="tt-avatar-title">
-                                    <a href="#">dylan89</a>
+                                <div class="tt-avatar-icon">
+                                    <img src="https://gravatar.com/avatar" alt="" style="border-radius: 50%;">
                                 </div>
-                                <a href="#" class="tt-info-time">
+                                <div class="tt-avatar-title">
+                                    <a href="#">{{ post.user.name }}</a>
+                                </div>
+                                <p class="tt-info-time">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="height" fill="none"
+                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
                                     {{ post.created_date }}
-                                    <!--                                    @can('update',$post)-->
-                                    <!--                                    <button>Delete</button>-->
-                                    <!--                                    @endcan-->
-                                </a>
+                                </p>
                             </div>
                             <h3 class="tt-item-title">
                                 <a href="#">{{ post.title }}</a>
                             </h3>
+                            <div class="tt-item-tag">
+                                <ul class="tt-list-badge">
+                                    <li><a href="#"><span class="tt-color03 tt-badge">{{ post.category.title }}</span></a></li>
+                                </ul>
+                            </div>
                         </div>
                         <div class="tt-item-description">
                             {{ post.body }}
+                        </div>
+                        <div class="tt-item-info info-bottom">
+                            <a href="#" class="tt-icon-btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                     stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                                </svg>
+                                <span class="tt-text">671</span>
+                            </a>
+                            <div class="col-separator"></div>
+
+                            <Subscribe :post="post"></Subscribe>
+
+                            <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="height" fill="none"
+                                     viewBox="0 0 24 24"
+                                     stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="tt-icon-btn tt-hover-02 tt-small-indent">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="height red" fill="none"
+                                     viewBox="0 0 24 24"
+                                     stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                                </svg>
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="tt-item">
                     <div class="tt-info-box">
                         <h6 class="tt-title">Posts Status</h6>
-                        <p>
-                            <!--                            This post was posted by {{ post.user.name }} which-->
-                            <!--                            contains <span>1</span>-->
-                            .
-                        </p>
                         <div class="tt-row-icon">
                             <div class="tt-item">
                                 <a href="#" class="tt-icon-btn tt-position-bottom">
-                                    <i class="tt-icon">
-                                        <svg>
-                                            <use xlink:href="#icon-reply"></use>
-                                        </svg>
-                                    </i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                    </svg>
                                     <span class="tt-text">283</span>
                                 </a>
                             </div>
                             <div class="tt-item">
                                 <a href="#" class="tt-icon-btn tt-position-bottom">
-                                    <i class="tt-icon">
-                                        <svg>
-                                            <use xlink:href="#icon-view"></use>
-                                        </svg>
-                                    </i>
+                                    <svg xmlns="http://www.w3.org/2000/svg" style="height: 20px;" fill="none"
+                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                              d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                    </svg>
                                     <span class="tt-text">10.5k</span>
                                 </a>
                             </div>
                             <div class="tt-item">
                                 <a href="#" class="tt-icon-btn tt-position-bottom">
-                                    <i class="tt-icon">
-                                        <svg>
-                                            <use xlink:href="#icon-user"></use>
-                                        </svg>
-                                    </i>
-                                    <span class="tt-text">168</span>
-                                </a>
-                            </div>
-                            <div class="tt-item">
-                                <a href="#" class="tt-icon-btn tt-position-bottom">
-                                    <i class="tt-icon">
-                                        <svg>
-                                            <use xlink:href="#icon-like"></use>
-                                        </svg>
-                                    </i>
-                                    <span class="tt-text">2.4k</span>
-                                </a>
-                            </div>
-                            <div class="tt-item">
-                                <a href="#" class="tt-icon-btn tt-position-bottom">
-                                    <i class="tt-icon">
-                                        <svg>
-                                            <use xlink:href="#icon-favorite"></use>
-                                        </svg>
-                                    </i>
-                                    <span class="tt-text">951</span>
-                                </a>
-                            </div>
-                            <div class="tt-item">
-                                <a href="#" class="tt-icon-btn tt-position-bottom">
-                                    <i class="tt-icon">
-                                        <svg>
-                                            <use xlink:href="#icon-share"></use>
-                                        </svg>
-                                    </i>
-                                    <span class="tt-text">32</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                         style="height: 20px;"
+                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                              d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"/>
+                                    </svg>
+                                    <span class="tt-text">{{ reply_count }}</span>
                                 </a>
                             </div>
                         </div>
@@ -115,22 +123,26 @@
                         </div>
                     </div>
                 </div>
+                <Replies :slug="post.slug" :path="post.path" @created="reply_count++" @decreased="reply_count--"></Replies>
             </div>
-            <Replies :slug="post.slug" :path="post.path"></Replies>
+
         </div>
     </main>
 </template>
 <script>
 import Replies from "../components/Replies";
+import Favourite from "../components/Favourite";
+import Subscribe from "../components/Subscribe";
 
 export default {
     name: 'RepliesView',
     props: ['post'],
-    components: {Replies},
+    components: {Subscribe, Favourite, Replies},
     data() {
         return {
             signedIn: window.App.signedIn,
-            body: ''
+            body: '',
+            reply_count:this.post.reply_count
         }
     },
 }

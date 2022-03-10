@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use App\Notifications\PostWasUpdate;
 use App\RecordsActivity;
+use App\Subscription;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Post extends Model
 {
-    use HasFactory, RecordsActivity;
+    use HasFactory, RecordsActivity, Subscription;
 
     /**
      * @var array
@@ -19,7 +21,7 @@ class Post extends Model
     /**
      * @var string[]
      */
-    protected $appends = ['path', 'created_date'];
+    protected $appends = ['path', 'created_date', 'isSubscribedTo', 'isSubscribedCount'];
 
     /**
      * Boot The Post Modal
@@ -31,10 +33,13 @@ class Post extends Model
         static::created(function ($post) {
             $post->update(['slug' => $post->title]);
         });
+<<<<<<< HEAD
 
         static::addGlobalScope('replyCount', function ($post) {
             $post->withCount('reply');
         });
+=======
+>>>>>>> 42856189f19480ffb30e9ea01fc6dc6dd6ffa36b
     }
 
     /**
@@ -89,10 +94,20 @@ class Post extends Model
      */
     public function addReply($data)
     {
-        return $this->reply()->create([
+        $this->increment('reply_count');
+
+        $reply = $this->reply()->create([
             'user_id' => auth()->id(),
             'body' => $data
         ]);
+
+        foreach ($this->subscriptions as $subscription) {
+            $user = User::findOrFail($subscription->user_id);
+            if ($reply->user_id != $this->user_id) {
+                $user->notify(new PostWasUpdate());
+            }
+        }
+        return $reply;
     }
 
     /**
@@ -102,6 +117,11 @@ class Post extends Model
     {
         return $this->created_at->diffForHumans();
     }
+<<<<<<< HEAD
+=======
+
+}
+>>>>>>> 42856189f19480ffb30e9ea01fc6dc6dd6ffa36b
 
 
     public function favourites()

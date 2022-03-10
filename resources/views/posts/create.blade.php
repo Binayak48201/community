@@ -2,7 +2,7 @@
 
 @section('content')
     <main id="tt-pageContent" class="tw-bg-deep-black/5">
-        <div class="container">
+        <div class="container py-4" style="background: white;">
             <div class="tt-wrapper-inner">
                 <h1 class="tt-title-border">
                     Create New Posts

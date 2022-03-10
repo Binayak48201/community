@@ -77,4 +77,26 @@ class ReadPostTest extends TestCase
             ->assertSee($post1->title)
             ->assertDontSee($post2->title);
     }
+
+    /** @test */
+    public function a_user_can_filter_a_posts_which_are_unanswered()
+    {
+        $posts1 = Post::factory()->create();
+
+        $posts2 = Post::factory()->create();
+
+        $posts3 = Post::factory()->create();
+
+        $reply1 = Reply::factory(2)->create(['post_id' => $posts2->id]);
+
+        $reply2 = Reply::factory(3)->create(['post_id' => $posts3->id]);
+
+        $posts = Post::all();
+
+        $response = $this->get('/posts?unanswered=1');
+        
+        $this->assertEquals($posts1->title, $posts[0]->title);
+        $this->assertEquals($posts2->title, $posts[1]->title);
+        $this->assertEquals($posts3->title, $posts[2]->title);
+    }
 }

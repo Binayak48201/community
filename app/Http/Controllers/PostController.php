@@ -21,8 +21,7 @@ class PostController extends Controller
     {
 
         $posts = $this->getPosts($category);
-
-        return view('posts.index', compact('category', 'posts'));
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -70,11 +69,13 @@ class PostController extends Controller
      */
     public function show(Category $category, Post $post)
     {
+//        return $post;
+
         $post->increment('visits');
 
 
         return view('posts.show', [
-            'post' => $post,
+            'post' => $post->load('user'),
         ]);
     }
 
@@ -140,11 +141,13 @@ class PostController extends Controller
             $post->where('user_id', $user->id);
         } elseif (request('popular')) {
             $post->orderBy('reply_count', 'desc');
+        } elseif (request('unanswered')) {
+            $post->orderBy('reply_count');
         } else {
             $post->latest();
         }
 
-        return $post->paginate(10);
+        return $post->paginate(5);
     }
 
     public function desce()
