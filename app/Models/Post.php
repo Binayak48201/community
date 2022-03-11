@@ -110,6 +110,12 @@ class Post extends Model
         return $this->created_at->diffForHumans();
     }
 
+    public function hasUpdatesFor($user)
+    {
+        $key = sprintf("users.%s.visits.%s", $user->id, $this->id);
+
+        return $this->updated_at > cache($key);
+    }
 }
 
 

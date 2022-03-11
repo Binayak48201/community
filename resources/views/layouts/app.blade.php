@@ -22,7 +22,7 @@
         }
 
         .custom-red {
-            color: red;
+            color: red !important;
         }
 
         .custom-button {

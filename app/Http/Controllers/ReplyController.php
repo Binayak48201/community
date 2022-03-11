@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\inspection\Spam;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Reply;
@@ -24,11 +25,13 @@ class ReplyController extends Controller
      * @param Post $post
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Category $category, Post $post)
+    public function store(Category $category, Post $post, Spam $spam)
     {
         request()->validate([
             'body' => 'required'
         ]);
+
+        $spam->detect(request('body'));
 
         $reply = $post->addReply(request('body'));
 

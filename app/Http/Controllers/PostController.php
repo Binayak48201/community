@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
@@ -64,10 +65,11 @@ class PostController extends Controller
      */
     public function show(Category $category, Post $post)
     {
-//        return $post;
+        $key = sprintf("users.%s.visits.%s", auth()->id(), $post->id);
+
+        cache()->forever($key, Carbon::now());
 
         $post->increment('visits');
-
 
         return view('posts.show', [
             'post' => $post->load('user'),
