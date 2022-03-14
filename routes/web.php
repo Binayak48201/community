@@ -5,7 +5,8 @@ use App\Http\Controllers\{FavoritesController,
     ReplyController,
     ProfileController,
     SubscriptionController,
-    UserNotificationController};
+    UserNotificationController
+};
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -20,7 +21,8 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//auth()->loginUsingId(1);
+auth()->loginUsingId(1);
+
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
 Route::post('/posts', [PostController::class, 'store'])->middleware('auth');
 Route::get('/posts/{category:slug}/{post:slug}', [PostController::class, 'show']);
@@ -39,8 +41,8 @@ Route::delete('/replies/{reply}/favorites', [FavoritesController::class, 'destro
 Route::delete('/replies/{reply}', [ReplyController::class, 'destroy'])->middleware('auth');
 
 Route::get('/profile/{user}', ProfileController::class)->middleware('auth');
-Route::get('/profile/{user}/notification', [UserNotificationController::class,'index'])->middleware('auth');
-Route::delete('/profile/{user}/notification/{notification}', [UserNotificationController::class,'destroy'])->middleware('auth');
+Route::get('/profile/{user}/notification', [UserNotificationController::class, 'index'])->middleware('auth');
+Route::delete('/profile/{user}/notification/{notification}', [UserNotificationController::class, 'destroy'])->middleware('auth');
 
 Route::post('/posts/{category:slug}/{post:slug}/subscribe', [SubscriptionController::class, 'store'])->middleware('auth');
 Route::delete('/posts/{category:slug}/{post:slug}/unsubscribe', [SubscriptionController::class, 'destroy'])->middleware('auth');
@@ -58,4 +60,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
 
-
+Route::get('secret-report', function () {
+    return "here is the report";
+})->middleware('can:view_report');

@@ -14,7 +14,7 @@
                         <div class="tt-col-description">
                             <h6 class="tt-title">
                                 <a href="{{ $post->path }}">
-                                    @if(!$post->hasUpdatesFor(auth()->user()))
+                                    @if(auth()->check() && !$post->hasUpdatesFor(auth()->user()))
                                         <span class="custom-red">{{ $post->title }}</span>
                                     @else
                                         {{ $post->title }}

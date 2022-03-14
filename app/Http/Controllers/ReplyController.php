@@ -23,23 +23,26 @@ class ReplyController extends Controller
      *
      * @param Category $category
      * @param Post $post
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
     public function store(Category $category, Post $post, Spam $spam)
     {
-        request()->validate([
-            'body' => 'required'
-        ]);
+        try {
+            request()->validate([
+                'body' => 'required'
+            ]);
 
-        $spam->detect(request('body'));
+            $spam->detect(request('body'));
 
-        $reply = $post->addReply(request('body'));
+            $reply = $post->addReply(request('body'));
 
-        return response()->json(
-            [
-                'data' => $reply->load('user')
-            ]
-        );
+            return response()->json([
+                    'data' => $reply->load('user')
+                ]);
+        } catch (\Exception $e) {
+            return response(['message' => 'your reply contains spam.']);
+        }
+
     }
 
     /**

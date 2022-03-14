@@ -2,9 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\Models\Ability;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Reply;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -68,11 +70,11 @@ class ReadPostTest extends TestCase
     /** @test */
     public function a_user_filters_posts_by_any_username()
     {
+        $this->withoutExceptionHandling();
         $user = User::factory()->create(['name' => 'RamShrestha']);
 
         $post1 = Post::factory()->create(['user_id' => $user->id]);
         $post2 = Post::factory()->create();
-
         $this->get('/posts?by=RamShrestha')
             ->assertSee($post1->title)
             ->assertDontSee($post2->title);
@@ -87,16 +89,27 @@ class ReadPostTest extends TestCase
 
         $posts3 = Post::factory()->create();
 
-        $reply1 = Reply::factory(2)->create(['post_id' => $posts2->id]);
+        Reply::factory(2)->create(['post_id' => $posts2->id]);
 
-        $reply2 = Reply::factory(3)->create(['post_id' => $posts3->id]);
+        Reply::factory(3)->create(['post_id' => $posts3->id]);
 
         $posts = Post::all();
 
         $response = $this->get('/posts?unanswered=1');
-        
+
         $this->assertEquals($posts1->title, $posts[0]->title);
         $this->assertEquals($posts2->title, $posts[1]->title);
         $this->assertEquals($posts3->title, $posts[2]->title);
     }
+
+    /** @test */
+    public function a_user_can_view_a_secret_report()
+    {
+        $this->get('/secret-report')->assertStatus(403);
+
+        $this->authorizedUser('Admin','view_report');
+
+        $this->get('/secret-report')->assertStatus(200);
+    }
+
 }

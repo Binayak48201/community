@@ -111,7 +111,7 @@ class PostController extends Controller
 //        if ($post->user_id != auth()->id()) {
 //            abort(403);
 //        }
-        $this->authorize('delete', $post);
+//        $this->authorize('delete', $post);
         $post->delete();
     }
 
