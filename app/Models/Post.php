@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
+use App\Notifications\PostWasUpdate;
 use App\RecordsActivity;
+use App\Subscription;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Post extends Model
 {
-    use HasFactory, RecordsActivity;
+    use HasFactory, RecordsActivity, Subscription;
 
     /**
      * @var array
@@ -19,7 +21,7 @@ class Post extends Model
     /**
      * @var string[]
      */
-    protected $appends = ['path','created_date'];
+    protected $appends = ['path', 'created_date', 'isSubscribedTo', 'isSubscribedCount'];
 
     /**
      * Boot The Post Modal
@@ -31,12 +33,6 @@ class Post extends Model
         static::created(function ($post) {
             $post->update(['slug' => $post->title]);
         });
-
-        static::addGlobalScope('replyCount', function ($post) {
-            $post->withCount('reply');
-        });
-
-
     }
 
     /**
@@ -90,10 +86,20 @@ class Post extends Model
      */
     public function addReply($data)
     {
-        $this->reply()->create([
+        $this->increment('reply_count');
+
+        $reply = $this->reply()->create([
             'user_id' => auth()->id(),
             'body' => $data
         ]);
+
+        foreach ($this->subscriptions as $subscription) {
+            $user = User::findOrFail($subscription->user_id);
+            if ($reply->user_id != $this->user_id) {
+                $user->notify(new PostWasUpdate($this, $reply));
+            }
+        }
+        return $reply;
     }
 
     /**
@@ -102,6 +108,13 @@ class Post extends Model
     public function getCreatedDateAttribute()
     {
         return $this->created_at->diffForHumans();
+    }
+
+    public function hasUpdatesFor($user)
+    {
+        $key = sprintf("users.%s.visits.%s", $user->id, $this->id);
+
+        return $this->updated_at > cache($key);
     }
 }
 

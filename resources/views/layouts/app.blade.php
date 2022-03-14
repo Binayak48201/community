@@ -22,7 +22,7 @@
         }
 
         .custom-red {
-            color: red;
+            color: red !important;
         }
 
         .custom-button {
@@ -38,12 +38,37 @@
         .tw-flex {
             display: flex;
         }
+
+        .height {
+            height: 20px;
+        }
+
+        .red {
+            color: red;
+        }
+
+        .white {
+            color: white !important;
+        }
+
+        .header-color {
+            background-image: radial-gradient(circle at 0 2%, #25395a, #162031 124%);
+            color: white !important;
+            border-radius: 30px 30px 0px 1px;
+        }
+
+        .tt-item.tt-info-box:hover {
+            background: #e7e8e9;
+        }
     </style>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
     <script src="{{ asset('custom/app.js') }}" defer></script>
 
     <script>
         window.App = {!! json_encode([
-        'signedIn' => auth()->check()
+        'signedIn' => auth()->check(),
+        'user' => auth()->user()
         ])   !!};
     </script>
 </head>

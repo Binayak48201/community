@@ -42,7 +42,38 @@ class PostsTest extends TestCase
     {
         $post = Post::factory()->create();
 
-        $this->assertEquals("/posts/{$post->category->slug}/{$post->slug}", $post->path());
+        $this->assertEquals("/posts/{$post->category->slug}/{$post->slug}", $post->path);
     }
 
+    /** @test */
+    public function a_post_can_be_subscribed()
+    {
+        // Posts
+        $post = Post::factory()->create();
+
+        // Authenticated User
+        $this->be(User::factory()->create());
+
+        $post->subscribe();
+
+        $this->assertEquals(1, $post->subscriptions()->where('user_id', auth()->id())->count());
+    }
+
+    /** @test */
+    public function a_post_can_be_unsubscribed()
+    {
+        // Posts
+        $post = Post::factory()->create();
+
+        // Authenticated User
+        $this->be(User::factory()->create());
+
+        $post->subscribe();
+
+        $this->assertEquals(1, $post->subscriptions()->where('user_id', auth()->id())->count());
+
+        $post->unsubscribe();
+
+        $this->assertEquals(0, $post->subscriptions()->where('user_id', auth()->id())->count());
+    }
 }

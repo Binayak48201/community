@@ -25,7 +25,8 @@ class PostFactory extends Factory
                 return Category::factory()->create()->id;
             },
             'title' => $name,
-            'body' => $this->faker->paragraph()
+            'body' => $this->faker->paragraph(),
+            'reply_count' => 0
         ];
     }
 }

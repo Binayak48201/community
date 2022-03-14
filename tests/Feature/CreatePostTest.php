@@ -124,7 +124,7 @@ class CreatePostTest extends TestCase
         $this->be($user);
 
         $post = Post::factory()->create(['title' => 'Some title']);
-        $this->patch($post->path(), [
+        $this->patch($post->path, [
             'title' => 'Updated Title'
         ]);
 
@@ -142,7 +142,7 @@ class CreatePostTest extends TestCase
 
         $post = Post::factory()->create();
 
-        $this->delete($post->path())->assertRedirect('/login');
+        $this->delete($post->path)->assertRedirect('/login');
     }
 
     /** @test */
@@ -156,7 +156,7 @@ class CreatePostTest extends TestCase
 
         $post = Post::factory()->create();
 
-        $this->delete($post->path())->assertStatus(403);
+        $this->delete($post->path)->assertStatus(403);
     }
 
     /** @test */
@@ -170,7 +170,7 @@ class CreatePostTest extends TestCase
 
         $post = Post::factory()->create(['user_id' => auth()->id()]);
 
-        $this->delete($post->path());
+        $this->delete($post->path);
 
         $this->assertDatabaseMissing('posts', ['id' => $post->id]);
     }
@@ -195,17 +195,22 @@ class CreatePostTest extends TestCase
     /** @test */
     public function only_authorized_user_can_delete_their_reply()
     {
-        $this->withoutExceptionHandling();
 
         $user = User::factory()->create();
 
         $this->be($user);
 
-        $reply = Reply::factory()->create(['user_id' => auth()->id()]);
+        $post = Post::factory()->create();
+
+        $reply = Reply::factory()->create(['user_id' => auth()->id(), 'post_id' => $post->id]);
+
+        $this->assertEquals(1, $post->fresh()->reply_count);
 
         $this->delete('/replies' . '/' . $reply->id);
 
         $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
+
+        $this->assertEquals(0, $post->fresh()->reply_count);
     }
 }
 

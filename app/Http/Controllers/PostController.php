@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
@@ -19,7 +20,6 @@ class PostController extends Controller
     public function index(Category $category)
     {
         $posts = $this->getPosts($category);
-
         return view('posts.index', compact('posts'));
     }
 
@@ -65,10 +65,14 @@ class PostController extends Controller
      */
     public function show(Category $category, Post $post)
     {
+        $key = sprintf("users.%s.visits.%s", auth()->id(), $post->id);
+
+        cache()->forever($key, Carbon::now());
+
         $post->increment('visits');
 
         return view('posts.show', [
-            'post' => $post,
+            'post' => $post->load('user'),
         ]);
     }
 
@@ -128,11 +132,13 @@ class PostController extends Controller
             $post->where('user_id', $user->id);
         } elseif (request('popular')) {
             $post->orderBy('reply_count', 'desc');
+        } elseif (request('unanswered')) {
+            $post->orderBy('reply_count');
         } else {
             $post->latest();
         }
 
-        return $post->paginate(10);
+        return $post->paginate(5);
     }
 }
 

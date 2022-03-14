@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\inspection\Spam;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Reply;
@@ -24,17 +25,21 @@ class ReplyController extends Controller
      * @param Post $post
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Category $category, Post $post)
+    public function store(Category $category, Post $post, Spam $spam)
     {
-
-        $body = request()->validate([
+        request()->validate([
             'body' => 'required'
         ]);
 
-        $post->addReply(request('body'));
+        $spam->detect(request('body'));
 
-        return response()->json(['data' => 'Reply Created'], 200);
+        $reply = $post->addReply(request('body'));
 
+        return response()->json(
+            [
+                'data' => $reply->load('user')
+            ]
+        );
     }
 
     /**
@@ -60,11 +65,13 @@ class ReplyController extends Controller
      */
     public function destroy(Reply $reply)
     {
-//        if ($reply->user_id != auth()->id()) {
-//            abort(403);
-//        }
+        if ($reply->user_id != auth()->id()) {
+            abort(403);
+            if (request()->wantsJson()) {
+                return response([], 204);
+            }
+        }
 
         $reply->delete();
-
     }
 }
