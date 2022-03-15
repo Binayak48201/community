@@ -104,7 +104,7 @@ class Post extends Model
         foreach ($this->subscriptions as $subscription) {
             $user = User::findOrFail($subscription->user_id);
             if ($reply->user_id != $this->user_id) {
-                $user->notify(new PostWasUpdate());
+                $user->notify(new PostWasUpdate($this, $reply));
             }
         }
         return $reply;
@@ -120,6 +120,12 @@ class Post extends Model
 <<<<<<< HEAD
 =======
 
+    public function hasUpdatesFor($user)
+    {
+        $key = sprintf("users.%s.visits.%s", $user->id, $this->id);
+
+        return $this->updated_at > cache($key);
+    }
 }
 >>>>>>> 42856189f19480ffb30e9ea01fc6dc6dd6ffa36b
 

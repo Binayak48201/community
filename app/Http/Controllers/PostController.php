@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Reply;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
@@ -69,10 +70,11 @@ class PostController extends Controller
      */
     public function show(Category $category, Post $post)
     {
-//        return $post;
+        $key = sprintf("users.%s.visits.%s", auth()->id(), $post->id);
+
+        cache()->forever($key, Carbon::now());
 
         $post->increment('visits');
-
 
         return view('posts.show', [
             'post' => $post->load('user'),
@@ -115,10 +117,10 @@ class PostController extends Controller
      */
     public function destroy(Category $category, Post $post)
     {
-        //        if ($post->user_id != auth()->id()) {
-        //            abort(403);
-        //        }
-        $this->authorize('delete', $post);
+//        if ($post->user_id != auth()->id()) {
+//            abort(403);
+//        }
+//        $this->authorize('delete', $post);
         $post->delete();
 
         return redirect()->route('posts')->withSuccess('Successfully Deleted');

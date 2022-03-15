@@ -29,7 +29,7 @@
         }
 
         .custom-red {
-            color: red;
+            color: red !important;
         }
 
         .btn.btn-colorred {

@@ -26,6 +26,9 @@ class Reply extends Model
      */
     protected $appends = ['isFavorited', 'favoritesCount', 'created_date'];
 
+    /**
+     *
+     */
     protected static function boot()
     {
         parent::boot();
@@ -55,8 +58,20 @@ class Reply extends Model
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @return mixed
+     */
     public function getCreatedDateAttribute()
     {
         return $this->created_at->diffForHumans();
     }
+
+    /**
+     * @return string
+     */
+    public function path()
+    {
+        return $this->post->path . "#reply-{$this->id}";
+    }
+
 }

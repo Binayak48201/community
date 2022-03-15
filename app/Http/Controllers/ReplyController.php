@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\inspection\Spam;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Reply;
@@ -12,7 +13,7 @@ class ReplyController extends Controller
 {
     public function index(Post $post)
     {
-        $posts = $post->reply()->paginate(5);
+        $posts = $post->reply()->paginate(20);
 
         return response()->json($posts);
     }
@@ -22,21 +23,26 @@ class ReplyController extends Controller
      *
      * @param Category $category
      * @param Post $post
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
-    public function store(Category $category, Post $post)
+    public function store(Category $category, Post $post, Spam $spam)
     {
-        request()->validate([
-            'body' => 'required'
-        ]);
+        try {
+            request()->validate([
+                'body' => 'required'
+            ]);
 
-        $reply = $post->addReply(request('body'));
+            $spam->detect(request('body'));
 
-        return response()->json(
-            [
-                'data' => $reply->load('user')
-            ]
-        );
+            $reply = $post->addReply(request('body'));
+
+            return response()->json([
+                    'data' => $reply->load('user')
+                ]);
+        } catch (\Exception $e) {
+            return response(['message' => 'your reply contains spam.']);
+        }
+
     }
 
     /**

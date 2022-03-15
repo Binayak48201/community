@@ -26,14 +26,24 @@ class CreatePostTest extends TestCase
     /** @test */
     public function an_authenticated_use_can_create_a_post()
     {
+<<<<<<< HEAD
         // $this->withoutExceptionHandling();
+=======
+        $user = $this->signIn();
+>>>>>>> b8b4677890c151229f68ff2136c6935cb2d0ff51
 
         $user = User::factory()->create();
 
+<<<<<<< HEAD
         $this->actingAs($user);
 
         $attribute = [
             'user_id' => $user->id,
+=======
+        $attribute = [
+            'user_id' => auth()->id(),
+            'category_id' => $category->id,
+>>>>>>> b8b4677890c151229f68ff2136c6935cb2d0ff51
             'title' => 'Some Title',
             'body' => 'Some Description'
         ];
@@ -48,9 +58,7 @@ class CreatePostTest extends TestCase
     /** @test */
     public function user_can_visit_dashboard_when_login()
     {
-        $user = User::factory()->create();
-
-        $this->be($user);
+        $user = $this->signIn();
 
         $attributes = Post::factory()->raw(['title' => '']);
 
@@ -60,9 +68,7 @@ class CreatePostTest extends TestCase
     /** @test */
     public function a_posts_requires_a_body()
     {
-        $user = User::factory()->create();
-
-        $this->be($user);
+        $this->signIn();
 
         $attributes = Post::factory()->raw(['body' => '']);
 
@@ -72,9 +78,7 @@ class CreatePostTest extends TestCase
     /** @test */
     public function a_post_requires_a_valid_category()
     {
-        $user = User::factory()->create();
-
-        $this->be($user);
+        $this->signIn();
 
         $post1 = Post::factory()->raw(['category_id' => '']);
 
@@ -88,9 +92,7 @@ class CreatePostTest extends TestCase
     /** @test */
     public function a_post_requires_a_unique_slug()
     {
-        $user = User::factory()->create();
-
-        $this->be($user);
+        $this->signIn();
 
         $post = Post::factory()->create(['title' => 'Some title']);
 
@@ -100,9 +102,7 @@ class CreatePostTest extends TestCase
     /** @test */
     public function a_post_with_a_title_that_ends_in_a_number_should_generate_the_proper_slug()
     {
-        $user = User::factory()->create();
-
-        $this->be($user);
+        $this->signIn();
 
         Post::factory()->create(['title' => 'Some title 29']);
 
@@ -118,9 +118,7 @@ class CreatePostTest extends TestCase
     {
         // $this->withoutExceptionHandling();
 
-        $user = User::factory()->create();
-
-        $this->be($user);
+        $this->signIn();
 
         $post = Post::factory()->create(['title' => 'Some title']);
         $this->patch($post->path, [
@@ -149,9 +147,7 @@ class CreatePostTest extends TestCase
     {
         // $this->withExceptionHandling();
 
-        $user = User::factory()->create();
-
-        $this->be($user);
+        $this->signIn();
 
         $post = Post::factory()->create();
 
@@ -161,11 +157,7 @@ class CreatePostTest extends TestCase
     /** @test */
     public function an_authorized_user_only_can_delete_there_post()
     {
-        $this->withExceptionHandling();
-
-        $user = User::factory()->create();
-
-        $this->be($user);
+        $this->signIn();
 
         $post = Post::factory()->create(['user_id' => auth()->id()]);
 
@@ -182,9 +174,7 @@ class CreatePostTest extends TestCase
         $this->delete('/replies' . '/' . $reply->id)
             ->assertRedirect('/login');
 
-        $user = User::factory()->create();
-
-        $this->be($user);
+        $this->signIn();
 
         $this->delete('/replies' . '/' . $reply->id)
             ->assertStatus(403);
@@ -195,9 +185,7 @@ class CreatePostTest extends TestCase
     public function only_authorized_user_can_delete_their_reply()
     {
 
-        $user = User::factory()->create();
-
-        $this->be($user);
+        $this->signIn();
 
         $post = Post::factory()->create();
 

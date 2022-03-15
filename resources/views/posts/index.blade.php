@@ -18,7 +18,11 @@
                         <div class="tt-col-description">
                             <h6 class="tt-title">
                                 <a href="{{ $post->path }}">
-                                    {{ $post->title }}
+                                    @if(auth()->check() && !$post->hasUpdatesFor(auth()->user()))
+                                        <span class="custom-red">{{ $post->title }}</span>
+                                    @else
+                                        {{ $post->title }}
+                                    @endif
                                 </a>
                             </h6>
                             <a href="/posts?by={{ $post->user->name }}">
