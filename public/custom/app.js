@@ -19302,9 +19302,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.body = '';
       })["catch"](function (error) {
-        console.log(error);
-
-        _this.emitter.emit('flash', error.message);
+        _this.emitter.emit('flash', error.response.data.error);
       });
     }
   }
@@ -19631,7 +19629,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   _this.emitter.emit('flash', 'Reply Updated');
                 })["catch"](function (error) {
-                  _this.emitter.emit('flash', 'Something went wrong.');
+                  _this.emitter.emit('flash', error.response.data.error);
                 });
 
               case 2:

@@ -31,7 +31,7 @@ class SpamTest extends TestCase
 
         $this->expectException('Exception');
 
-        $spam->detect('aaaaaaaaaaaaaaaaaaa');
+        $this->assertTrue($spam->detect('aaaaaaaaaaaaaaaaaaa'));
 
     }
 

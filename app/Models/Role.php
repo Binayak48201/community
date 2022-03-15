@@ -14,6 +14,11 @@ class Role extends Model
         return $this->belongsToMany(Ability::class);
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
     public function allowTo($ability)
     {
         if (is_string($ability)) {

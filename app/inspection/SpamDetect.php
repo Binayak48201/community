@@ -27,6 +27,5 @@ class SpamDetect
                 throw new Exception('Your message contains spam.');
             }
         }
-
     }
 }
