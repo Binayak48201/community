@@ -35,7 +35,7 @@ export default {
                     this.body = ''
                 })
                 .catch((error) => {
-                    this.emitter.emit('flash', 'Somethi');
+                    this.emitter.emit('flash', error.response.data.error);
                 })
         }
     }

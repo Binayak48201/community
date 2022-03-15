@@ -1,5 +1,5 @@
 <template>
-    <div v-for="(reply,index) in replies" :key="reply.id" class="tt-item">
+    <div v-for="(reply,index) in replies" :key="index" class="tt-item">
         <Reply :reply="reply" @deleted="removeItem(index)"></Reply>
     </div>
     <Paginator :dataSet="dataSet" @changed="fetch"></Paginator>

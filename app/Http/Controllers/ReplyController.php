@@ -23,23 +23,26 @@ class ReplyController extends Controller
      *
      * @param Category $category
      * @param Post $post
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
     public function store(Category $category, Post $post, Spam $spam)
     {
-        request()->validate([
-            'body' => 'required'
-        ]);
+        try {
+            request()->validate([
+                'body' => 'required'
+            ]);
 
-        $spam->detect(request('body'));
+            $spam->detect(request('body'));
 
-        $reply = $post->addReply(request('body'));
+            $reply = $post->addReply(request('body'));
 
-        return response()->json(
-            [
+            return response()->json([
                 'data' => $reply->load('user')
-            ]
-        );
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json(['error' => 'Your message contains spam.'], 422);
+        }
+
     }
 
     /**
@@ -49,11 +52,22 @@ class ReplyController extends Controller
      * @param \App\Models\Reply $reply
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Reply $reply)
+    public function update(Request $request, Reply $reply, Spam $spam)
     {
-        $reply->update([
-            'body' => request('body')
-        ]);
+        try {
+            request()->validate([
+                'body' => 'required'
+            ]);
+            $spam->detect(request('body'));
+
+            $reply->update([
+                'body' => request('body')
+            ]);
+
+        } catch (\Throwable $e) {
+
+            return response()->json(['error' => 'Your message contains spam.'], 422);
+        }
 
     }
 
