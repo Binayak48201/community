@@ -70,9 +70,6 @@ class ReplyController extends Controller
         }
 
         $reply->delete();
-<<<<<<< HEAD
-        return redirect()->back()->with('success', 'Deleted Successfully');
-=======
->>>>>>> 39a8856ac9d4f6b5ccd51bcbfe82be822d083db8
+        // return redirect()->back()->with('success', 'Deleted Successfully');
     }
 }

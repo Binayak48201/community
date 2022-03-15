@@ -51,8 +51,6 @@
             flex: 0%;
         }
 
-<<<<<<< HEAD
-=======
         .height {
             height: 20px;
         }
@@ -74,7 +72,6 @@
         .tt-item.tt-info-box:hover {
             background: #e7e8e9;
         }
->>>>>>> 42856189f19480ffb30e9ea01fc6dc6dd6ffa36b
     </style>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
