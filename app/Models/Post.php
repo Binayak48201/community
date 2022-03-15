@@ -16,6 +16,7 @@ class Post extends Model
     /**
      * @var array
      */
+
     protected $guarded = [];
 
     /**
@@ -116,6 +117,8 @@ class Post extends Model
 
         return $this->updated_at > cache($key);
     }
+
+
 }
 
 

@@ -140,5 +140,8 @@ class PostController extends Controller
 
         return $post->paginate(5);
     }
+
+
+
 }
 

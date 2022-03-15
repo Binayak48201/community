@@ -40,6 +40,7 @@ class ReadPostTest extends TestCase
     /** @test */
     public function a_user_can_read_replies_which_are_associated_with_a_post()
     {
+        $this->withoutExceptionHandling();
         $category = Category::factory()->create();
 
         $posts = Post::factory()->create(['category_id' => $category->id]);
@@ -52,13 +53,18 @@ class ReadPostTest extends TestCase
     }
 
     /** @test */
-    public function an_anonomous_user_can_filter_posts_according_to_category()
+    public function an_anonymous_user_can_filter_posts_according_to_category()
     {
+        $this->withoutExceptionHandling();
+
         $category = Category::factory()->create();
+
 
         $postsInCategory = Post::factory()->create(['category_id' => $category->id]);
 
         $postsNotInCategory = Post::factory()->create();
+
+
 
         $this->get('/posts/' . $category->slug)
             ->assertSee($postsInCategory->title)
@@ -68,6 +74,7 @@ class ReadPostTest extends TestCase
     /** @test */
     public function a_user_filters_posts_by_any_username()
     {
+        $this->withoutExceptionHandling();
         $user = User::factory()->create(['name' => 'RamShrestha']);
 
         $post1 = Post::factory()->create(['user_id' => $user->id]);
@@ -81,6 +88,7 @@ class ReadPostTest extends TestCase
     /** @test */
     public function a_user_can_filter_a_posts_which_are_unanswered()
     {
+        $this->withoutExceptionHandling();
         $posts1 = Post::factory()->create();
 
         $posts2 = Post::factory()->create();
@@ -94,7 +102,7 @@ class ReadPostTest extends TestCase
         $posts = Post::all();
 
         $response = $this->get('/posts?unanswered=1');
-        
+
         $this->assertEquals($posts1->title, $posts[0]->title);
         $this->assertEquals($posts2->title, $posts[1]->title);
         $this->assertEquals($posts3->title, $posts[2]->title);
