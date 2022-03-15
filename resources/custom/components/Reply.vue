@@ -87,7 +87,7 @@ export default {
                     this.emitter.emit('flash', 'Reply Updated');
                 })
                 .catch((error) => {
-                    this.emitter.emit('flash', 'Something went wrong.');
+                    this.emitter.emit('flash', error.response.data.error);
                 })
 
         },

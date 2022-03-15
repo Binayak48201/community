@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\inspection\Spam;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
@@ -38,13 +39,15 @@ class PostController extends Controller
      *
      * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector
      */
-    public function store()
+    public function store(Spam $spam)
     {
         request()->validate([
             'title' => 'required',
             'body' => 'required',
             'category_id' => 'required|exists:categories,id'
         ]);
+
+//        $spam->detect(request('body'));
 
         Post::create([
             'user_id' => auth()->id(),
@@ -108,10 +111,12 @@ class PostController extends Controller
      */
     public function destroy(Category $category, Post $post)
     {
-//        if ($post->user_id != auth()->id()) {
-//            abort(403);
-//        }
+        if ($post->user_id != auth()->id()) {
+            abort(403);
+        }
+
 //        $this->authorize('delete', $post);
+
         $post->delete();
     }
 

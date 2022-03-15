@@ -37,10 +37,10 @@ class ReplyController extends Controller
             $reply = $post->addReply(request('body'));
 
             return response()->json([
-                    'data' => $reply->load('user')
-                ]);
-        } catch (\Exception $e) {
-            return response(['message' => 'your reply contains spam.']);
+                'data' => $reply->load('user')
+            ]);
+        } catch (\Throwable $e) {
+            return response()->json(['error' => 'Your message contains spam.'], 422);
         }
 
     }
@@ -52,11 +52,22 @@ class ReplyController extends Controller
      * @param \App\Models\Reply $reply
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Reply $reply)
+    public function update(Request $request, Reply $reply, Spam $spam)
     {
-        $reply->update([
-            'body' => request('body')
-        ]);
+        try {
+            request()->validate([
+                'body' => 'required'
+            ]);
+            $spam->detect(request('body'));
+
+            $reply->update([
+                'body' => request('body')
+            ]);
+
+        } catch (\Throwable $e) {
+
+            return response()->json(['error' => 'Your message contains spam.'], 422);
+        }
 
     }
 
