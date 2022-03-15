@@ -8,14 +8,11 @@
                 <div class="tt-desktop-menu">
                     <nav>
                         <ul>
-<<<<<<< HEAD
-<<<<<<< HEAD
                             <li><a href="/posts"><span>All Posts</span></a></li>
                             @if (auth()->check())
-=======
+
                             <li><a href="\posts"><span>All Posts</span></a></li>
                             @if(auth()->check())
->>>>>>> 39a8856ac9d4f6b5ccd51bcbfe82be822d083db8
                                 <li>
                                     <a href="/posts?by={{ auth()->user()->name }}">
                                         <span>My Post</span>
@@ -25,8 +22,6 @@
                             <li><a href="/posts?popular=1"><span>Views</span></a></li>
                             <li><a href="page-create-topic.html"><span>Popular</span></a></li>
                             <li><a href="page-create-topic.html"><span>Likes</span></a></li>
-=======
->>>>>>> 42856189f19480ffb30e9ea01fc6dc6dd6ffa36b
                             <li>
                                 <a href="#"><span>Posts</span></a>
                                 <ul>
