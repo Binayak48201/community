@@ -5,13 +5,13 @@
         <div class="container py-4" style="background: white;">
             <div class="tt-wrapper-inner">
                 <h1 class="tt-title-border">
-                    Create New Posts
+                     Update Post
                 </h1>
-                <form class="form-default form-create-topic" method="POST" action="/posts">
+                <form class="form-default form-create-topic" method="POST" action="{{ $post->path }}">
+                    @method('PATCH')
                     @include('posts.form',[
-                        'post' => new \App\Models\Post,
-                        'buttonText' => 'Create Post'
-                    ])
+                         'buttonText' => 'Update Post'
+                     ])
                 </form>
             </div>
         </div>
