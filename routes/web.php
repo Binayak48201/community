@@ -6,7 +6,8 @@ use App\Http\Controllers\{FavoritesController,
     ProfileController,
     SubscriptionController,
     UserController,
-    UserNotificationController};
+    UserNotificationController
+};
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -21,12 +22,13 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//auth()->loginUsingId(1);
+auth()->loginUsingId(1);
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
 Route::post('/posts', [PostController::class, 'store'])->middleware('auth');
 Route::get('/posts/{category:slug}/{post:slug}', [PostController::class, 'show']);
-Route::get('/posts/create', [PostController::class, 'create'])->middleware( 'confirmed-email');
+Route::get('/posts/create', [PostController::class, 'create'])->middleware('confirmed-email');
+Route::get('/posts/{category:slug}/{post:slug}/edit', [PostController::class, 'edit']);
 Route::patch('/posts/{category:slug}/{post:slug}', [PostController::class, 'update']);
 Route::delete('/posts/{category:slug}/{post:slug}', [PostController::class, 'destroy'])->middleware('auth');;
 Route::get('/posts/{category:slug}', [PostController::class, 'index']);
@@ -47,7 +49,7 @@ Route::delete('/profile/{user}/notification/{notification}', [UserNotificationCo
 Route::post('/posts/{category:slug}/{post:slug}/subscribe', [SubscriptionController::class, 'store'])->middleware('auth');
 Route::delete('/posts/{category:slug}/{post:slug}/unsubscribe', [SubscriptionController::class, 'destroy'])->middleware('auth');
 
-Route::get('register/users/{user}/verify',[UserController::class,'verify']);
+Route::get('register/users/{user}/verify', [UserController::class, 'verify']);
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),

@@ -9,6 +9,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -16,7 +17,7 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return Application|Factory|View|\Illuminate\Http\Response
      */
     public function index(Category $category)
     {
@@ -27,7 +28,7 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Application|Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return Application|Factory|View|\Illuminate\Http\Response
      */
     public function create()
     {
@@ -62,9 +63,9 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Post $post
+     * @param Post $post
      * @param \App\Models\Category $category
-     * @return Application|Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return Application|Factory|View|\Illuminate\Http\Response
      */
     public function show(Category $category, Post $post)
     {
@@ -82,26 +83,30 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\Post $post
-     * @return \Illuminate\Http\Response
+     * @param Post $post
+     * @return Application|Factory|View
      */
-    public function edit(Post $post)
+    public function edit(Category $category, Post $post)
     {
-        //
+        return view('posts.edit', compact('post'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Post $post
-     * @return \Illuminate\Http\Response
+     * @param Post $post
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Category $category, Post $post)
     {
         $post->update([
-            'title' => request('title')
+            'category_id' => request('category_id'),
+            'title' => request('title'),
+            'body' => request('body')
         ]);
+
+        return redirect()->back();
     }
 
 
