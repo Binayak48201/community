@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div v-if="editing">
-                <textarea v-model="body" cols="10" rows="5" style="width:100%"></textarea>
+                <textarea v-model="body" cols="10" rows="5" style="width:100%"></textarea> 
                 <button class="btn btn-color02 mr-3 ml-4" @click="editing = false">
                     <span class="tt-text">Cancel</span>
                 </button>

@@ -9,6 +9,7 @@
                 rows="5"
                 placeholder="Lets get started">
             </textarea>
+            ({{ 200 - body.length }} chars)
             </div>
             <div class="pt-row">
                 <div class="col-auto">

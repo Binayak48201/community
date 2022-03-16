@@ -29,7 +29,7 @@ class ReplyController extends Controller
     {
         try {
             request()->validate([
-                'body' => 'required'
+                'body' => 'required|max:200'
             ]);
 
             $spam->detect(request('body'));
