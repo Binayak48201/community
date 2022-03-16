@@ -19332,6 +19332,11 @@ __webpack_require__.r(__webpack_exports__);
       favouriteDisabled: false
     };
   },
+  computed: {
+    colorChanger: function colorChanger() {
+      return [this.favouriteStatus ? 'custom-red' : ''];
+    }
+  },
   mounted: function mounted() {
     if (window.App.signedIn) {
       return this.data.user_id === window.App.user.id ? this.favouriteDisabled = true : '';
@@ -19609,7 +19614,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   computed: {
     authorized: function authorized() {
-      return true;
+      return window.App.signedIn && window.App.user.id == this.reply.user_id;
     }
   },
   methods: {
@@ -19822,25 +19827,17 @@ var _withScopeId = function _withScopeId(n) {
 var _hoisted_1 = ["disabled"];
 
 var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
-    xmlns: "http://www.w3.org/2000/svg",
-    style: {
-      "height": "1.5rem"
-    },
-    fill: "none",
-    viewBox: "0 0 24 24",
-    stroke: "currentColor",
-    "stroke-width": "2"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
     "stroke-linecap": "round",
     "stroke-linejoin": "round",
     d: "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-  })], -1
+  }, null, -1
   /* HOISTED */
   );
 });
 
-var _hoisted_3 = {
+var _hoisted_3 = [_hoisted_2];
+var _hoisted_4 = {
   "class": "tt-text pl-2"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -19850,7 +19847,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $options.favourite && $options.favourite.apply($options, arguments);
     }, ["prevent"])),
     disabled: $data.favouriteDisabled
-  }, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.favCount), 1
+  }, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    style: {
+      "height": "1.5rem"
+    },
+    fill: "none",
+    viewBox: "0 0 24 24",
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)($options.colorChanger),
+    stroke: "currentColor",
+    "stroke-width": "2"
+  }, _hoisted_3, 2
+  /* CLASS */
+  )), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.favCount), 1
   /* TEXT */
   )], 8
   /* PROPS */
@@ -20026,7 +20035,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.replies, function (reply, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-      key: index,
+      key: reply.id,
       "class": "tt-item"
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Reply, {
       reply: reply,
@@ -20203,13 +20212,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.body]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": "btn btn-color02 mr-3 ml-4",
+    "class": "btn custom-red mr-3 ml-4",
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return $data.editing = false;
     })
   }, _hoisted_12), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "submit",
-    "class": "btn btn-custom",
+    "class": "btn btn-color02",
     onClick: _cache[2] || (_cache[2] = function () {
       return $options.update && $options.update.apply($options, arguments);
     })
@@ -20219,7 +20228,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     data: $props.reply
   }, null, 8
   /* PROPS */
-  , ["data"]), $options.authorized && $data.signedIn ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_18, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", {
+  , ["data"]), $options.authorized ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", _hoisted_18, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     "class": "height",
     fill: "none",
