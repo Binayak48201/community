@@ -6,6 +6,7 @@ use App\inspection\Spam;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
+use App\Notifications\UserMentionNotification;
 use Carbon\Carbon;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -146,6 +147,14 @@ class PostController extends Controller
         return $post->paginate(5);
     }
 
+
+    public function notifyMentions()
+    {
+        $user= User::first();
+
+        auth()->user()->notify(UserMentionNotification($user);
+
+    }
 
 
 }
