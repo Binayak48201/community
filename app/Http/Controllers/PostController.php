@@ -22,6 +22,7 @@ class PostController extends Controller
     public function index(Category $category)
     {
         $posts = $this->getPosts($category);
+
         return view('posts.index', compact('posts'));
     }
 
@@ -106,7 +107,7 @@ class PostController extends Controller
             'body' => request('body')
         ]);
 
-        return redirect()->back();
+        return redirect($post->path);
     }
 
 
@@ -144,6 +145,8 @@ class PostController extends Controller
             $post->orderBy('reply_count', 'desc');
         } elseif (request('unanswered')) {
             $post->orderBy('reply_count');
+        } elseif (request('search')) {
+            $post->where('title','like','%' . request('search') . '%');
         } else {
             $post->latest();
         }

@@ -17,7 +17,7 @@ const app = createApp({
         Flash,
         RepliesView,
         Favourite,
-        Notification
+        Notification,
     },
 });
 

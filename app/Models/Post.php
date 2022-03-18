@@ -86,8 +86,6 @@ class Post extends Model
      */
     public function addReply($data)
     {
-        $this->increment('reply_count');
-
         $reply = $this->reply()->create([
             'user_id' => auth()->id(),
             'body' => $data

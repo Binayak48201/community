@@ -5,7 +5,7 @@
         <div class="container">
             <div class="tt-topic-list">
                 @include('layouts.subheader')
-                @foreach($posts as $post)
+                @forelse($posts as $post)
                     <div class="tt-item">
                         <div class="tt-col-avatar">
                             <img src="https://s3.amazonaws.com/laracasts/images/default-square-avatar.jpg" alt=""
@@ -49,7 +49,12 @@
                         <div class="tt-col-value hide-mobile">{{ $post->reply_count }}</div>
                         <div class="tt-col-value hide-mobile">{{ $post->visits }}</div>
                     </div>
-                @endforeach
+                @empty
+                    <h3 class="flex justify-center">
+                        No Content Available.
+                    </h3>
+
+                @endforelse
                 {{ $posts->links() }}
 
             </div>

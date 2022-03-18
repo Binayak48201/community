@@ -47,77 +47,67 @@
                         </svg>
                     </button>
                     <!-- /toggle -->
-                    <form class="search-wrapper">
+                    <form class="search-wrapper" method="GET" action="/posts">
                         <div class="search-form">
-                            <input type="text" class="tt-search__input" placeholder="Search">
-                            <button class="tt-search__btn" type="submit">
-                                <svg class="tt-icon">
-                                    <use xlink:href="#icon-search"></use>
-                                </svg>
-                            </button>
-                            <button class="tt-search__close">
-                                <svg class="tt-icon">
-                                    <use xlink:href="#cancel"></use>
-                                </svg>
-                            </button>
+                            <input type="text" class="tt-search__input" placeholder="Search" name="search" value="{{ request('search') }}">
                         </div>
-                        <div class="search-results">
-                            <div class="tt-search-scroll">
-                                <ul>
-                                    <li>
-                                        <a href="page-single-topic.html">
-                                            <h6 class="tt-title">Rdr2 secret easter eggs</h6>
-                                            <div class="tt-description">
-                                                Here’s what I’ve found in Red Dead Redem..
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="page-single-topic.html">
-                                            <h6 class="tt-title">Top 10 easter eggs in Red Dead Rede..</h6>
-                                            <div class="tt-description">
-                                                You can find these easter eggs in Red Dea..
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="page-single-topic.html">
-                                            <h6 class="tt-title">Red Dead Redemtion: Arthur Morgan..</h6>
-                                            <div class="tt-description">
-                                                Here’s what I’ve found in Red Dead Redem..
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="page-single-topic.html">
-                                            <h6 class="tt-title">Rdr2 secret easter eggs</h6>
-                                            <div class="tt-description">
-                                                Here’s what I’ve found in Red Dead Redem..
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="page-single-topic.html">
-                                            <h6 class="tt-title">Top 10 easter eggs in Red Dead Rede..</h6>
-                                            <div class="tt-description">
-                                                You can find these easter eggs in Red Dea..
-                                            </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="page-single-topic.html">
-                                            <h6 class="tt-title">Red Dead Redemtion: Arthur Morgan..</h6>
-                                            <div class="tt-description">
-                                                Here’s what I’ve found in Red Dead Redem..
-                                            </div>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <button type="button" class="tt-view-all" data-toggle="modal"
-                                    data-target="#modalAdvancedSearch">Advanced Search
-                            </button>
-                        </div>
+{{--                        <div class="search-results">--}}
+{{--                            <div class="tt-search-scroll">--}}
+{{--                                <ul>--}}
+{{--                                    <li>--}}
+{{--                                        <a href="page-single-topic.html">--}}
+{{--                                            <h6 class="tt-title">Rdr2 secret easter eggs</h6>--}}
+{{--                                            <div class="tt-description">--}}
+{{--                                                Here’s what I’ve found in Red Dead Redem..--}}
+{{--                                            </div>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                    <li>--}}
+{{--                                        <a href="page-single-topic.html">--}}
+{{--                                            <h6 class="tt-title">Top 10 easter eggs in Red Dead Rede..</h6>--}}
+{{--                                            <div class="tt-description">--}}
+{{--                                                You can find these easter eggs in Red Dea..--}}
+{{--                                            </div>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                    <li>--}}
+{{--                                        <a href="page-single-topic.html">--}}
+{{--                                            <h6 class="tt-title">Red Dead Redemtion: Arthur Morgan..</h6>--}}
+{{--                                            <div class="tt-description">--}}
+{{--                                                Here’s what I’ve found in Red Dead Redem..--}}
+{{--                                            </div>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                    <li>--}}
+{{--                                        <a href="page-single-topic.html">--}}
+{{--                                            <h6 class="tt-title">Rdr2 secret easter eggs</h6>--}}
+{{--                                            <div class="tt-description">--}}
+{{--                                                Here’s what I’ve found in Red Dead Redem..--}}
+{{--                                            </div>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                    <li>--}}
+{{--                                        <a href="page-single-topic.html">--}}
+{{--                                            <h6 class="tt-title">Top 10 easter eggs in Red Dead Rede..</h6>--}}
+{{--                                            <div class="tt-description">--}}
+{{--                                                You can find these easter eggs in Red Dea..--}}
+{{--                                            </div>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                    <li>--}}
+{{--                                        <a href="page-single-topic.html">--}}
+{{--                                            <h6 class="tt-title">Red Dead Redemtion: Arthur Morgan..</h6>--}}
+{{--                                            <div class="tt-description">--}}
+{{--                                                Here’s what I’ve found in Red Dead Redem..--}}
+{{--                                            </div>--}}
+{{--                                        </a>--}}
+{{--                                    </li>--}}
+{{--                                </ul>--}}
+{{--                            </div>--}}
+{{--                            <button type="button" class="tt-view-all" data-toggle="modal"--}}
+{{--                                    data-target="#modalAdvancedSearch">Advanced Search--}}
+{{--                            </button>--}}
+{{--                        </div>--}}
                     </form>
                 </div>
                 <!-- /tt-search -->
@@ -126,18 +116,38 @@
                 <div class="tt-user-info d-flex justify-content-center">
                     <Notification></Notification>
                     <div class="tt-avatar-icon tt-size-md">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mt-2" fill="none" viewBox="0 0 24 24"
                              stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                   d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
                     </div>
-                    <div class="custom-select-01">
-                        <select>
-                            <option value="Default Sorting">My Profile</option>
-                            <option value="value 01">Log out</option>
-                        </select>
-                    </div>
+                    @if(auth()->check())
+                        <div class="tt-desktop-menu">
+                            <nav>
+                                <ul>
+                                    <li>
+                                        <a href="#" class="pl-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mt-3" fill="none"
+                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                      d="M19 9l-7 7-7-7"/>
+                                            </svg>
+                                        </a>
+                                        <ul>
+                                            <li>
+                                                <a href="/profile/{{ auth()->id() }}">Profile</a>
+                                                <a href="/posts/{{ $category->slug }}" onclick="event.preventDefault();document.getElementById('logout').submit()">Log Out</a>
+                                                <form action="{{ route('logout') }}" method="post" style="display:none;" id="logout">
+                                                    @csrf
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="col-auto ml-auto mr-5">
