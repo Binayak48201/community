@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\ReplyController;
 use App\RecordsActivity;
 use App\Favourable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -74,5 +75,11 @@ class Reply extends Model
         return $this->post->path . "#reply-{$this->id}";
     }
 
+    public function isEdited(Reply $reply)
+    {
+        $reply->update([
+            'editedStatus' => '1',
+                ]);
+    }
 }
 

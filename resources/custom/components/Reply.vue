@@ -9,8 +9,13 @@
                              style="border-radius: 50%;"></div>
                     <h3 class="tt-item-title">
                         <a href="#">{{ reply.user.name }}</a>
+                        <div class="text-opacity-70 text-sm" v-if="isEdited" >
+                            Edited *
+                        </div>
                     </h3>
+
                     <a href="#" class="tt-info-time flex">
+
                         <svg xmlns="http://www.w3.org/2000/svg" class="height pr-2" fill="none"
                              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -69,9 +74,12 @@ export default {
     components: {Favourite},
     data() {
         return {
+            editedStatus: false,
+            isEdited : false,
             editing: false,
             body: this.reply.body,
-            signedIn: window.App.signedIn
+            signedIn: window.App.signedIn,
+
         }
     },
     computed: {
@@ -85,10 +93,15 @@ export default {
                 .then(() => {
                     this.editing = false
                     this.emitter.emit('flash', 'Reply Updated');
+
+
+
                 })
                 .catch((error) => {
                     this.emitter.emit('flash', error.response.data.error);
                 })
+
+                this.editedStatus = true;
 
         },
         destroy() {
@@ -101,6 +114,15 @@ export default {
                     this.emitter.emit('flash', 'Unauthorized action.');
                 })
         },
+
+       isEdited() {
+
+            if(this.reply.update())
+            {
+                this.isEdited = true;
+            }
+
+        }
     }
 }
 </script>

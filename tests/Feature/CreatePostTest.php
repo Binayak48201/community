@@ -107,19 +107,24 @@ class CreatePostTest extends TestCase
     /** @test */
     public function a_post_can_be_updated()
     {
-        $this->withoutExceptionHandling();
 
+        $this->withoutExceptionHandling();
         $this->signIn();
 
-        $post = Post::factory()->create(['title' => 'Some title']);
+        $post = Post::factory()->create([
+            'title' => 'Some title',
+           ]);
+
         $this->patch($post->path, [
-            'title' => 'Updated Title'
+            'title' => 'Updated Title',
         ]);
 
-//        dd($post->fresh());
+       /*dd($post->fresh());*/
+
         $this->assertEquals("Updated Title", $post->fresh()->title);
         $this->assertDatabaseHas('posts', [
-            'title' => $post->fresh()->title
+            'title' => $post->fresh()->title,
+
         ]);
     }
 

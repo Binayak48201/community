@@ -17,7 +17,9 @@ class Post extends Model
      * @var array
      */
 
-    protected $guarded = [];
+    protected $fillable = [
+        'user_id' , 'category_id', 'title', 'reply_count', 'slug', 'body', 'visits',
+    ];
 
     /**
      * @var string[]

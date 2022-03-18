@@ -3,6 +3,8 @@
 namespace Tests\Unit;
 
 use App\Models\Post;
+use App\Models\Reply;
+use App\http\Controllers\ReplyController;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -24,4 +26,25 @@ class RepliesTest extends TestCase
 
         $this->assertEquals(1, $post->reply_count);
     }
+
+
+    /** @test */
+    public function a_edited_reply_will_have_an_edited_tag()
+    {
+        $this->withoutExceptionHandling();
+        $reply = Reply::factory()->create();
+
+
+
+        $reply->isEdited($reply);
+
+
+        $this->assertDatabaseHas('replies', [
+            'editedStatus' => '1',
+            ]);
+
+    }
+
+
+
 }

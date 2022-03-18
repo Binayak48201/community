@@ -6,9 +6,8 @@ use App\Http\Controllers\{FavoritesController,
     ProfileController,
     SubscriptionController,
     UserController,
-    UserNotificationController
-};
-    UserNotificationController};
+    UserNotificationController,
+    };
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,7 +22,7 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-auth()->loginUsingId(1);
+auth()->loginUsingId(8);
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
 Route::post('/posts', [PostController::class, 'store'])->middleware('auth');
 Route::get('/posts/{category:slug}/{post:slug}', [PostController::class, 'show']);
@@ -42,6 +41,9 @@ Route::patch('/replies/{reply}', [ReplyController::class, 'update'])->middleware
 Route::post('/replies/{reply}/favorites', [FavoritesController::class, 'store'])->name('favorite')->middleware('auth');
 Route::delete('/replies/{reply}/favorites', [FavoritesController::class, 'destroy'])->middleware('auth');
 Route::delete('/replies/{reply}', [ReplyController::class, 'destroy'])->middleware('auth');
+
+
+
 
 Route::get('/profile/{user}', ProfileController::class)->middleware('auth');
 Route::get('/profile/{user}/notification', [UserNotificationController::class, 'index'])->middleware('auth');

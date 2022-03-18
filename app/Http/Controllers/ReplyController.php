@@ -6,8 +6,11 @@ use App\inspection\Spam;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Reply;
+use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
+
 
 class ReplyController extends Controller
 {
@@ -88,4 +91,9 @@ class ReplyController extends Controller
 
         $reply->delete();
     }
+
+
+
+
+
 }

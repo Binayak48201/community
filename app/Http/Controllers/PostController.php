@@ -157,7 +157,7 @@ class PostController extends Controller
     {
         $user= User::first();
 
-        auth()->user()->notify(UserMentionNotification($user);
+        auth()->user()->notify(UserMentionNotification($user));
 
     }
 

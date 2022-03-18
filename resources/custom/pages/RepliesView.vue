@@ -11,6 +11,7 @@
                                 </div>
                                 <div class="tt-avatar-title">
                                     <a href="#">{{ post.user.name }}</a>
+
                                 </div>
                                 <p class="tt-info-time">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="height" fill="none"

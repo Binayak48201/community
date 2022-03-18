@@ -22,7 +22,8 @@ class ReplyFactory extends Factory
             'post_id' => function () {
                 return Post::factory()->create()->id;
             },
-            'body' => $this->faker->paragraph()
+            'body' => $this->faker->paragraph(),
+
         ];
     }
 }
