@@ -73,11 +73,36 @@
               <div class="col-separator"></div>
 
               <Subscribe :post="post"></Subscribe>
+              <div v-if="edit">
+                <input
+                  v-model="post.title"
+                  cols="10"
+                  rows="5"
+                  style="width: 100%"
+                />
+                <textarea
+                  v-model="post.body"
+                  cols="10"
+                  rows="5"
+                  style="width: 100%"
+                ></textarea>
+                <button class="btn custom-red mr-3 ml-4" @click="edit = false">
+                  <span class="tt-text">Cancel</span>
+                </button>
+                <button
+                  type="submit"
+                  class="btn btn-color02"
+                  @click="updatePost"
+                >
+                  <span class="tt-text">Update</span>
+                </button>
+              </div>
 
               <!-- edit -->
               <a
+                href="#"
                 class="tt-icon-btn tt-hover-02 tt-small-indent"
-                @click.prevent="editPost"
+                @click.prevent="edit = true"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -239,16 +264,20 @@ export default {
       body: "",
       reply_count: this.post.reply_count,
       edit: false,
-      url: "/posts/category/post",
     };
   },
   methods: {
-    editPost() {
-      axios.patch(this.url, this.post.slug).then(res => {
-          alert()
-      });
-      this.edit = true;
-
+    updatePost() {
+      axios
+        .patch("/posts/" + this.category.slug + this.post.slug)
+        .then((res) => {
+          // this.edit = false,
+          this.post.body = console.log(res);
+          this.post.body = body;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };
