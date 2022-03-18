@@ -35,11 +35,13 @@ class Reply extends Model
         parent::boot();
 
         static::created(function ($reply) {
-            $reply->post()->increment('reply_count');
+            $reply->post->increment('reply_count');
         });
 
         static::deleting(function ($reply) {
             $reply->post()->decrement('reply_count');
+
+            $reply->favorites->each->delete();
         });
     }
 

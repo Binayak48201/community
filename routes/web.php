@@ -42,9 +42,6 @@ Route::post('/replies/{reply}/favorites', [FavoritesController::class, 'store'])
 Route::delete('/replies/{reply}/favorites', [FavoritesController::class, 'destroy'])->middleware('auth');
 Route::delete('/replies/{reply}', [ReplyController::class, 'destroy'])->middleware('auth');
 
-
-
-
 Route::get('/profile/{user}', ProfileController::class)->middleware('auth');
 Route::get('/profile/{user}/notification', [UserNotificationController::class, 'index'])->middleware('auth');
 Route::delete('/profile/{user}/notification/{notification}', [UserNotificationController::class, 'destroy'])->middleware('auth');

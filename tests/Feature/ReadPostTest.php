@@ -114,9 +114,24 @@ class ReadPostTest extends TestCase
     {
         $this->get('/secret-report')->assertStatus(403);
 
-        $this->authorizedUser('Admin','view_report');
+        $this->authorizedUser('Admin', 'view_report');
 
         $this->get('/secret-report')->assertStatus(200);
     }
 
+    /** @test */
+    public function a_post_can_be_searched()
+    {
+        $this->withoutExceptionHandling();
+
+        $posts1 = Post::factory()->create(['title' => 'search']);
+
+        $posts2 = Post::factory()->create(['title' => 'out of this world']);
+
+        $response = $this->get('/posts?search=search');
+
+        $response->assertSee($posts1->title);
+
+        $response->assertDontSee($posts2->title);
+    }
 }

@@ -19,11 +19,12 @@
     </div>
 </template>
 <script>
+
 export default {
     props: ['path'],
     data() {
         return {
-            body: ''
+            body: '',
         }
     },
     methods: {
