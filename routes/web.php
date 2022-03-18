@@ -22,13 +22,13 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-auth()->loginUsingId(1);
+//auth()->loginUsingId(1);
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
 Route::post('/posts', [PostController::class, 'store'])->middleware('auth');
 Route::get('/posts/{category:slug}/{post:slug}', [PostController::class, 'show']);
 Route::get('/posts/create', [PostController::class, 'create'])->middleware('confirmed-email');
-Route::get('/posts/{category:slug}/{post:slug}/edit', [PostController::class, 'edit']);
+//Route::get('/posts/{category:slug}/{post:slug}/edit', [PostController::class, 'edit']);
 Route::patch('/posts/{category:slug}/{post:slug}', [PostController::class, 'update']);
 Route::delete('/posts/{category:slug}/{post:slug}', [PostController::class, 'destroy'])->middleware('auth');;
 Route::get('/posts/{category:slug}', [PostController::class, 'index']);

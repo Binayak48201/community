@@ -20,8 +20,8 @@ class RepliesTest extends TestCase
 
         $post->addReply('test');
 
-        $this->assertCount(1, $post->reply);
+        $this->assertCount(1, $post->fresh()->reply);
 
-        $this->assertEquals(1, $post->reply_count);
+        $this->assertEquals(1, $post->fresh()->reply_count);
     }
 }

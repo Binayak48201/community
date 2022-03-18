@@ -1527,6 +1527,15 @@ select {
 .pb-1 {
   padding-bottom: 0.25rem;
 }
+.pt-8 {
+  padding-top: 2rem;
+}
+.pb-5 {
+  padding-bottom: 1.25rem;
+}
+.pl-4 {
+  padding-left: 1rem;
+}
 .pl-5 {
   padding-left: 1.25rem;
 }
@@ -1538,12 +1547,6 @@ select {
 }
 .pr-0 {
   padding-right: 0px;
-}
-.pb-5 {
-  padding-bottom: 1.25rem;
-}
-.pl-4 {
-  padding-left: 1rem;
 }
 .text-left {
   text-align: left;
