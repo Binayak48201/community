@@ -1527,6 +1527,12 @@ select {
 .pb-1 {
   padding-bottom: 0.25rem;
 }
+.pl-5 {
+  padding-left: 1.25rem;
+}
+.pl-0 {
+  padding-left: 0px;
+}
 .pt-8 {
   padding-top: 2rem;
 }
@@ -1535,15 +1541,6 @@ select {
 }
 .pl-4 {
   padding-left: 1rem;
-}
-.pl-5 {
-  padding-left: 1.25rem;
-}
-.pt-8 {
-  padding-top: 2rem;
-}
-.pl-0 {
-  padding-left: 0px;
 }
 .pr-0 {
   padding-right: 0px;

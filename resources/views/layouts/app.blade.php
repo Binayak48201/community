@@ -84,6 +84,9 @@
 
 </div>
 <script src="{{ asset('design/js/bundle.js') }}"></script>
+{{-- <script src="{{ asset('node_modules/ckeditor4/ckeditor.js') }}"></script>
+<script src="{{ asset('node_modules/ckeditor4-vue/dist/ckeditor.js') }}"></script> --}}
+
 </body>
 
 </html>
