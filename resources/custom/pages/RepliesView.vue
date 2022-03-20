@@ -268,16 +268,10 @@ export default {
   },
   methods: {
     updatePost() {
-      axios
-        .patch("/posts/" + this.category.slug + this.post.slug)
-        .then((res) => {
-          // this.edit = false,
-          this.post.body = console.log(res);
-          this.post.body = body;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      axios.patch("/posts/" + this.category + this.post).then((res) => {
+        (this.edit = false), (this.body = console.log(res.body));
+        this.body = res.body;
+      });
     },
   },
 };

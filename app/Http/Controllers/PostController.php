@@ -49,7 +49,7 @@ class PostController extends Controller
             'category_id' => 'required|exists:categories,id'
         ]);
 
-//        $spam->detect(request('body'));
+        //        $spam->detect(request('body'));
 
         Post::create([
             'user_id' => auth()->id(),
@@ -121,7 +121,7 @@ class PostController extends Controller
             abort(403);
         }
 
-//        $this->authorize('delete', $post);
+        //        $this->authorize('delete', $post);
 
         $post->delete();
     }
@@ -146,7 +146,7 @@ class PostController extends Controller
         } elseif (request('unanswered')) {
             $post->orderBy('reply_count');
         } elseif (request('search')) {
-            $post->where('title','like','%' . request('search') . '%');
+            $post->where('title', 'like', '%' . request('search') . '%');
         } else {
             $post->latest();
         }
@@ -154,4 +154,3 @@ class PostController extends Controller
         return $post->paginate(5);
     }
 }
-

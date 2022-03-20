@@ -19747,12 +19747,9 @@ __webpack_require__.r(__webpack_exports__);
     updatePost: function updatePost() {
       var _this = this;
 
-      axios.patch("/posts/" + this.category.slug + this.post.slug).then(function (res) {
-        // this.edit = false,
-        _this.post.body = console.log(res);
-        _this.post.body = body;
-      })["catch"](function (err) {
-        console.log(err);
+      axios.patch("/posts/" + this.category + this.post).then(function (res) {
+        _this.edit = false, _this.body = console.log(res.body);
+        _this.body = res.body;
       });
     }
   }

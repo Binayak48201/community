@@ -137,7 +137,7 @@
                                         <ul>
                                             <li>
                                                 <a href="/profile/{{ auth()->id() }}">Profile</a>
-                                                <a href="/posts/{{ $category->slug }}" onclick="event.preventDefault();document.getElementById('logout').submit()">Log Out</a>
+                                                <a  onclick="event.preventDefault();document.getElementById('logout').submit()">Log Out</a>
                                                 <form action="{{ route('logout') }}" method="post" style="display:none;" id="logout">
                                                     @csrf
                                                 </form>
