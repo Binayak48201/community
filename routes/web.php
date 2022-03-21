@@ -22,7 +22,7 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//auth()->loginUsingId(1);
+auth()->loginUsingId(1);
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
 Route::post('/posts', [PostController::class, 'store'])->middleware('auth');
