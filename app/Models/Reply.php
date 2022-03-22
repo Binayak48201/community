@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\RecordsActivity;
 use App\Favourable;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -74,6 +75,18 @@ class Reply extends Model
     public function path()
     {
         return $this->post->path . "#reply-{$this->id}";
+    }
+
+    public function wasJustPublished()
+    {
+        return $this->created_at->gt(Carbon::now()->subMinute());
+    }
+
+    public function tagedUsers()
+    {
+        preg_match_all('/\@([^\s\.]+)/', $this->body, $matches);
+
+        return $matches[1];
     }
 
 }

@@ -4,12 +4,6 @@
         <form @submit.prevent="createReply">
             <div class="form-group">
                 <Wysiwug name="body" v-model="body" @input="setBody" :shouldClear="completed"></Wysiwug>
-                <!--                            <textarea-->
-                <!--                                v-model="body"-->
-                <!--                                class="form-control"-->
-                <!--                                rows="5"-->
-                <!--                                placeholder="Lets get started">-->
-                <!--                            </textarea>-->
             </div>
             <div class="pt-row">
                 <div class="col-auto">

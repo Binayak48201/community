@@ -50,6 +50,7 @@ Route::post('/posts/{category:slug}/{post:slug}/subscribe', [SubscriptionControl
 Route::delete('/posts/{category:slug}/{post:slug}/unsubscribe', [SubscriptionController::class, 'destroy'])->middleware('auth');
 
 Route::get('register/users/{user}/verify', [UserController::class, 'verify']);
+Route::post('avatar/update', [UserController::class, 'avatar'])->name('avatar');
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
