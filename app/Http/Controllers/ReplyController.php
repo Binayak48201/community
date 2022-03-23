@@ -27,6 +27,9 @@ class ReplyController extends Controller
      */
     public function store(Category $category, Post $post, Spam $spam)
     {
+        if (!$this->extracted()) {
+            return response()->json(['error' => 'Your are messanging too soon.'], 422);
+        }
         try {
             request()->validate([
                 'body' => 'required|max:200'
@@ -42,7 +45,6 @@ class ReplyController extends Controller
         } catch (\Throwable $e) {
             return response()->json(['error' => 'Your message contains spam.'], 422);
         }
-
     }
 
     /**
@@ -87,5 +89,18 @@ class ReplyController extends Controller
         }
 
         $reply->delete();
+    }
+
+    /**
+     * @param $user
+     * @return bool
+     */
+    protected function extracted()
+    {
+        $lastReply = auth()->user()->fresh()->lastReply;
+
+        if (!$lastReply) return true;
+
+        return !$lastReply->wasJustPublished();
     }
 }

@@ -22,7 +22,7 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//auth()->loginUsingId(1);
+auth()->loginUsingId(1);
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts');
 Route::post('/posts', [PostController::class, 'store'])->middleware('auth');
@@ -50,6 +50,7 @@ Route::post('/posts/{category:slug}/{post:slug}/subscribe', [SubscriptionControl
 Route::delete('/posts/{category:slug}/{post:slug}/unsubscribe', [SubscriptionController::class, 'destroy'])->middleware('auth');
 
 Route::get('register/users/{user}/verify', [UserController::class, 'verify']);
+Route::post('avatar/update', [UserController::class, 'avatar'])->name('avatar');
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
