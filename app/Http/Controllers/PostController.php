@@ -102,9 +102,9 @@ class PostController extends Controller
     public function update(Category $category, Post $post)
     {
         $post->update([
-            'category_id' => request('category_id'),
+            // 'category_id' => request('category_id'),
             'title' => request('title'),
-            'body' => request('body')
+            'body' => request('body'),
         ]);
 
         return redirect($post->path);

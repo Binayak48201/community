@@ -5,21 +5,22 @@
       >Hello world</ckeditor
     > -->
     <form @submit.prevent="createReply">
-            <div class="form-group">
-            <textarea
-                v-model="body"
-                class="form-control"
-                rows="5"
-                placeholder="Lets get started">
-            </textarea>
-            ({{ 200 - body.length }} chars)
-            </div>
-            <div class="pt-row">
-                <div class="col-auto">
-                    <button class="btn btn-secondary btn-width-lg">Reply</button>
-                </div>
-            </div>
-        </form>
+      <div class="form-group">
+        <textarea
+          v-model="body"
+          class="form-control"
+          rows="5"
+          placeholder="Lets get started"
+        >
+        </textarea>
+        ({{ 200 - body.length }} chars)
+      </div>
+      <div class="pt-row">
+        <div class="col-auto">
+          <button class="btn btn-secondary btn-width-lg">Reply</button>
+        </div>
+      </div>
+    </form>
   </div>
 </template>
 <script>

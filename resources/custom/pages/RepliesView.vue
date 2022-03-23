@@ -74,25 +74,27 @@
 
               <Subscribe :post="post"></Subscribe>
               <div v-if="edit">
-                <input
-                  v-model="post.title"
+                <!-- <input
+                  v-model="title"
                   cols="10"
                   rows="5"
                   style="width: 100%"
-                />
+                /> -->
                 <textarea
+                  name="body"
                   v-model="post.body"
                   cols="10"
                   rows="5"
                   style="width: 100%"
                 ></textarea>
+                <!-- bodymodel -->
                 <button class="btn custom-red mr-3 ml-4" @click="edit = false">
                   <span class="tt-text">Cancel</span>
                 </button>
                 <button
                   type="submit"
                   class="btn btn-color02"
-                  @click="updatePost"
+                  @click.prevent="updatePost"
                 >
                   <span class="tt-text">Update</span>
                 </button>
@@ -268,10 +270,15 @@ export default {
   },
   methods: {
     updatePost() {
-      axios.patch("/posts/" + this.category + this.post).then((res) => {
-        (this.edit = false), (this.body = console.log(res.body));
-        this.body = res.body;
+      axios.patch("/posts/" + this.category.slug + this.post.slug, {
+        body: this.body,
       });
+      // .then((res) => {
+      //   (this.edit = false), (this.body = console.log(res.body));
+      //   this.body = res.body;
+      // });
+      // console.log('this is the data: ');
+      // this.body = this.post.body;
     },
   },
 };
