@@ -2,7 +2,25 @@
   <main id="tt-pageContent" class="tw-bg-deep-black/5">
     <div class="container">
       <div class="tt-single-topic-list">
-        <div class="tt-item">
+        <div v-if="edit">
+          <Wysiwug
+            :name="title"
+            :value="post.title"
+            v-model="post.title"
+            @input="setTitle"
+          ></Wysiwug>
+          <button class="btn custom-red mr-3 ml-4" @click="edit = false">
+            <span class="tt-text">Cancel</span>
+          </button>
+          <button
+            type="submit"
+            class="btn btn-color02"
+            @click.prevent="updatePost"
+          >
+            <span class="tt-text">Update</span>
+          </button>
+        </div>
+        <div class="tt-item" v-else>
           <div class="tt-single-topic">
             <div class="tt-item-header">
               <div class="tt-item-info info-top">
@@ -73,32 +91,6 @@
               <div class="col-separator"></div>
 
               <Subscribe :post="post"></Subscribe>
-              <div v-if="edit">
-                <!-- <input
-                  v-model="title"
-                  cols="10"
-                  rows="5"
-                  style="width: 100%"
-                /> -->
-                <textarea
-                  name="body"
-                  v-model="post.body"
-                  cols="10"
-                  rows="5"
-                  style="width: 100%"
-                ></textarea>
-                <!-- bodymodel -->
-                <button class="btn custom-red mr-3 ml-4" @click="edit = false">
-                  <span class="tt-text">Cancel</span>
-                </button>
-                <button
-                  type="submit"
-                  class="btn btn-color02"
-                  @click.prevent="updatePost"
-                >
-                  <span class="tt-text">Update</span>
-                </button>
-              </div>
 
               <!-- edit -->
               <a
@@ -255,30 +247,38 @@
 import Replies from "../components/Replies";
 import Favourite from "../components/Favourite";
 import Subscribe from "../components/Subscribe";
+import Wysiwug from "../components/Wysiwug";
 
 export default {
   name: "RepliesView",
   props: ["post"],
-  components: { Subscribe, Favourite, Replies },
+  components: { Subscribe, Favourite, Replies, Wysiwug },
   data() {
     return {
       signedIn: window.App.signedIn,
+      title: "",
       body: "",
       reply_count: this.post.reply_count,
       edit: false,
+      url: "/posts/category/post",
     };
   },
   methods: {
+    setTitle(title) {
+      this.title = title;
+    },
     updatePost() {
-      axios.patch("/posts/" + this.category.slug + this.post.slug, {
-        body: this.body,
-      });
-      // .then((res) => {
-      //   (this.edit = false), (this.body = console.log(res.body));
-      //   this.body = res.body;
-      // });
-      // console.log('this is the data: ');
-      // this.body = this.post.body;
+      axios
+        .patch(this.url, {
+          title: this.title,
+        })
+        .then((res) => {
+          this.edit = false;
+          this.emitter.emit("flash", "Post updated");
+        })
+        .catch((err) => {
+          this.emitter.emit("flash", "Cannot Updated");
+        });
     },
   },
 };
