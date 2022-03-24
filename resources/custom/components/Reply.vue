@@ -26,7 +26,8 @@
                 </div>
             </div>
             <div v-if="editing">
-                <textarea v-model="body" cols="10" rows="5" style="width:100%"></textarea>
+<!--                <textarea v-model="body" cols="10" rows="5" style="width:100%"></textarea>-->
+                <Wysiwug :name="body" :value="body" v-model="body" @input="setBody"></Wysiwug>
                 <button class="btn custom-red mr-3 ml-4" @click="editing = false">
                     <span class="tt-text">Cancel</span>
                 </button>
@@ -34,9 +35,7 @@
                     <span class="tt-text">Update</span>
                 </button>
             </div>
-            <div v-else class="tt-item-description">
-                {{ body }}
-            </div>
+            <div v-else class="tt-item-description" v-html="body"></div>
             <div class="tw-flex pt-3">
                 <Favourite :data="reply"></Favourite>
                 <div v-if="authorized" class="pl-3">
@@ -66,12 +65,13 @@
 
 <script>
 import Favourite from "./Favourite";
+import Wysiwug from "./Wysiwug";
 
 export default {
     name: "Reply",
     props: ["reply"],
     emits: ['deleted'],
-    components: {Favourite},
+    components: {Favourite,Wysiwug},
     data() {
         return {
             editedStatus: false,
@@ -88,6 +88,9 @@ export default {
         }
     },
     methods: {
+        setBody(payload){
+            this.body = payload
+        },
         async update() {
             await window.axios.patch('/replies/' + this.reply.id, {body: this.body})
                 .then(() => {

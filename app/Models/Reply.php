@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Http\Controllers\ReplyController;
 use App\RecordsActivity;
 use App\Favourable;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -77,11 +78,17 @@ class Reply extends Model
         return $this->post->path . "#reply-{$this->id}";
     }
 
-    public function isEdited(Reply $reply)
+    public function wasJustPublished()
     {
-        $reply->update([
-            'editedStatus' => '1',
-                ]);
+        return $this->created_at->gt(Carbon::now()->subMinute());
     }
+
+    public function tagedUsers()
+    {
+        preg_match_all('/\@([^\s\.]+)/', $this->body, $matches);
+
+        return $matches[1];
+    }
+
 }
 

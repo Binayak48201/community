@@ -180,7 +180,6 @@ class CreatePostTest extends TestCase
     /** @test */
     public function only_authorized_user_can_delete_their_reply()
     {
-
         $this->signIn();
 
         $post = Post::factory()->create();
@@ -194,6 +193,20 @@ class CreatePostTest extends TestCase
         $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
 
         $this->assertEquals(0, $post->fresh()->reply_count);
+    }
+
+    /** @test */
+    public function users_may_only_reply_a_maximum_of_per_minute()
+    {
+        $this->signIn();
+
+        $post = Post::factory()->create();
+
+        $reply = Reply::factory()->make(['created_at' => now()]);
+
+        $this->post($post->path . '/reply', $reply->toArray())->assertStatus(200);
+
+        $this->post($post->path . '/reply', $reply->toArray())->assertStatus(422);
     }
 }
 

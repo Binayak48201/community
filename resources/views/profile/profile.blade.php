@@ -7,9 +7,11 @@
                 <div class="tt-user-header pb-5">
                     <div class="tt-col-avatar">
                         <div class="tt-icon">
-                            {{--                            <input type="file" name="" id="" style=" width: 100px;height: 100px;border-radius: 50%">--}}
-                            <img src="https://via.placeholder.com/150"
-                                 style=" width: 100px;height: 100px;border-radius: 50%">
+
+                            <Avatar></Avatar>
+
+                            {{--                            <img src="https://via.placeholder.com/150"--}}
+                            {{--                                 style=" width: 100px;height: 100px;border-radius: 50%">--}}
                         </div>
                     </div>
                     <div class="tt-col-title pl-4">

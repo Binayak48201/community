@@ -4,7 +4,6 @@ namespace Tests\Unit;
 
 use App\Models\Post;
 use App\Models\Reply;
-use App\http\Controllers\ReplyController;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -27,24 +26,11 @@ class RepliesTest extends TestCase
         $this->assertEquals(1, $post->fresh()->reply_count);
     }
 
-
     /** @test */
-    public function a_edited_reply_will_have_an_edited_tag()
+    public function it_detectes_all_mentioned_user_in_reply()
     {
-        $this->withoutExceptionHandling();
-        $reply = Reply::factory()->create();
+        $reply = Reply::factory()->create(['body' => '@bishowanath how are']);
 
-
-
-        $reply->isEdited($reply);
-
-
-        $this->assertDatabaseHas('replies', [
-            'editedStatus' => '1',
-            ]);
-
+        $this->assertEquals(['bishowanath'], $reply->tagedUsers());
     }
-
-
-
 }
