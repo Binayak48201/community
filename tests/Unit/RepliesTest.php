@@ -27,7 +27,7 @@ class RepliesTest extends TestCase
     }
 
     /** @test */
-    public function it_detectes_all_mentioned_user_in_reply()
+    public function it_detects_all_mentioned_user_in_reply()
     {
         $reply = Reply::factory()->create(['body' => '@bishowanath how are']);
 

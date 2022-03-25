@@ -6,10 +6,8 @@ use App\inspection\Spam;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Reply;
-use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Http\RedirectResponse;
+use App\Notifications\MentionedUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
 
 
 class ReplyController extends Controller
@@ -41,6 +39,17 @@ class ReplyController extends Controller
             $spam->detect(request('body'));
 
             $reply = $post->addReply(request('body'));
+
+            $users = [];
+            if (count($reply->tagedUsers()) > 0) {
+                foreach ($reply->tagedUsers() as $user) {
+                    $user = User::whereName($user)->first();
+                    array_push($users, $user);
+                    foreach ($users as $user) {
+                        $user->notify(new MentionedUsers(auth()->user(), $post));
+                    }
+                }
+            }
 
             return response()->json([
                 'data' => $reply->load('user')

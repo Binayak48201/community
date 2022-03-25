@@ -108,7 +108,7 @@ class CreatePostTest extends TestCase
     public function a_post_can_be_updated()
     {
 
-        $this->withoutExceptionHandling();
+        /*$this->withoutExceptionHandling();*/
         $this->signIn();
 
         $post = Post::factory()->create([
